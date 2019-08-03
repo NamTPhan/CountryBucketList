@@ -1,9 +1,14 @@
 import React from "react";
+import { name as appName } from "./app.json";  
 import { Ionicons } from "@expo/vector-icons";
 import * as Font from "expo-font";
-import { StatusBar, StyleSheet, Text, View } from "react-native";
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import { StyleSheet, Text, View, AppRegistry } from "react-native";
 import { Container, Content, Spinner } from "native-base";
+
+import { Provider } from "react-redux";
+
+import configureStore from "./src/store";
+import ScreenContainer from "./src/views/ScreenContainer";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -34,12 +39,16 @@ export default class App extends React.Component {
     }
 
     return (
-      <View style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
-        <Text>Open up App.js to start working on your app!</Text>
+      <View style={{ flex: 1 }}>
+        <Provider store={configureStore()}>
+          <ScreenContainer />
+        </Provider>
       </View>
     );
   }
 }
+
+AppRegistry.registerComponent(appName, () => App);
 
 const styles = StyleSheet.create({
   container: {

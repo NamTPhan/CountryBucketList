@@ -1,14 +1,14 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import reduxThunk from "redux-thunk";
 
-import rootReducer from "./reducers/rootReducer.jsx";
+import rootReducer from "./reducers/rootReducer.js";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 function configureStore(
   state = {
-    bucketlistState: {},
-    userFeedbackState: ""
+    countryState: {},
+    bucketlistState: {}
   }
 ) {
   return createStore(
