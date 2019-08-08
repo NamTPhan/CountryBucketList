@@ -6,9 +6,13 @@ import { connect } from "react-redux";
 import Countries from "../data/CountriesFlags.js";
 import SingleListItem from "../components/SingleListItem/SingleListItem.js";
 
-import { getAllCountries } from "../actions/countryActions.js";
+import { getAllCountriesAction } from "../actions/countryActions.js";
 
 class Home extends Component {
+  componentDidMount() {
+    this.props.getAllCountriesAction();
+  }
+
   static navigationOptions = ({ navigation }) => ({
     title: "Bucket Lists",
     headerRight: (
@@ -47,7 +51,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getAllCountries: () => dispatch(getAllCountries())
+  getAllCountriesAction: () => dispatch(getAllCountriesAction())
 });
 
 export default connect(

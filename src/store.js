@@ -7,7 +7,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 function configureStore(
   state = {
-    countryState: {},
+    countryState: { addedCountries: [] },
     bucketlistState: {}
   }
 ) {

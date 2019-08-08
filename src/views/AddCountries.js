@@ -1,9 +1,15 @@
 import React, { Component } from "react";
-import { StyleSheet, ScrollView } from "react-native";
+import { StyleSheet, ScrollView, Text } from "react-native";
 import { Container, Content, Spinner } from "native-base";
+import { connect } from "react-redux";
 
 import SingleListItem from "../components/SingleListItem/SingleListItem";
 import Countries from "../data/CountriesFlags.js";
+
+import {
+  addCountryAction,
+  getAllCountriesAction
+} from "../actions/countryActions.js";
 
 class AddCountries extends Component {
   static navigationOptions = {
@@ -15,11 +21,14 @@ class AddCountries extends Component {
 
     this.state = {
       defaultCountryList: [],
+      addedCountries: null,
       loading: true
     };
   }
 
   componentDidMount() {
+    this.props.getAllCountriesAction();
+
     setTimeout(() => {
       this.setState({
         defaultCountryList: Countries,
@@ -34,6 +43,7 @@ class AddCountries extends Component {
 
   render() {
     const { defaultCountryList, loading } = this.state;
+    const addedCountries = this.props.countryState.addedCountries;
 
     if (loading) {
       return (
@@ -48,14 +58,21 @@ class AddCountries extends Component {
     return (
       <Container>
         <ScrollView>
+          <Text>{addedCountries}</Text>
           {defaultCountryList.map((item, index) => {
             return (
               <SingleListItem
                 key={"Country" + index}
                 countryName={item.country}
                 flag={item.source}
-                actionBtn="add"
-                handleOnBtnPress={this.test}
+                actionBtn={
+                  this.props.countryState.addedCountries.includes(item.country)
+                    ? null
+                    : "add"
+                }
+                handleOnBtnPress={() =>
+                  this.props.addCountryAction(item.country)
+                }
               />
             );
           })}
@@ -65,7 +82,20 @@ class AddCountries extends Component {
   }
 }
 
-export default AddCountries;
+const mapStateToProps = state => ({
+  ...state
+});
+
+const mapDispatchToProps = dispatch => ({
+  getAllCountriesAction: () => dispatch(getAllCountriesAction()),
+
+  addCountryAction: country => dispatch(addCountryAction(country))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddCountries);
 
 const styles = StyleSheet.create({
   flag: {
