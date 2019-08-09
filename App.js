@@ -1,14 +1,24 @@
 import React from "react";
-import { name as appName } from "./app.json";  
+import {
+  StyleSheet,
+  Text,
+  View,
+  AppRegistry,
+  AsyncStorage
+} from "react-native";
+import { name as appName } from "./app.json";
+
 import { Ionicons } from "@expo/vector-icons";
 import * as Font from "expo-font";
-import { StyleSheet, Text, View, AppRegistry } from "react-native";
 import { Container, Content, Spinner } from "native-base";
 
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import persist from "./src/store";
 
-import configureStore from "./src/store";
 import ScreenContainer from "./src/views/ScreenContainer";
+
+const persistStore = persist();
 
 export default class App extends React.Component {
   constructor(props) {
@@ -19,6 +29,7 @@ export default class App extends React.Component {
   }
 
   async componentDidMount() {
+    // AsyncStorage.removeItem("ADDED_COUNTRIES");
     await Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
@@ -40,8 +51,10 @@ export default class App extends React.Component {
 
     return (
       <View style={{ flex: 1 }}>
-        <Provider store={configureStore()}>
-          <ScreenContainer />
+        <Provider store={persistStore.store}>
+          <PersistGate loading={null} persistor={persistStore.persistor}>
+            <ScreenContainer />
+          </PersistGate>
         </Provider>
       </View>
     );
