@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
-import { Container, Content } from "native-base";
+import { StyleSheet, TouchableOpacity, Text, ScrollView } from "react-native";
+import { Container, Content, Spinner } from "native-base";
+
 import { connect } from "react-redux";
 
 import Countries from "../data/CountriesFlags.js";
@@ -9,10 +10,6 @@ import SingleListItem from "../components/SingleListItem/SingleListItem.js";
 import { getAllCountriesAction } from "../actions/countryActions.js";
 
 class Home extends Component {
-  componentDidMount() {
-    this.props.getAllCountriesAction();
-  }
-
   static navigationOptions = ({ navigation }) => ({
     title: "Bucket Lists",
     headerRight: (
@@ -22,25 +19,59 @@ class Home extends Component {
     )
   });
 
-  test() {
-    alert("clicked");
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      defaultCountryList: Countries,
+      loading: true
+    };
+  }
+
+  componentWillMount() {
+    this.props.getAllCountriesAction();
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        loading: false
+      });
+    }, 1000);
   }
 
   render() {
+    const { defaultCountryList, loading } = this.state;
+
+    if (loading) {
+      return (
+        <Container>
+          <Content>
+            <Spinner color="blue" />
+          </Content>
+        </Container>
+      );
+    }
+
     return (
       <Container>
-        <Content>
-          <SingleListItem
-            countryName="Belgium"
-            goalsCompleted={3}
-            totalGoals={10}
-            flag={Countries[15].source}
-            actionBtn="trash"
-            handleOnPress={() =>
-              this.props.navigation.navigate("EditBucketList")
-            }
-          />
-        </Content>
+        <ScrollView>
+          {this.props.countryState.addedCountries.map((item, index) => {
+            return (
+              <SingleListItem
+                key={"Country" + index}
+                countryName={item}
+                goalsCompleted={3}
+                totalGoals={10}
+                flag={defaultCountryList.find(c => c.country === item).source}
+                actionBtn="right"
+                handleOnPress={() =>
+                  this.props.navigation.navigate("EditBucketList")
+                }
+              />
+            );
+          })}
+        </ScrollView>
       </Container>
     );
   }

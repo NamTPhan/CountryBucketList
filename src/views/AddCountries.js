@@ -1,6 +1,15 @@
 import React, { Component } from "react";
 import { StyleSheet, ScrollView, Text } from "react-native";
-import { Container, Content, Spinner } from "native-base";
+import {
+  Container,
+  Content,
+  Spinner,
+  Tab,
+  Tabs,
+  TabHeading,
+  Toast,
+  Root
+} from "native-base";
 import { connect } from "react-redux";
 
 import SingleListItem from "../components/SingleListItem/SingleListItem";
@@ -21,7 +30,6 @@ class AddCountries extends Component {
 
     this.state = {
       defaultCountryList: [],
-      addedCountries: null,
       loading: true
     };
   }
@@ -39,9 +47,17 @@ class AddCountries extends Component {
     }, 1000);
   }
 
+  toastMessage = (text, type) => {
+    Toast.show({
+      text: text,
+      duration: 5000,
+      type: type,
+      position: "bottom"
+    });
+  };
+
   render() {
     const { defaultCountryList, loading } = this.state;
-    const addedCountries = this.props.countryState.addedCountries;
 
     if (loading) {
       return (
@@ -54,23 +70,68 @@ class AddCountries extends Component {
     }
 
     return (
-      <Container>
-        <ScrollView>
-          {defaultCountryList.map((item, index) => {
-            return (
-              <SingleListItem
-                key={"Country" + index}
-                countryName={item.country}
-                flag={item.source}
-                actionBtn="add"
-                handleOnBtnPress={() => {
-                  this.props.addCountryAction(item.country);
-                }}
-              />
-            );
-          })}
-        </ScrollView>
-      </Container>
+      <Root>
+        <Container>
+          <Tabs>
+            <Tab
+              heading={
+                <TabHeading style={{ backgroundColor: "#2196f3" }}>
+                  <Text style={{ color: "#fff" }}>AVAILABLE</Text>
+                </TabHeading>
+              }
+            >
+              <ScrollView>
+                {defaultCountryList.map((item, index) => {
+                  if (
+                    this.props.countryState.addedCountries.includes(
+                      item.country
+                    )
+                  ) {
+                    return null;
+                  } else {
+                    return (
+                      <SingleListItem
+                        key={"Country" + index}
+                        countryName={item.country}
+                        flag={item.source}
+                        actionBtn="add"
+                        handleOnBtnPress={() => {
+                          this.props.addCountryAction(item.country);
+                          this.toastMessage(
+                            "Country successfully added!",
+                            "success"
+                          );
+                        }}
+                      />
+                    );
+                  }
+                })}
+              </ScrollView>
+            </Tab>
+            <Tab
+              heading={
+                <TabHeading style={{ backgroundColor: "#2196f3" }}>
+                  <Text style={{ color: "#fff" }}>MY COUNTRIES</Text>
+                </TabHeading>
+              }
+            >
+              <ScrollView>
+                {this.props.countryState.addedCountries.map((item, index) => {
+                  return (
+                    <SingleListItem
+                      key={"Country" + index}
+                      countryName={item}
+                      flag={
+                        defaultCountryList.find(c => c.country === item).source
+                      }
+                    />
+                  );
+                })}
+              </ScrollView>
+            </Tab>
+          </Tabs>
+        </Container>
+      </Root>
     );
   }
 }

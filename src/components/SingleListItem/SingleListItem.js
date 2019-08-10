@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, Image } from "react-native";
-import { ListItem, Body, Left, Right, Icon, Button } from "native-base";
+import { ListItem, Body, Left, Right, Button } from "native-base";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 class SingleListItem extends Component {
   render() {
@@ -16,17 +17,17 @@ class SingleListItem extends Component {
         <Body style={{ width: "100%" }}>
           <Text style={styles.flagText}>
             <Text style={styles.flagTitleText}>{this.props.countryName}</Text>
-            {this.props.goalsCompleted
-              ? `\nAchieved ${this.props.goalsCompleted} / ${
-                  this.props.totalGoals
-                } Total`
+            {"\n"}
+            <Icon style={{ color: "#00c853" }} name="check" size={18} />
+            {this.props.totalGoals
+              ? ` ${this.props.goalsCompleted} / ${this.props.totalGoals}`
               : null}
           </Text>
         </Body>
         <Right>
-          {this.props.actionBtn === "trash" ? (
+          {this.props.actionBtn === "right" ? (
             <Button transparent>
-              <Icon style={{ color: "#d32f2f" }} name="md-trash" />
+              <Icon style={{ color: "#03a9f4" }} size={30} name="angle-right" />
             </Button>
           ) : null}
           {this.props.actionBtn === "add" ? (
