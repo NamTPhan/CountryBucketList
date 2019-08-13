@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { StyleSheet, TouchableOpacity, Text, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  ScrollView,
+  View
+} from "react-native";
 import { Container, Content, Spinner } from "native-base";
 
 import { connect } from "react-redux";
@@ -55,23 +61,32 @@ class Home extends Component {
 
     return (
       <Container>
-        <ScrollView>
-          {this.props.countryState.addedCountries.map((item, index) => {
-            return (
-              <SingleListItem
-                key={"Country" + index}
-                countryName={item}
-                goalsCompleted={3}
-                totalGoals={10}
-                flag={defaultCountryList.find(c => c.country === item).source}
-                actionBtn="right"
-                handleOnPress={() =>
-                  this.props.navigation.navigate("EditBucketList")
-                }
-              />
-            );
-          })}
-        </ScrollView>
+        {this.props.countryState.addedCountries.length > 0 ? (
+          <ScrollView>
+            {this.props.countryState.addedCountries.map((item, index) => {
+              return (
+                <SingleListItem
+                  key={"Country" + index}
+                  countryName={item}
+                  secondIcon={true}
+                  goalsCompleted={3}
+                  totalGoals={10}
+                  flag={defaultCountryList.find(c => c.country === item).source}
+                  actionBtn="right"
+                  handleOnPress={() =>
+                    this.props.navigation.navigate("EditBucketList", {
+                      countryName: item
+                    })
+                  }
+                />
+              );
+            })}
+          </ScrollView>
+        ) : (
+          <View style={styles.centerContent}>
+            <Text style={{ fontWeight: "bold" }}>No countries added!</Text>
+          </View>
+        )}
       </Container>
     );
   }
@@ -104,5 +119,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 5,
     borderRadius: 20
+  },
+  centerContent: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
   }
 });

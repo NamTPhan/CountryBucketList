@@ -8,6 +8,7 @@ import {
 
 export const addCountryAction = country => async dispatch => {
   try {
+    // AsyncStorage.setItem(ASYNC_ADDED_COUNTRIES, JSON.stringify([]));
     AsyncStorage.getItem(ASYNC_ADDED_COUNTRIES, (err, result) => {
       if (result !== null) {
         let newData = JSON.parse(result).concat(country);
@@ -24,9 +25,7 @@ export const addCountryAction = country => async dispatch => {
 };
 
 export const deleteCountryAction = index => async dispatch => {
-  dispatch({ type: DELETE_COUNTRY, payload: index }).then(res =>
-    console.log(res)
-  );
+  dispatch({ type: DELETE_COUNTRY, payload: index });
 };
 
 export const getAllCountriesAction = () => async dispatch => {
@@ -39,10 +38,6 @@ export const getAllCountriesAction = () => async dispatch => {
         type: GET_ALL_COUNTRIES,
         payload: parsedArray
       });
-    }
-
-    if (addedCountries === null) {
-      console.log("Empty");
     }
   } catch (err) {
     // Error retrieving data

@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  AppRegistry,
-  AsyncStorage
-} from "react-native";
+import { View, AppRegistry } from "react-native";
 import { name as appName } from "./app.json";
 
 import { Ionicons } from "@expo/vector-icons";
@@ -29,7 +23,6 @@ export default class App extends React.Component {
   }
 
   async componentDidMount() {
-    // AsyncStorage.removeItem("ADDED_COUNTRIES");
     await Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
@@ -62,12 +55,3 @@ export default class App extends React.Component {
 }
 
 AppRegistry.registerComponent(appName, () => App);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});

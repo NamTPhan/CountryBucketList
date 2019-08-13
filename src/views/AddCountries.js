@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, ScrollView, Text } from "react-native";
+import { StyleSheet, ScrollView, Text, View } from "react-native";
 import {
   Container,
   Content,
@@ -115,19 +115,28 @@ class AddCountries extends Component {
                 </TabHeading>
               }
             >
-              <ScrollView>
-                {this.props.countryState.addedCountries.map((item, index) => {
-                  return (
-                    <SingleListItem
-                      key={"Country" + index}
-                      countryName={item}
-                      flag={
-                        defaultCountryList.find(c => c.country === item).source
-                      }
-                    />
-                  );
-                })}
-              </ScrollView>
+              {this.props.countryState.addedCountries.length > 0 ? (
+                <ScrollView>
+                  {this.props.countryState.addedCountries.map((item, index) => {
+                    return (
+                      <SingleListItem
+                        key={"Country" + index}
+                        countryName={item}
+                        flag={
+                          defaultCountryList.find(c => c.country === item)
+                            .source
+                        }
+                      />
+                    );
+                  })}
+                </ScrollView>
+              ) : (
+                <View style={styles.centerContent}>
+                  <Text style={{ fontWeight: "bold" }}>
+                    No countries added!
+                  </Text>
+                </View>
+              )}
             </Tab>
           </Tabs>
         </Container>
@@ -156,5 +165,10 @@ const styles = StyleSheet.create({
     flex: 1,
     width: undefined,
     height: undefined
+  },
+  centerContent: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
   }
 });

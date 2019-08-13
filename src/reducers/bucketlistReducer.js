@@ -1,7 +1,8 @@
 import {
   ADD_BUCKETLIST,
   EDIT_BUCKETLIST,
-  DELETE_BUCKETLIST
+  DELETE_BUCKETLIST,
+  GET_BUCKETLISTS
 } from "../actions/types";
 
 export default (state = [], action) => {
@@ -12,6 +13,8 @@ export default (state = [], action) => {
       return state;
     case DELETE_BUCKETLIST:
       return state;
+    case GET_BUCKETLISTS:
+      return { ...state, bucketlists: action.payload };
     default:
       return state;
   }

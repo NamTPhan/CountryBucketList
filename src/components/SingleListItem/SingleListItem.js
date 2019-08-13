@@ -18,7 +18,9 @@ class SingleListItem extends Component {
           <Text style={styles.flagText}>
             <Text style={styles.flagTitleText}>{this.props.countryName}</Text>
             {"\n"}
-            <Icon style={{ color: "#00c853" }} name="check" size={18} />
+            {this.props.secondIcon ? (
+              <Icon style={{ color: "#00c853" }} name="check" size={18} />
+            ) : null}
             {this.props.totalGoals
               ? ` ${this.props.goalsCompleted} / ${this.props.totalGoals}`
               : null}
