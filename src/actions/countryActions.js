@@ -8,7 +8,6 @@ import {
 
 export const addCountryAction = country => async dispatch => {
   try {
-    // AsyncStorage.setItem(ASYNC_ADDED_COUNTRIES, JSON.stringify([]));
     AsyncStorage.getItem(ASYNC_ADDED_COUNTRIES, (err, result) => {
       if (result !== null) {
         let newData = JSON.parse(result).concat(country);

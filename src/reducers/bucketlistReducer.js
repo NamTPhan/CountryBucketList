@@ -1,15 +1,12 @@
 import {
-  ADD_BUCKETLIST,
-  EDIT_BUCKETLIST,
+  SAVE_BUCKETLIST,
   DELETE_BUCKETLIST,
   GET_BUCKETLISTS
 } from "../actions/types";
 
 export default (state = [], action) => {
   switch (action.type) {
-    case ADD_BUCKETLIST:
-      return state;
-    case EDIT_BUCKETLIST:
+    case SAVE_BUCKETLIST:
       return state;
     case DELETE_BUCKETLIST:
       return state;

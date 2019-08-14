@@ -19,6 +19,7 @@ import {
   addCountryAction,
   getAllCountriesAction
 } from "../actions/countryActions.js";
+import { addDefaultBucketListAction } from "../actions/bucketlistActions.js";
 
 class AddCountries extends Component {
   static navigationOptions = {
@@ -50,7 +51,7 @@ class AddCountries extends Component {
   toastMessage = (text, type) => {
     Toast.show({
       text: text,
-      duration: 5000,
+      duration: 8000,
       type: type,
       position: "bottom"
     });
@@ -97,6 +98,8 @@ class AddCountries extends Component {
                         actionBtn="add"
                         handleOnBtnPress={() => {
                           this.props.addCountryAction(item.country);
+                          this.props.addDefaultBucketListAction(item.country);
+
                           this.toastMessage(
                             "Country successfully added!",
                             "success"
@@ -152,7 +155,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getAllCountriesAction: () => dispatch(getAllCountriesAction()),
 
-  addCountryAction: country => dispatch(addCountryAction(country))
+  addCountryAction: country => dispatch(addCountryAction(country)),
+  addDefaultBucketListAction: country =>
+    dispatch(addDefaultBucketListAction(country))
 });
 
 export default connect(
