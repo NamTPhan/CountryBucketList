@@ -23,8 +23,16 @@ export const addDefaultBucketListAction = country => async dispatch => {
   }
 };
 
-export const saveBucketListAction = bucketlist => async dispatch => {
-  dispatch({ type: SAVE_BUCKETLIST, payload: bucketlist });
+export const saveBucketListAction = (index, newObject) => async dispatch => {
+  const bucketLists = await AsyncStorage.getItem(ASYNC_BUCKETLISTS);
+  const parsedArray = JSON.parse(bucketLists);
+
+  if (bucketLists !== null) {
+    parsedArray[index] = newObject;
+    AsyncStorage.setItem("ASYNC_BUCKETLISTS", JSON.stringify(parsedArray));
+
+    dispatch({ type: SAVE_BUCKETLIST, payload: parsedArray });
+  }
 };
 
 export const deleteBucketListAction = index => async dispatch => {

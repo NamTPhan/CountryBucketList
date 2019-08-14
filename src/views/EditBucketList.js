@@ -11,13 +11,18 @@ import {
   CheckBox,
   Item,
   Input,
-  Label
+  Label,
+  Toast,
+  Root
 } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as _ from "lodash";
 
 import { connect } from "react-redux";
-import { getBucketListAction } from "../actions/bucketlistActions.js";
+import {
+  saveBucketListAction,
+  getBucketListAction
+} from "../actions/bucketlistActions.js";
 
 class EditBucketList extends Component {
   static navigationOptions = {
@@ -26,7 +31,13 @@ class EditBucketList extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { currentCountry: "", inputIdea: "", items: [], achieved: [] };
+    this.state = {
+      currentCountry: "",
+      inputIdea: "",
+      items: [],
+      achieved: [],
+      indexOfCountry: ""
+    };
   }
 
   componentDidMount() {
@@ -42,14 +53,19 @@ class EditBucketList extends Component {
       currentCountry: countryName
     });
 
-    if (allBucketLists !== undefined) {
+    if (allBucketLists.length > 0) {
       let countryBucketList = _.find(allBucketLists, function(c) {
+        return c.country === countryName;
+      });
+
+      let indexOfCountryBucketList = _.findIndex(allBucketLists, function(c) {
         return c.country === countryName;
       });
 
       this.setState({
         items: countryBucketList.items,
-        achieved: countryBucketList.achieved
+        achieved: countryBucketList.achieved,
+        indexOfCountry: indexOfCountryBucketList
       });
     }
   }
@@ -86,89 +102,111 @@ class EditBucketList extends Component {
     });
   };
 
+  toastMessage = (text, type) => {
+    Toast.show({
+      text: text,
+      duration: 8000,
+      type: type,
+      position: "bottom"
+    });
+  };
+
   render() {
-    const { inputIdea, items, achieved } = this.state;
+    const { inputIdea, items, achieved, indexOfCountry } = this.state;
     const { navigation } = this.props;
     const countryName = navigation.getParam("countryName", "No Country Name");
 
     return (
-      <Container>
-        <View style={{ flex: 3 }}>
-          <List>
-            <ListItem itemDivider style={{ backgroundColor: "#f5f5f5" }}>
-              <Text style={styles.countryName}>{countryName}</Text>
-            </ListItem>
+      <Root>
+        <Container>
+          <View style={{ flex: 3 }}>
+            <List>
+              <ListItem itemDivider style={{ backgroundColor: "#f5f5f5" }}>
+                <Text style={styles.countryName}>{countryName}</Text>
+              </ListItem>
 
-            <View style={styles.inputFieldView}>
-              <View style={{ width: "87%" }}>
-                <Item floatingLabel>
-                  <Label>Bucket List Idea</Label>
-                  <Input
-                    value={inputIdea}
-                    onChangeText={text => this.setState({ inputIdea: text })}
-                  />
-                </Item>
+              <View style={styles.inputFieldView}>
+                <View style={{ width: "87%" }}>
+                  <Item floatingLabel>
+                    <Label>Bucket List Idea</Label>
+                    <Input
+                      value={inputIdea}
+                      onChangeText={text => this.setState({ inputIdea: text })}
+                    />
+                  </Item>
+                </View>
+                <View style={{ width: "13%" }}>
+                  <Button
+                    style={styles.addBtn}
+                    onPress={() => this.handleAddItem()}
+                  >
+                    <Icon style={{ color: "#fff" }} size={20} name="plus" />
+                  </Button>
+                </View>
               </View>
-              <View style={{ width: "13%" }}>
-                <Button
-                  style={styles.addBtn}
-                  onPress={() => this.handleAddItem()}
-                >
-                  <Icon style={{ color: "#fff" }} size={20} name="plus" />
-                </Button>
-              </View>
-            </View>
 
-            {items.length > 0 ? (
-              <ScrollView>
-                {items.map((item, index) => {
-                  return (
-                    <ListItem key={"item" + index} icon>
-                      <Left>
-                        <Text>{index + 1}.</Text>
-                      </Left>
-                      <Body>
-                        <Text>{item}</Text>
-                      </Body>
-                      <Right>
-                        <Button
-                          transparent
-                          onPress={() => this.handleDeleteItem(index)}
-                        >
-                          <Icon
-                            style={styles.trashIcon}
-                            size={18}
-                            name="trash-o"
+              {items.length > 0 ? (
+                <ScrollView>
+                  {items.map((item, index) => {
+                    return (
+                      <ListItem key={"item" + index} icon>
+                        <Left>
+                          <Text>{index + 1}.</Text>
+                        </Left>
+                        <Body>
+                          <Text>{item}</Text>
+                        </Body>
+                        <Right>
+                          <Button
+                            transparent
+                            onPress={() => this.handleDeleteItem(index)}
+                          >
+                            <Icon
+                              style={styles.trashIcon}
+                              size={18}
+                              name="trash-o"
+                            />
+                          </Button>
+                          <CheckBox
+                            checked={achieved[index]}
+                            color="green"
+                            onPress={() => this.handleCheckBtn(index)}
                           />
-                        </Button>
-                        <CheckBox
-                          checked={achieved[index]}
-                          color="green"
-                          onPress={() => this.handleCheckBtn(index)}
-                        />
-                      </Right>
-                    </ListItem>
-                  );
-                })}
-              </ScrollView>
-            ) : (
-              <View style={styles.centerContent}>
-                <Text style={{ fontWeight: "bold" }}>
-                  No ideas added yet...
-                </Text>
-              </View>
-            )}
-          </List>
-        </View>
+                        </Right>
+                      </ListItem>
+                    );
+                  })}
+                </ScrollView>
+              ) : (
+                <View style={styles.centerContent}>
+                  <Text style={{ fontWeight: "bold" }}>
+                    No ideas added yet...
+                  </Text>
+                </View>
+              )}
+            </List>
+          </View>
 
-        <View style={{ flex: 1, justifyContent: "flex-end" }}>
-          <Button block success>
-            <Text style={{ color: "#fff", fontWeight: "bold" }}>
-              Save Changes
-            </Text>
-          </Button>
-        </View>
-      </Container>
+          <View style={{ flex: 1, justifyContent: "flex-end" }}>
+            <Button
+              block
+              success
+              onPress={() => {
+                this.props.saveBucketListAction(indexOfCountry, {
+                  country: countryName,
+                  items: items,
+                  achieved: achieved
+                });
+                this.toastMessage("Changes successfully saved!", "success");
+              }}
+            >
+              <Text style={{ color: "#fff", fontWeight: "bold" }}>
+                Save Changes
+              </Text>
+            </Button>
+          </View>
+        </Container>
+      </Root>
     );
   }
 }
@@ -178,6 +216,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  saveBucketListAction: (index, object) =>
+    dispatch(saveBucketListAction(index, object)),
+
   getBucketListAction: () => dispatch(getBucketListAction())
 });
 

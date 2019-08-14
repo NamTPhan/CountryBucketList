@@ -7,7 +7,7 @@ import {
 export default (state = [], action) => {
   switch (action.type) {
     case SAVE_BUCKETLIST:
-      return state;
+      return { ...state, bucketlists: action.payload };
     case DELETE_BUCKETLIST:
       return state;
     case GET_BUCKETLISTS:
