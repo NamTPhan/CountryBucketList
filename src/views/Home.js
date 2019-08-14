@@ -7,13 +7,14 @@ import {
   View
 } from "react-native";
 import { Container, Content, Spinner } from "native-base";
+import * as _ from "lodash";
 
 import { connect } from "react-redux";
 
 import Countries from "../data/CountriesFlags.js";
 import SingleListItem from "../components/SingleListItem/SingleListItem.js";
 
-import { getAllCountriesAction } from "../actions/countryActions.js";
+import { getBucketListAction } from "../actions/bucketlistActions.js";
 
 class Home extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -35,7 +36,7 @@ class Home extends Component {
   }
 
   componentWillMount() {
-    this.props.getAllCountriesAction();
+    this.props.getBucketListAction();
   }
 
   componentDidMount() {
@@ -61,21 +62,30 @@ class Home extends Component {
 
     return (
       <Container>
-        {this.props.countryState.addedCountries.length > 0 ? (
+        {this.props.bucketlistState.bucketlists.length > 0 ? (
           <ScrollView>
-            {this.props.countryState.addedCountries.map((item, index) => {
+            {this.props.bucketlistState.bucketlists.map((item, index) => {
               return (
                 <SingleListItem
                   key={"Country" + index}
-                  countryName={item}
+                  countryName={item.country}
                   secondIcon={true}
-                  goalsCompleted={3}
-                  totalGoals={10}
-                  flag={defaultCountryList.find(c => c.country === item).source}
+                  goalsCompleted={
+                    this.props.bucketlistState.bucketlists[
+                      index
+                    ].achieved.filter(i => i === true).length
+                  }
+                  totalGoals={
+                    this.props.bucketlistState.bucketlists[index].items.length
+                  }
+                  flag={
+                    defaultCountryList.find(c => c.country === item.country)
+                      .source
+                  }
                   actionBtn="right"
                   handleOnPress={() =>
                     this.props.navigation.navigate("EditBucketList", {
-                      countryName: item
+                      countryName: item.country
                     })
                   }
                 />
@@ -97,7 +107,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getAllCountriesAction: () => dispatch(getAllCountriesAction())
+  getBucketListAction: () => dispatch(getBucketListAction())
 });
 
 export default connect(

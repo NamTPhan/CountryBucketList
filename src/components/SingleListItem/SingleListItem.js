@@ -22,7 +22,9 @@ class SingleListItem extends Component {
               <Icon style={{ color: "#00c853" }} name="check" size={18} />
             ) : null}
             {this.props.totalGoals
-              ? ` ${this.props.goalsCompleted} / ${this.props.totalGoals}`
+              ? ` ${this.props.goalsCompleted} / ${
+                  this.props.totalGoals
+                } achieved`
               : null}
           </Text>
         </Body>
