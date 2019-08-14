@@ -6,14 +6,16 @@ import {
   ScrollView,
   View
 } from "react-native";
-import { Container, Content, Spinner } from "native-base";
+import { Container, Content, Spinner, Fab } from "native-base";
 import * as _ from "lodash";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 import { connect } from "react-redux";
 
 import Countries from "../data/CountriesFlags.js";
 import SingleListItem from "../components/SingleListItem/SingleListItem.js";
 
+import { getAllCountriesAction } from "../actions/countryActions.js";
 import { getBucketListAction } from "../actions/bucketlistActions.js";
 
 class Home extends Component {
@@ -36,6 +38,7 @@ class Home extends Component {
   }
 
   componentWillMount() {
+    this.props.getAllCountriesAction();
     this.props.getBucketListAction();
   }
 
@@ -49,6 +52,7 @@ class Home extends Component {
 
   render() {
     const { defaultCountryList, loading } = this.state;
+    const allBucketlists = this.props.bucketlistState.bucketlists;
 
     if (loading) {
       return (
@@ -62,22 +66,19 @@ class Home extends Component {
 
     return (
       <Container>
-        {this.props.bucketlistState.bucketlists.length > 0 ? (
+        {allBucketlists.length > 0 ? (
           <ScrollView>
-            {this.props.bucketlistState.bucketlists.map((item, index) => {
+            {allBucketlists.map((item, index) => {
               return (
                 <SingleListItem
                   key={"Country" + index}
                   countryName={item.country}
                   secondIcon={true}
                   goalsCompleted={
-                    this.props.bucketlistState.bucketlists[
-                      index
-                    ].achieved.filter(i => i === true).length
+                    allBucketlists[index].achieved.filter(i => i === true)
+                      .length
                   }
-                  totalGoals={
-                    this.props.bucketlistState.bucketlists[index].items.length
-                  }
+                  totalGoals={allBucketlists[index].items.length}
                   flag={
                     defaultCountryList.find(c => c.country === item.country)
                       .source
@@ -97,6 +98,14 @@ class Home extends Component {
             <Text style={{ fontWeight: "bold" }}>No countries added!</Text>
           </View>
         )}
+
+        <Fab
+          style={{ backgroundColor: "#2196f3" }}
+          position="bottomRight"
+          onPress={() => this.props.getBucketListAction()}
+        >
+          <Icon size={20} name="refresh" />
+        </Fab>
       </Container>
     );
   }
@@ -107,7 +116,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getBucketListAction: () => dispatch(getBucketListAction())
+  getBucketListAction: () => dispatch(getBucketListAction()),
+  getAllCountriesAction: () => dispatch(getAllCountriesAction())
 });
 
 export default connect(

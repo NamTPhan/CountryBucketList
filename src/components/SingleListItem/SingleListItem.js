@@ -14,6 +14,7 @@ class SingleListItem extends Component {
             source={this.props.flag}
           />
         </Left>
+
         <Body style={{ width: "100%" }}>
           <Text style={styles.flagText}>
             <Text style={styles.flagTitleText}>{this.props.countryName}</Text>
@@ -28,7 +29,13 @@ class SingleListItem extends Component {
               : null}
           </Text>
         </Body>
+
         <Right>
+          {this.props.actionBtn === "trash" ? (
+            <Button transparent onPress={this.props.handleDeleteBtn}>
+              <Icon style={{ color: "#ff0000" }} size={20} name="trash-o" />
+            </Button>
+          ) : null}
           {this.props.actionBtn === "right" ? (
             <Button transparent>
               <Icon style={{ color: "#03a9f4" }} size={30} name="angle-right" />

@@ -24,7 +24,15 @@ export const addCountryAction = country => async dispatch => {
 };
 
 export const deleteCountryAction = index => async dispatch => {
-  dispatch({ type: DELETE_COUNTRY, payload: index });
+  const countries = await AsyncStorage.getItem(ASYNC_ADDED_COUNTRIES);
+  const parsedArray = JSON.parse(countries);
+
+  if (countries !== null) {
+    parsedArray.splice(index, 1);
+    AsyncStorage.setItem(ASYNC_ADDED_COUNTRIES, JSON.stringify(parsedArray));
+
+    dispatch({ type: DELETE_COUNTRY, payload: parsedArray });
+  }
 };
 
 export const getAllCountriesAction = () => async dispatch => {

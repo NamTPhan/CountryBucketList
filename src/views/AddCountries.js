@@ -17,9 +17,13 @@ import Countries from "../data/CountriesFlags.js";
 
 import {
   addCountryAction,
+  deleteCountryAction,
   getAllCountriesAction
 } from "../actions/countryActions.js";
-import { addDefaultBucketListAction } from "../actions/bucketlistActions.js";
+import {
+  addDefaultBucketListAction,
+  deleteBucketListAction
+} from "../actions/bucketlistActions.js";
 
 class AddCountries extends Component {
   static navigationOptions = {
@@ -51,7 +55,7 @@ class AddCountries extends Component {
   toastMessage = (text, type) => {
     Toast.show({
       text: text,
-      duration: 8000,
+      duration: 7000,
       type: type,
       position: "bottom"
     });
@@ -125,10 +129,15 @@ class AddCountries extends Component {
                       <SingleListItem
                         key={"Country" + index}
                         countryName={item}
+                        actionBtn={"trash"}
                         flag={
                           defaultCountryList.find(c => c.country === item)
                             .source
                         }
+                        handleDeleteBtn={() => {
+                          this.props.deleteCountryAction(index);
+                          this.props.deleteBucketListAction(index);
+                        }}
                       />
                     );
                   })}
@@ -157,7 +166,10 @@ const mapDispatchToProps = dispatch => ({
 
   addCountryAction: country => dispatch(addCountryAction(country)),
   addDefaultBucketListAction: country =>
-    dispatch(addDefaultBucketListAction(country))
+    dispatch(addDefaultBucketListAction(country)),
+
+  deleteCountryAction: index => dispatch(deleteCountryAction(index)),
+  deleteBucketListAction: index => dispatch(deleteBucketListAction(index))
 });
 
 export default connect(

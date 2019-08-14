@@ -36,7 +36,15 @@ export const saveBucketListAction = (index, newObject) => async dispatch => {
 };
 
 export const deleteBucketListAction = index => async dispatch => {
-  dispatch({ type: DELETE_BUCKETLIST, payload: index });
+  const bucketLists = await AsyncStorage.getItem(ASYNC_BUCKETLISTS);
+  const parsedArray = JSON.parse(bucketLists);
+
+  if (bucketLists !== null) {
+    parsedArray.splice(index, 1);
+    AsyncStorage.setItem(ASYNC_BUCKETLISTS, JSON.stringify(parsedArray));
+
+    dispatch({ type: DELETE_BUCKETLIST, payload: parsedArray });
+  }
 };
 
 export const getBucketListAction = () => async dispatch => {

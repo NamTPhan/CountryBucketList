@@ -9,7 +9,7 @@ export default (state = [], action) => {
     case SAVE_BUCKETLIST:
       return { ...state, bucketlists: action.payload };
     case DELETE_BUCKETLIST:
-      return state;
+      return { ...state, bucketlists: action.payload };
     case GET_BUCKETLISTS:
       return { ...state, bucketlists: action.payload };
     default:

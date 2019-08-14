@@ -12,7 +12,7 @@ export default (state = [], action) => {
         addedCountries: [...state.addedCountries, action.payload]
       };
     case DELETE_COUNTRY:
-      return state;
+      return { ...state, addedCountries: action.payload };
     case GET_ALL_COUNTRIES:
       return { ...state, addedCountries: action.payload };
     default:
