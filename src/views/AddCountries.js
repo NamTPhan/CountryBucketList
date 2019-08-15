@@ -55,7 +55,7 @@ class AddCountries extends Component {
   toastMessage = (text, type) => {
     Toast.show({
       text: text,
-      duration: 7000,
+      duration: 5000,
       type: type,
       position: "bottom"
     });
@@ -87,31 +87,32 @@ class AddCountries extends Component {
             >
               <ScrollView>
                 {defaultCountryList.map((item, index) => {
-                  if (
-                    this.props.countryState.addedCountries.includes(
-                      item.country
-                    )
-                  ) {
-                    return null;
-                  } else {
-                    return (
-                      <SingleListItem
-                        key={"Country" + index}
-                        countryName={item.country}
-                        flag={item.source}
-                        actionBtn="add"
-                        handleOnBtnPress={() => {
-                          this.props.addCountryAction(item.country);
-                          this.props.addDefaultBucketListAction(item.country);
-
-                          this.toastMessage(
-                            "Country successfully added!",
-                            "success"
-                          );
-                        }}
-                      />
-                    );
+                  if (this.props.countryState.addedCountries !== undefined) {
+                    if (
+                      this.props.countryState.addedCountries.includes(
+                        item.country
+                      )
+                    ) {
+                      return null;
+                    }
                   }
+
+                  return (
+                    <SingleListItem
+                      key={"Country" + index}
+                      countryName={item.country}
+                      flag={item.source}
+                      actionBtn="add"
+                      handleOnBtnPress={() => {
+                        this.toastMessage(
+                          "Country successfully added!",
+                          "success"
+                        );
+                        this.props.addCountryAction(item.country);
+                        this.props.addDefaultBucketListAction(item.country);
+                      }}
+                    />
+                  );
                 })}
               </ScrollView>
             </Tab>
@@ -122,7 +123,8 @@ class AddCountries extends Component {
                 </TabHeading>
               }
             >
-              {this.props.countryState.addedCountries.length > 0 ? (
+              {this.props.countryState.addedCountries !== undefined &&
+              this.props.countryState.addedCountries.length > 0 ? (
                 <ScrollView>
                   {this.props.countryState.addedCountries.map((item, index) => {
                     return (

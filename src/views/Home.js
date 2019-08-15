@@ -84,7 +84,8 @@ class Home extends Component {
               </TabHeading>
             }
           >
-            {this.props.countryState.addedCountries.length > 0 ? (
+            {this.props.countryState.addedCountries &&
+            this.props.countryState.addedCountries.length > 0 ? (
               <ScrollView>
                 {this.props.countryState.addedCountries.map((item, index) => {
                   return (
@@ -119,67 +120,68 @@ class Home extends Component {
             }
           >
             <ScrollView>
-              {this.props.bucketlistState.bucketlists.map((item, index) => {
-                return (
-                  <Card key={"countryCard" + index}>
-                    <CardItem>
-                      <Body>
-                        <View style={styles.cardTitle}>
-                          <Image
-                            style={{ width: 40 }}
-                            resizeMode="contain"
-                            source={
-                              defaultCountryList.find(
-                                c => c.country === item.country
-                              ).source
-                            }
-                          />
-                          <Text
+              {this.props.bucketlistState.bucketlists &&
+                this.props.bucketlistState.bucketlists.map((item, index) => {
+                  return (
+                    <Card key={"countryCard" + index}>
+                      <CardItem>
+                        <Body>
+                          <View style={styles.cardTitle}>
+                            <Image
+                              style={{ width: 40 }}
+                              resizeMode="contain"
+                              source={
+                                defaultCountryList.find(
+                                  c => c.country === item.country
+                                ).source
+                              }
+                            />
+                            <Text
+                              style={{
+                                fontSize: 15,
+                                fontWeight: "bold",
+                                textAlignVertical: "center"
+                              }}
+                            >
+                              {" "}
+                              {item.country}
+                            </Text>
+                          </View>
+
+                          <View
                             style={{
-                              fontSize: 15,
-                              fontWeight: "bold",
-                              textAlignVertical: "center"
+                              flex: 1,
+                              flexDirection: "column"
                             }}
                           >
-                            {" "}
-                            {item.country}
-                          </Text>
-                        </View>
-
-                        <View
-                          style={{
-                            flex: 1,
-                            flexDirection: "column"
-                          }}
-                        >
-                          {item.items.map((idea, index) => {
-                            return (
-                              <View key={"idea" + index}>
-                                <Text>
-                                  {item.achieved[index] ? (
-                                    <Icon
-                                      style={{ color: "#4CAF50" }}
-                                      size={18}
-                                      name="check-circle"
-                                    />
-                                  ) : (
-                                    <Icon
-                                      style={{ color: "#2196f3" }}
-                                      size={15}
-                                      name="ellipsis-h"
-                                    />
-                                  )}{" "}
-                                  {idea}
-                                </Text>
-                              </View>
-                            );
-                          })}
-                        </View>
-                      </Body>
-                    </CardItem>
-                  </Card>
-                );
-              })}
+                            {item.items.map((idea, index) => {
+                              return (
+                                <View key={"idea" + index}>
+                                  <Text>
+                                    {item.achieved[index] ? (
+                                      <Icon
+                                        style={{ color: "#4CAF50" }}
+                                        size={18}
+                                        name="check-circle"
+                                      />
+                                    ) : (
+                                      <Icon
+                                        style={{ color: "#2196f3" }}
+                                        size={15}
+                                        name="ellipsis-h"
+                                      />
+                                    )}{" "}
+                                    {idea}
+                                  </Text>
+                                </View>
+                              );
+                            })}
+                          </View>
+                        </Body>
+                      </CardItem>
+                    </Card>
+                  );
+                })}
             </ScrollView>
           </Tab>
         </Tabs>

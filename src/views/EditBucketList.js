@@ -43,31 +43,34 @@ class EditBucketList extends Component {
   componentDidMount() {
     // Get all countries and their bucketlists data
     this.props.getBucketListAction();
-    const allBucketLists = this.props.bucketlistState.bucketlists;
 
-    // Get the passed country name from react navigation
-    const { navigation } = this.props;
-    const countryName = navigation.getParam("countryName", "No Country Name");
+    setTimeout(() => {
+      const allBucketLists = this.props.bucketlistState.bucketlists;
 
-    this.setState({
-      currentCountry: countryName
-    });
-
-    if (allBucketLists.length > 0) {
-      let countryBucketList = _.find(allBucketLists, function(c) {
-        return c.country === countryName;
-      });
-
-      let indexOfCountryBucketList = _.findIndex(allBucketLists, function(c) {
-        return c.country === countryName;
-      });
+      // Get the passed country name from react navigation
+      const { navigation } = this.props;
+      const countryName = navigation.getParam("countryName", "No Country Name");
 
       this.setState({
-        items: countryBucketList.items,
-        achieved: countryBucketList.achieved,
-        indexOfCountry: indexOfCountryBucketList
+        currentCountry: countryName
       });
-    }
+
+      if (allBucketLists !== undefined && allBucketLists.length > 0) {
+        let countryBucketList = _.find(allBucketLists, function(c) {
+          return c.country === countryName;
+        });
+
+        let indexOfCountryBucketList = _.findIndex(allBucketLists, function(c) {
+          return c.country === countryName;
+        });
+
+        this.setState({
+          items: countryBucketList.items,
+          achieved: countryBucketList.achieved,
+          indexOfCountry: indexOfCountryBucketList
+        });
+      }
+    }, 1000);
   }
 
   handleAddItem = () => {
@@ -105,7 +108,7 @@ class EditBucketList extends Component {
   toastMessage = (text, type) => {
     Toast.show({
       text: text,
-      duration: 7000,
+      duration: 5000,
       type: type,
       position: "bottom"
     });
