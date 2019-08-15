@@ -5,6 +5,7 @@ import {
   GET_ALL_COUNTRIES,
   ASYNC_ADDED_COUNTRIES
 } from "./types.js";
+import { errorMessageAction } from "./messageActions.js";
 
 export const addCountryAction = country => async dispatch => {
   try {
@@ -19,7 +20,7 @@ export const addCountryAction = country => async dispatch => {
 
     dispatch({ type: ADD_COUNTRY, payload: country });
   } catch (err) {
-    // error
+    dispatch(errorMessageAction(err));
   }
 };
 
@@ -47,7 +48,6 @@ export const getAllCountriesAction = () => async dispatch => {
       });
     }
   } catch (err) {
-    // Error retrieving data
-    console.log(err);
+    dispatch(errorMessageAction(err));
   }
 };

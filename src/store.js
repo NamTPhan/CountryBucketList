@@ -15,7 +15,8 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 state = {
   countryState: {},
-  bucketlistState: {}
+  bucketlistState: {},
+  feedbackMessage: {}
 };
 
 export default () => {

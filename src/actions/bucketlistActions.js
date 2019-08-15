@@ -5,6 +5,7 @@ import {
   GET_BUCKETLISTS,
   ASYNC_BUCKETLISTS
 } from "./types.js";
+import { errorMessageAction } from "./messageActions.js";
 
 export const addDefaultBucketListAction = country => async dispatch => {
   try {
@@ -19,7 +20,7 @@ export const addDefaultBucketListAction = country => async dispatch => {
       }
     });
   } catch (err) {
-    // error
+    dispatch(errorMessageAction(err));
   }
 };
 
@@ -59,7 +60,6 @@ export const getBucketListAction = () => async dispatch => {
       });
     }
   } catch (err) {
-    // Error retrieving data
-    console.log(err);
+    dispatch(errorMessageAction(err));
   }
 };
