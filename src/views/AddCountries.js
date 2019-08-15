@@ -75,8 +75,8 @@ class AddCountries extends Component {
     }
 
     return (
-      <Root>
-        <Container>
+      <Container>
+        <Root>
           <Tabs>
             <Tab
               heading={
@@ -151,8 +151,8 @@ class AddCountries extends Component {
               )}
             </Tab>
           </Tabs>
-        </Container>
-      </Root>
+        </Root>
+      </Container>
     );
   }
 }

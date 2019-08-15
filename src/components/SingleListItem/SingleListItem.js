@@ -18,15 +18,6 @@ class SingleListItem extends Component {
         <Body style={{ width: "100%" }}>
           <Text style={styles.flagText}>
             <Text style={styles.flagTitleText}>{this.props.countryName}</Text>
-            {"\n"}
-            {this.props.secondIcon ? (
-              <Icon style={{ color: "#00c853" }} name="check" size={18} />
-            ) : null}
-            {this.props.totalGoals
-              ? ` ${this.props.goalsCompleted} / ${
-                  this.props.totalGoals
-                } achieved`
-              : null}
           </Text>
         </Body>
 
@@ -38,7 +29,10 @@ class SingleListItem extends Component {
           ) : null}
           {this.props.actionBtn === "right" ? (
             <Button transparent>
-              <Icon style={{ color: "#03a9f4" }} size={30} name="angle-right" />
+              <Text style={styles.mainColor}>
+                {this.props.actionBtnRightText}{" "}
+              </Text>
+              <Icon style={styles.mainColor} size={30} name="angle-right" />
             </Button>
           ) : null}
           {this.props.actionBtn === "add" ? (
@@ -70,5 +64,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 5,
     borderRadius: 20
+  },
+  mainColor: {
+    color: "#03a9f4"
   }
 });

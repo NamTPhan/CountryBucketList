@@ -117,8 +117,8 @@ class EditBucketList extends Component {
     const countryName = navigation.getParam("countryName", "No Country Name");
 
     return (
-      <Root>
-        <Container>
+      <Container>
+        <Root>
           <View style={{ flex: 3 }}>
             <List>
               <ListItem itemDivider style={{ backgroundColor: "#f5f5f5" }}>
@@ -205,8 +205,8 @@ class EditBucketList extends Component {
               </Text>
             </Button>
           </View>
-        </Container>
-      </Root>
+        </Root>
+      </Container>
     );
   }
 }
