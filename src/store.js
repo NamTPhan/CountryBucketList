@@ -1,21 +1,31 @@
+import { AsyncStorage } from "react-native";
 import { createStore, applyMiddleware, compose } from "redux";
 import reduxThunk from "redux-thunk";
-
-import rootReducer from "./reducers/rootReducer.jsx";
+import { persistStore, persistReducer } from "redux-persist";
+import logger from "redux-logger";
+import rootReducer from "./reducers/rootReducer.js";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-function configureStore(
-  state = {
-    bucketlistState: {},
-    userFeedbackState: ""
-  }
-) {
-  return createStore(
-    rootReducer,
-    state,
-    composeEnhancers(applyMiddleware(reduxThunk))
-  );
-}
+const persistConfig = {
+  key: "root",
+  storage: AsyncStorage
+};
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export default configureStore;
+state = {
+  countryState: {},
+  bucketlistState: {},
+  feedbackMessage: {}
+};
+
+export default () => {
+  let store = createStore(
+    persistedReducer,
+    state,
+    composeEnhancers(applyMiddleware(reduxThunk, logger))
+  );
+  let persistor = persistStore(store);
+
+  return { store, persistor };
+};

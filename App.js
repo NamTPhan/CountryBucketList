@@ -1,9 +1,18 @@
 import React from "react";
+import { View, AppRegistry } from "react-native";
+import { name as appName } from "./app.json";
+
 import { Ionicons } from "@expo/vector-icons";
 import * as Font from "expo-font";
-import { StatusBar, StyleSheet, Text, View } from "react-native";
-import { createStackNavigator, createAppContainer } from "react-navigation";
 import { Container, Content, Spinner } from "native-base";
+
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import persist from "./src/store";
+
+import ScreenContainer from "./src/views/ScreenContainer";
+
+const persistStore = persist();
 
 export default class App extends React.Component {
   constructor(props) {
@@ -34,18 +43,15 @@ export default class App extends React.Component {
     }
 
     return (
-      <View style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
-        <Text>Open up App.js to start working on your app!</Text>
+      <View style={{ flex: 1 }}>
+        <Provider store={persistStore.store}>
+          <PersistGate loading={null} persistor={persistStore.persistor}>
+            <ScreenContainer />
+          </PersistGate>
+        </Provider>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
+AppRegistry.registerComponent(appName, () => App);
