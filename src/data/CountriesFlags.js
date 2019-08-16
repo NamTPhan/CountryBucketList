@@ -441,12 +441,12 @@ const Countries = [
   },
   {
     id: 89,
-    country: "Korea-North",
+    country: "North-Korea",
     source: require("../../assets/flags/Korea-North.png")
   },
   {
     id: 90,
-    country: "Korea-South",
+    country: "South-Korea",
     source: require("../../assets/flags/Korea-South.png")
   },
   {
