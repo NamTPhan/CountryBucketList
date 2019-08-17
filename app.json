@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "CountryBucketList",
+    "name": "Country BucketList",
     "slug": "CountryBucketList",
     "privacy": "public",
     "sdkVersion": "34.0.0",
@@ -19,6 +19,11 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.npdevelopment.countrybucketlist",
+      "versionCode": 1,
+      "permissions": []
     }
   }
 }
