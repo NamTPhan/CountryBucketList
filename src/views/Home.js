@@ -225,5 +225,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderBottomWidth: 1,
     borderBottomColor: "#2196f3"
+  },
+  centerContent: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
