@@ -108,7 +108,7 @@ class EditBucketList extends Component {
   toastMessage = (text, type) => {
     Toast.show({
       text: text,
-      duration: 5000,
+      duration: 3000,
       type: type,
       position: "bottom"
     });

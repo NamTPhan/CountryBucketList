@@ -35,7 +35,8 @@ class AddCountries extends Component {
 
     this.state = {
       defaultCountryList: [],
-      loading: true
+      loading: true,
+      activateBtn: true
     };
   }
 
@@ -53,16 +54,26 @@ class AddCountries extends Component {
   }
 
   toastMessage = (text, type) => {
+    this.setState({
+      activateBtn: false
+    });
+
     Toast.show({
       text: text,
-      duration: 5000,
+      duration: 3000,
       type: type,
       position: "bottom"
     });
+
+    setTimeout(() => {
+      this.setState({
+        activateBtn: true
+      });
+    }, 2000);
   };
 
   render() {
-    const { defaultCountryList, loading } = this.state;
+    const { defaultCountryList, loading, activateBtn } = this.state;
 
     if (loading) {
       return (
@@ -102,7 +113,7 @@ class AddCountries extends Component {
                       key={"Country" + index}
                       countryName={item.country}
                       flag={item.source}
-                      actionBtn="add"
+                      actionBtn={activateBtn ? "add" : null}
                       handleOnBtnPress={() => {
                         this.toastMessage(
                           "Country successfully added!",
