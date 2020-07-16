@@ -1,5 +1,5 @@
 import React from "react";
-import { View, AppRegistry } from "react-native";
+import { View, AppRegistry, YellowBox } from "react-native";
 import { name as appName } from "./app.json";
 
 import { Ionicons } from "@expo/vector-icons";
@@ -23,6 +23,9 @@ export default class App extends React.Component {
   }
 
   async componentDidMount() {
+    // TO DO: Waiting for Native Base issue fix, https://github.com/GeekyAnts/NativeBase/issues/3109
+    YellowBox.ignoreWarnings(['Animated: `useNativeDriver`']);
+
     await Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
