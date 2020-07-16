@@ -193,8 +193,6 @@ export default connect(
 const styles = StyleSheet.create({
   flag: {
     flex: 1,
-    width: undefined,
-    height: undefined
   },
   centerContent: {
     flex: 1,
