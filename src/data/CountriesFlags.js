@@ -1,10 +1,5 @@
 const Countries = [
   {
-    id: 1,
-    country: "Afghanistan",
-    source: require("../../assets/flags/Afghanistan.png")
-  },
-  {
     id: 2,
     country: "Albania",
     source: require("../../assets/flags/Albania.png")
@@ -125,11 +120,6 @@ const Countries = [
     source: require("../../assets/flags/Bulgaria.png")
   },
   {
-    id: 26,
-    country: "Burkina-Faso",
-    source: require("../../assets/flags/Burkina-Faso.png")
-  },
-  {
     id: 27,
     country: "Burundi",
     source: require("../../assets/flags/Burundi.png")
@@ -140,11 +130,6 @@ const Countries = [
     source: require("../../assets/flags/Cambodia.png")
   },
   {
-    id: 29,
-    country: "Cameroon",
-    source: require("../../assets/flags/Cameroon.png")
-  },
-  {
     id: 30,
     country: "Canada",
     source: require("../../assets/flags/Canada.png")
@@ -153,16 +138,6 @@ const Countries = [
     id: 31,
     country: "Cape-Verde",
     source: require("../../assets/flags/Cape-Verde.png")
-  },
-  {
-    id: 32,
-    country: "Central-African-Republic",
-    source: require("../../assets/flags/Central-African-Republic.png")
-  },
-  {
-    id: 33,
-    country: "Chad",
-    source: require("../../assets/flags/Chad.png")
   },
   {
     id: 34,
@@ -185,24 +160,9 @@ const Countries = [
     source: require("../../assets/flags/Comoros.png")
   },
   {
-    id: 38,
-    country: "Congo-(Democratic)",
-    source: require("../../assets/flags/Congo-(Democratic).png")
-  },
-  {
-    id: 39,
-    country: "Congo-(Republic)",
-    source: require("../../assets/flags/Congo-(Republic).png")
-  },
-  {
     id: 40,
     country: "Costa-Rica",
     source: require("../../assets/flags/Costa-Rica.png")
-  },
-  {
-    id: 41,
-    country: "Cote-d'Ivoire",
-    source: require("../../assets/flags/Cote-dIvoire.png")
   },
   {
     id: 42,
@@ -326,8 +286,8 @@ const Countries = [
   },
   {
     id: 66,
-    country: "Grecee",
-    source: require("../../assets/flags/Grecee.png")
+    country: "Greece",
+    source: require("../../assets/flags/Greece.png")
   },
   {
     id: 67,
@@ -335,34 +295,9 @@ const Countries = [
     source: require("../../assets/flags/Grenada.png")
   },
   {
-    id: 68,
-    country: "Guatemala",
-    source: require("../../assets/flags/Guatemala.png")
-  },
-  {
-    id: 69,
-    country: "Guinea-Bissau",
-    source: require("../../assets/flags/Guinea-Bissau.png")
-  },
-  {
-    id: 70,
-    country: "Guinea",
-    source: require("../../assets/flags/Guinea.png")
-  },
-  {
     id: 71,
     country: "Guyana",
     source: require("../../assets/flags/Guyana.png")
-  },
-  {
-    id: 72,
-    country: "Haiti",
-    source: require("../../assets/flags/Haiti.png")
-  },
-  {
-    id: 73,
-    country: "Honduras",
-    source: require("../../assets/flags/Honduras.png")
   },
   {
     id: 74,
@@ -385,16 +320,6 @@ const Countries = [
     source: require("../../assets/flags/Indonesia.png")
   },
   {
-    id: 78,
-    country: "Iran",
-    source: require("../../assets/flags/Iran.png")
-  },
-  {
-    id: 79,
-    country: "Iraq",
-    source: require("../../assets/flags/Iraq.png")
-  },
-  {
     id: 80,
     country: "Ireland",
     source: require("../../assets/flags/Ireland.png")
@@ -410,11 +335,6 @@ const Countries = [
     source: require("../../assets/flags/Italy.png")
   },
   {
-    id: 83,
-    country: "Jamaica",
-    source: require("../../assets/flags/Jamaica.png")
-  },
-  {
     id: 84,
     country: "Japan",
     source: require("../../assets/flags/Japan.png")
@@ -428,11 +348,6 @@ const Countries = [
     id: 86,
     country: "Kazakhstan",
     source: require("../../assets/flags/Kazakhstan.png")
-  },
-  {
-    id: 87,
-    country: "Kenya",
-    source: require("../../assets/flags/Kenya.png")
   },
   {
     id: 88,
@@ -490,11 +405,6 @@ const Countries = [
     source: require("../../assets/flags/Liberia.png")
   },
   {
-    id: 99,
-    country: "Libya",
-    source: require("../../assets/flags/Libya.png")
-  },
-  {
     id: 100,
     country: "Liechtenstein",
     source: require("../../assets/flags/Liechtenstein.png")
@@ -533,11 +443,6 @@ const Countries = [
     id: 107,
     country: "Maldives",
     source: require("../../assets/flags/Maldives.png")
-  },
-  {
-    id: 108,
-    country: "Mali",
-    source: require("../../assets/flags/Mali.png")
   },
   {
     id: 109,
@@ -630,21 +535,6 @@ const Countries = [
     source: require("../../assets/flags/New-Zealand.png")
   },
   {
-    id: 127,
-    country: "Nicaragua",
-    source: require("../../assets/flags/Nicaragua.png")
-  },
-  {
-    id: 128,
-    country: "Niger",
-    source: require("../../assets/flags/Niger.png")
-  },
-  {
-    id: 129,
-    country: "Nigeria",
-    source: require("../../assets/flags/Nigeria.png")
-  },
-  {
     id: 130,
     country: "Norway",
     source: require("../../assets/flags/Norway.png")
@@ -653,11 +543,6 @@ const Countries = [
     id: 131,
     country: "Oman",
     source: require("../../assets/flags/Oman.png")
-  },
-  {
-    id: 132,
-    country: "Pakistan",
-    source: require("../../assets/flags/Pakistan.png")
   },
   {
     id: 133,
@@ -795,19 +680,9 @@ const Countries = [
     source: require("../../assets/flags/Solomon-Islands.png")
   },
   {
-    id: 160,
-    country: "Somalia",
-    source: require("../../assets/flags/Somalia.png")
-  },
-  {
     id: 161,
     country: "South-Africa",
     source: require("../../assets/flags/South-Africa.png")
-  },
-  {
-    id: 162,
-    country: "South-Sudan",
-    source: require("../../assets/flags/South-Sudan.png")
   },
   {
     id: 163,
@@ -818,11 +693,6 @@ const Countries = [
     id: 164,
     country: "Sri-Lanka",
     source: require("../../assets/flags/Sri-Lanka.png")
-  },
-  {
-    id: 165,
-    country: "Sudan",
-    source: require("../../assets/flags/Sudan.png")
   },
   {
     id: 166,
@@ -843,11 +713,6 @@ const Countries = [
     id: 169,
     country: "Switzerland",
     source: require("../../assets/flags/Switzerland.png")
-  },
-  {
-    id: 170,
-    country: "Syria",
-    source: require("../../assets/flags/Syria.png")
   },
   {
     id: 171,
@@ -958,11 +823,6 @@ const Countries = [
     id: 192,
     country: "Vietnam",
     source: require("../../assets/flags/Vietnam.png")
-  },
-  {
-    id: 193,
-    country: "Yemen",
-    source: require("../../assets/flags/Yemen.png")
   },
   {
     id: 194,
