@@ -5,7 +5,7 @@ import {
   Text,
   ScrollView,
   View,
-  Image
+  Image,
 } from "react-native";
 import {
   Container,
@@ -16,7 +16,7 @@ import {
   TabHeading,
   Card,
   CardItem,
-  Body
+  Body,
 } from "native-base";
 import * as _ from "lodash";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -32,11 +32,11 @@ import { getBucketListAction } from "../actions/bucketlistActions.js";
 class Home extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Bucket Lists",
-    headerRight: (
+    headerRight: () => (
       <TouchableOpacity onPress={() => navigation.navigate("AddCountries")}>
         <Text style={styles.headerBtn}>ADD COUNTRY</Text>
       </TouchableOpacity>
-    )
+    ),
   });
 
   constructor(props) {
@@ -44,7 +44,7 @@ class Home extends Component {
 
     this.state = {
       defaultCountryList: Countries,
-      loading: true
+      loading: true,
     };
   }
 
@@ -56,7 +56,7 @@ class Home extends Component {
   componentDidMount() {
     setTimeout(() => {
       this.setState({
-        loading: false
+        loading: false,
       });
     }, 1000);
   }
@@ -93,13 +93,14 @@ class Home extends Component {
                       key={"Country" + index}
                       countryName={item}
                       flag={
-                        defaultCountryList.find(c => c.country === item).source
+                        defaultCountryList.find((c) => c.country === item)
+                          .source
                       }
                       actionBtn="right"
                       actionBtnRightText="Edit"
                       handleOnPress={() =>
                         this.props.navigation.navigate("EditBucketList", {
-                          countryName: item
+                          countryName: item,
                         })
                       }
                     />
@@ -132,7 +133,7 @@ class Home extends Component {
                               resizeMode="contain"
                               source={
                                 defaultCountryList.find(
-                                  c => c.country === item.country
+                                  (c) => c.country === item.country
                                 ).source
                               }
                             />
@@ -140,7 +141,7 @@ class Home extends Component {
                               style={{
                                 fontSize: 15,
                                 fontWeight: "bold",
-                                textAlignVertical: "center"
+                                textAlignVertical: "center",
                               }}
                             >
                               {" "}
@@ -151,7 +152,7 @@ class Home extends Component {
                           <View
                             style={{
                               flex: 1,
-                              flexDirection: "column"
+                              flexDirection: "column",
                             }}
                           >
                             {item.items.map((idea, index) => {
@@ -190,25 +191,20 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  ...state
+const mapStateToProps = (state) => ({
+  ...state,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   getBucketListAction: () => dispatch(getBucketListAction()),
-  getAllCountriesAction: () => dispatch(getAllCountriesAction())
+  getAllCountriesAction: () => dispatch(getAllCountriesAction()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
 
 const styles = StyleSheet.create({
   flag: {
     flex: 1,
-    width: undefined,
-    height: undefined
   },
   headerBtn: {
     color: "#fff",
@@ -217,18 +213,18 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
     borderWidth: 1,
     padding: 5,
-    borderRadius: 20
+    borderRadius: 20,
   },
   cardTitle: {
     flex: 1,
     alignSelf: "stretch",
     flexDirection: "row",
     borderBottomWidth: 1,
-    borderBottomColor: "#2196f3"
+    borderBottomColor: "#2196f3",
   },
   centerContent: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 });
