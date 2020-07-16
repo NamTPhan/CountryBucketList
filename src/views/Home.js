@@ -41,16 +41,13 @@ class Home extends Component {
 
   constructor(props) {
     super(props);
+    props.getAllCountriesAction();
+    props.getBucketListAction();
 
     this.state = {
       defaultCountryList: Countries,
       loading: true,
     };
-  }
-
-  componentWillMount() {
-    this.props.getAllCountriesAction();
-    this.props.getBucketListAction();
   }
 
   componentDidMount() {

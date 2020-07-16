@@ -32,16 +32,13 @@ class AddCountries extends Component {
 
   constructor(props) {
     super(props);
+    props.getAllCountriesAction();
 
     this.state = {
       defaultCountryList: [],
       loading: true,
       activateBtn: true
     };
-  }
-
-  componentWillMount() {
-    this.props.getAllCountriesAction();
   }
 
   componentDidMount() {

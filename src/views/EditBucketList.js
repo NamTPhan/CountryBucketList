@@ -29,8 +29,11 @@ class EditBucketList extends Component {
     title: "Edit Bucket List",
   };
 
+  _isMounted = false;
+
   constructor(props) {
     super(props);
+
     this.state = {
       currentCountry: "",
       inputIdea: "",
@@ -40,7 +43,15 @@ class EditBucketList extends Component {
     };
   }
 
+  componentWillUnmount() {
+    this._isMounted = false;
+    this.setState = (state, callback) => {
+      return;
+    };
+  }
+
   componentDidMount() {
+    this._isMounted = true;
     // Get all countries and their bucketlists data
     this.props.getBucketListAction();
 
@@ -74,6 +85,10 @@ class EditBucketList extends Component {
       }
     }, 1000);
   }
+
+  onChangeIdeaInput = (text) => {
+    this.setState({ inputIdea: text });
+  };
 
   handleAddItem = () => {
     this.state.items.push(this.state.inputIdea);
@@ -136,9 +151,7 @@ class EditBucketList extends Component {
                     <Label>Idea:</Label>
                     <Input
                       value={inputIdea}
-                      onChangeText={(text) =>
-                        this.setState({ inputIdea: text })
-                      }
+                      onChangeText={(text) => this.onChangeIdeaInput(text)}
                     />
                   </Item>
                 </View>
