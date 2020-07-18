@@ -159,7 +159,7 @@ const Countries = [
     id: 27,
     country: "Burundi",
     source: require("../../assets/flags/Burundi.png"),
-    safe: "Yes",
+    safe: "No",
   },
   {
     id: 28,
@@ -1143,7 +1143,7 @@ const Countries = [
     id: 191,
     country: "Venezuela",
     source: require("../../assets/flags/Venezuela.png"),
-    safe: "Yes",
+    safe: "No",
   },
   {
     id: 192,
