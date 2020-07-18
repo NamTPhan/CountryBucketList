@@ -8,9 +8,13 @@ import {
   Tabs,
   TabHeading,
   Toast,
-  Root
+  Root,
+  Card,
+  CardItem,
+  Body,
 } from "native-base";
 import { connect } from "react-redux";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 import SingleListItem from "../components/SingleListItem/SingleListItem";
 import Countries from "../data/CountriesFlags.js";
@@ -18,16 +22,16 @@ import Countries from "../data/CountriesFlags.js";
 import {
   addCountryAction,
   deleteCountryAction,
-  getAllCountriesAction
+  getAllCountriesAction,
 } from "../actions/countryActions.js";
 import {
   addDefaultBucketListAction,
-  deleteBucketListAction
+  deleteBucketListAction,
 } from "../actions/bucketlistActions.js";
 
 class AddCountries extends Component {
   static navigationOptions = {
-    title: "Add Countries"
+    title: "Add Countries",
   };
 
   constructor(props) {
@@ -37,7 +41,7 @@ class AddCountries extends Component {
     this.state = {
       defaultCountryList: [],
       loading: true,
-      activateBtn: true
+      activateBtn: true,
     };
   }
 
@@ -45,26 +49,26 @@ class AddCountries extends Component {
     setTimeout(() => {
       this.setState({
         defaultCountryList: Countries,
-        loading: false
+        loading: false,
       });
     }, 1000);
   }
 
   toastMessage = (text, type) => {
     this.setState({
-      activateBtn: false
+      activateBtn: false,
     });
 
     Toast.show({
       text: text,
       duration: 3000,
       type: type,
-      position: "bottom"
+      position: "bottom",
     });
 
     setTimeout(() => {
       this.setState({
-        activateBtn: true
+        activateBtn: true,
       });
     }, 2000);
   };
@@ -94,6 +98,20 @@ class AddCountries extends Component {
               }
             >
               <ScrollView>
+                <Card style={styles.cardOverallInfo}>
+                  <CardItem>
+                    <Body>
+                      <Text style={{ alignSelf: "center" }}>
+                        <Icon
+                          style={{ color: "#ff0000" }}
+                          size={15}
+                          name="warning"
+                        />{" "}
+                        Travel Advisory: Do Not Travel
+                      </Text>
+                    </Body>
+                  </CardItem>
+                </Card>
                 {defaultCountryList.map((item, index) => {
                   if (this.props.countryState.addedCountries !== undefined) {
                     if (
@@ -110,6 +128,7 @@ class AddCountries extends Component {
                       key={"Country" + index}
                       countryName={item.country}
                       flag={item.source}
+                      safe={item.safe}
                       actionBtn={activateBtn ? "add" : null}
                       handleOnBtnPress={() => {
                         this.toastMessage(
@@ -141,8 +160,12 @@ class AddCountries extends Component {
                         countryName={item}
                         actionBtn={"trash"}
                         flag={
-                          defaultCountryList.find(c => c.country === item)
+                          defaultCountryList.find((c) => c.country === item)
                             .source
+                        }
+                        safe={
+                          defaultCountryList.find((c) => c.country === item)
+                            .safe
                         }
                         handleDeleteBtn={() => {
                           this.props.deleteCountryAction(index);
@@ -167,25 +190,22 @@ class AddCountries extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  ...state
+const mapStateToProps = (state) => ({
+  ...state,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   getAllCountriesAction: () => dispatch(getAllCountriesAction()),
 
-  addCountryAction: country => dispatch(addCountryAction(country)),
-  addDefaultBucketListAction: country =>
+  addCountryAction: (country) => dispatch(addCountryAction(country)),
+  addDefaultBucketListAction: (country) =>
     dispatch(addDefaultBucketListAction(country)),
 
-  deleteCountryAction: index => dispatch(deleteCountryAction(index)),
-  deleteBucketListAction: index => dispatch(deleteBucketListAction(index))
+  deleteCountryAction: (index) => dispatch(deleteCountryAction(index)),
+  deleteBucketListAction: (index) => dispatch(deleteBucketListAction(index)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AddCountries);
+export default connect(mapStateToProps, mapDispatchToProps)(AddCountries);
 
 const styles = StyleSheet.create({
   flag: {
@@ -194,6 +214,13 @@ const styles = StyleSheet.create({
   centerContent: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
+  cardOverallInfo: {
+    marginLeft: 10,
+    marginRight: 10,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });

@@ -96,6 +96,20 @@ class Home extends Component {
             {countryState.addedCountries &&
             countryState.addedCountries.length > 0 ? (
               <ScrollView>
+                <Card style={styles.cardOverallInfo}>
+                  <CardItem>
+                    <Body>
+                      <Text style={{ alignSelf: "center" }}>
+                        <Icon
+                          style={{ color: "#ff0000" }}
+                          size={15}
+                          name="warning"
+                        />{" "}
+                        Travel Advisory: Do Not Travel
+                      </Text>
+                    </Body>
+                  </CardItem>
+                </Card>
                 {countryState.addedCountries.map((item, index) => {
                   return (
                     <SingleListItem
@@ -104,6 +118,9 @@ class Home extends Component {
                       flag={
                         defaultCountryList.find((c) => c.country === item)
                           .source
+                      }
+                      safe={
+                        defaultCountryList.find((c) => c.country === item).safe
                       }
                       actionBtn="right"
                       actionBtnRightText="Edit"
@@ -142,11 +159,13 @@ class Home extends Component {
                           name="check-circle"
                         />{" "}
                         Completed{" "}
-                        {this.totalCompleted(bucketlistState.bucketlists)}{" of "}
+                        {this.totalCompleted(bucketlistState.bucketlists)}
+                        {" of "}
                         {Object.values(bucketlistState.bucketlists).reduce(
                           (e, { items }) => e + items.length,
                           0
-                        )}{" ideas"}
+                        )}
+                        {" ideas"}
                       </Text>
                     </Body>
                   </CardItem>
