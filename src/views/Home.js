@@ -5,7 +5,7 @@ import {
   Text,
   ScrollView,
   View,
-  Image
+  Image,
 } from "react-native";
 import {
   Container,
@@ -16,7 +16,7 @@ import {
   TabHeading,
   Card,
   CardItem,
-  Body
+  Body,
 } from "native-base";
 import * as _ from "lodash";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -32,37 +32,46 @@ import { getBucketListAction } from "../actions/bucketlistActions.js";
 class Home extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Bucket Lists",
-    headerRight: (
+    headerRight: () => (
       <TouchableOpacity onPress={() => navigation.navigate("AddCountries")}>
         <Text style={styles.headerBtn}>ADD COUNTRY</Text>
       </TouchableOpacity>
-    )
+    ),
   });
 
   constructor(props) {
     super(props);
+    props.getAllCountriesAction();
+    props.getBucketListAction();
 
     this.state = {
       defaultCountryList: Countries,
-      loading: true
+      loading: true,
     };
-  }
-
-  componentWillMount() {
-    this.props.getAllCountriesAction();
-    this.props.getBucketListAction();
   }
 
   componentDidMount() {
     setTimeout(() => {
       this.setState({
-        loading: false
+        loading: false,
       });
     }, 1000);
   }
 
+  totalCompleted = (bucketlists) => {
+    let total = 0;
+    bucketlists.forEach((arr) => {
+      arr.achieved.map((item) => {
+        if (item) total += 1;
+      });
+    });
+
+    return total;
+  };
+
   render() {
     const { defaultCountryList, loading } = this.state;
+    const { countryState, bucketlistState } = this.props;
 
     if (loading) {
       return (
@@ -84,22 +93,40 @@ class Home extends Component {
               </TabHeading>
             }
           >
-            {this.props.countryState.addedCountries &&
-            this.props.countryState.addedCountries.length > 0 ? (
+            {countryState.addedCountries &&
+            countryState.addedCountries.length > 0 ? (
               <ScrollView>
-                {this.props.countryState.addedCountries.map((item, index) => {
+                <Card style={styles.cardOverallInfo}>
+                  <CardItem>
+                    <Body>
+                      <Text style={{ alignSelf: "center" }}>
+                        <Icon
+                          style={{ color: "#ff0000" }}
+                          size={15}
+                          name="warning"
+                        />{" "}
+                        Travel Advisory: Do Not Travel
+                      </Text>
+                    </Body>
+                  </CardItem>
+                </Card>
+                {countryState.addedCountries.map((item, index) => {
                   return (
                     <SingleListItem
                       key={"Country" + index}
                       countryName={item}
                       flag={
-                        defaultCountryList.find(c => c.country === item).source
+                        defaultCountryList.find((c) => c.country === item)
+                          .source
+                      }
+                      safe={
+                        defaultCountryList.find((c) => c.country === item).safe
                       }
                       actionBtn="right"
                       actionBtnRightText="Edit"
                       handleOnPress={() =>
                         this.props.navigation.navigate("EditBucketList", {
-                          countryName: item
+                          countryName: item,
                         })
                       }
                     />
@@ -108,7 +135,7 @@ class Home extends Component {
               </ScrollView>
             ) : (
               <View style={styles.centerContent}>
-                <Text style={{ fontWeight: "bold" }}>No countries added!</Text>
+                <Text style={{ fontWeight: "bold" }}>No countries added</Text>
               </View>
             )}
           </Tab>
@@ -119,70 +146,101 @@ class Home extends Component {
               </TabHeading>
             }
           >
-            <ScrollView>
-              {this.props.bucketlistState.bucketlists &&
-                this.props.bucketlistState.bucketlists.map((item, index) => {
-                  return (
-                    <Card key={"countryCard" + index}>
-                      <CardItem>
-                        <Body>
-                          <View style={styles.cardTitle}>
-                            <Image
-                              style={{ width: 40 }}
-                              resizeMode="contain"
-                              source={
-                                defaultCountryList.find(
-                                  c => c.country === item.country
-                                ).source
-                              }
-                            />
-                            <Text
+            {countryState.addedCountries &&
+            countryState.addedCountries.length > 0 ? (
+              <ScrollView>
+                <Card style={styles.cardOverallInfo}>
+                  <CardItem>
+                    <Body>
+                      <Text style={{ alignSelf: "center" }}>
+                        <Icon
+                          style={{ color: "#4CAF50" }}
+                          size={18}
+                          name="check-circle"
+                        />{" "}
+                        Completed{" "}
+                        {this.totalCompleted(bucketlistState.bucketlists)}
+                        {" of "}
+                        {Object.values(bucketlistState.bucketlists).reduce(
+                          (e, { items }) => e + items.length,
+                          0
+                        )}
+                        {" ideas"}
+                      </Text>
+                    </Body>
+                  </CardItem>
+                </Card>
+                {bucketlistState.bucketlists &&
+                  bucketlistState.bucketlists.map((item, index) => {
+                    return (
+                      <Card
+                        key={"countryCard" + index}
+                        style={styles.cardStyle}
+                      >
+                        <CardItem>
+                          <Body>
+                            <View style={styles.cardTitle}>
+                              <Image
+                                style={{ width: 40 }}
+                                resizeMode="contain"
+                                source={
+                                  defaultCountryList.find(
+                                    (c) => c.country === item.country
+                                  ).source
+                                }
+                              />
+                              <Text
+                                style={{
+                                  fontSize: 15,
+                                  fontWeight: "bold",
+                                  textAlignVertical: "center",
+                                }}
+                              >
+                                {" "}
+                                {item.country}
+                              </Text>
+                            </View>
+
+                            <View
                               style={{
-                                fontSize: 15,
-                                fontWeight: "bold",
-                                textAlignVertical: "center"
+                                flex: 1,
+                                flexDirection: "column",
                               }}
                             >
-                              {" "}
-                              {item.country}
-                            </Text>
-                          </View>
-
-                          <View
-                            style={{
-                              flex: 1,
-                              flexDirection: "column"
-                            }}
-                          >
-                            {item.items.map((idea, index) => {
-                              return (
-                                <View key={"idea" + index}>
-                                  <Text>
-                                    {item.achieved[index] ? (
-                                      <Icon
-                                        style={{ color: "#4CAF50" }}
-                                        size={18}
-                                        name="check-circle"
-                                      />
-                                    ) : (
-                                      <Icon
-                                        style={{ color: "#2196f3" }}
-                                        size={15}
-                                        name="ellipsis-h"
-                                      />
-                                    )}{" "}
-                                    {idea}
-                                  </Text>
-                                </View>
-                              );
-                            })}
-                          </View>
-                        </Body>
-                      </CardItem>
-                    </Card>
-                  );
-                })}
-            </ScrollView>
+                              {item.items.map((idea, index) => {
+                                return (
+                                  <View key={"idea" + index}>
+                                    <Text>
+                                      {item.achieved[index] ? (
+                                        <Icon
+                                          style={{ color: "#4CAF50" }}
+                                          size={18}
+                                          name="check-circle"
+                                        />
+                                      ) : (
+                                        <Icon
+                                          style={{ color: "#2196f3" }}
+                                          size={15}
+                                          name="ellipsis-h"
+                                        />
+                                      )}{" "}
+                                      {idea}
+                                    </Text>
+                                  </View>
+                                );
+                              })}
+                            </View>
+                          </Body>
+                        </CardItem>
+                      </Card>
+                    );
+                  })}
+              </ScrollView>
+            ) : (
+              <View style={styles.centerContent}>
+                <Text style={{ fontWeight: "bold" }}>No countries added</Text>
+              </View>
+            )}
           </Tab>
         </Tabs>
       </Container>
@@ -190,25 +248,20 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  ...state
+const mapStateToProps = (state) => ({
+  ...state,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   getBucketListAction: () => dispatch(getBucketListAction()),
-  getAllCountriesAction: () => dispatch(getAllCountriesAction())
+  getAllCountriesAction: () => dispatch(getAllCountriesAction()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
 
 const styles = StyleSheet.create({
   flag: {
     flex: 1,
-    width: undefined,
-    height: undefined
   },
   headerBtn: {
     color: "#fff",
@@ -217,18 +270,29 @@ const styles = StyleSheet.create({
     borderColor: "#fff",
     borderWidth: 1,
     padding: 5,
-    borderRadius: 20
+    borderRadius: 20,
+  },
+  cardOverallInfo: {
+    marginLeft: 10,
+    marginRight: 10,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
   cardTitle: {
     flex: 1,
     alignSelf: "stretch",
     flexDirection: "row",
     borderBottomWidth: 1,
-    borderBottomColor: "#2196f3"
+    borderBottomColor: "#2196f3",
+  },
+  cardStyle: {
+    marginLeft: 10,
+    marginRight: 10,
   },
   centerContent: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 });

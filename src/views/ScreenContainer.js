@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from "react-navigation-stack";
 
 import Home from ".//Home.js";
 import AddCountries from "./AddCountries.js";

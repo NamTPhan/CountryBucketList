@@ -17,7 +17,8 @@ class SingleListItem extends Component {
 
         <Body style={{ width: "100%" }}>
           <Text style={styles.flagText}>
-            <Text style={styles.flagTitleText}>{this.props.countryName}</Text>
+            <Text style={styles.flagTitleText}>{this.props.countryName}</Text>{" "}
+            {this.props.safe === "No" ? <Icon style={{ color: "#ff0000" }} size={15} name="warning" /> : null}
           </Text>
         </Body>
 
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
   },
   flagTitleText: {
     fontWeight: "bold",
-    fontSize: 18
+    fontSize: 16
   },
   addBtn: {
     color: "#4CAF50",

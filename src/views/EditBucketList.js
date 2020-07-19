@@ -13,7 +13,7 @@ import {
   Input,
   Label,
   Toast,
-  Root
+  Root,
 } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as _ from "lodash";
@@ -21,26 +21,37 @@ import * as _ from "lodash";
 import { connect } from "react-redux";
 import {
   saveBucketListAction,
-  getBucketListAction
+  getBucketListAction,
 } from "../actions/bucketlistActions.js";
 
 class EditBucketList extends Component {
   static navigationOptions = {
-    title: "Edit Bucket List"
+    title: "Edit Bucket List",
   };
+
+  _isMounted = false;
 
   constructor(props) {
     super(props);
+
     this.state = {
       currentCountry: "",
       inputIdea: "",
       items: [],
       achieved: [],
-      indexOfCountry: ""
+      indexOfCountry: "",
+    };
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+    this.setState = (state, callback) => {
+      return;
     };
   }
 
   componentDidMount() {
+    this._isMounted = true;
     // Get all countries and their bucketlists data
     this.props.getBucketListAction();
 
@@ -52,39 +63,45 @@ class EditBucketList extends Component {
       const countryName = navigation.getParam("countryName", "No Country Name");
 
       this.setState({
-        currentCountry: countryName
+        currentCountry: countryName,
       });
 
       if (allBucketLists !== undefined && allBucketLists.length > 0) {
-        let countryBucketList = _.find(allBucketLists, function(c) {
+        let countryBucketList = _.find(allBucketLists, function (c) {
           return c.country === countryName;
         });
 
-        let indexOfCountryBucketList = _.findIndex(allBucketLists, function(c) {
+        let indexOfCountryBucketList = _.findIndex(allBucketLists, function (
+          c
+        ) {
           return c.country === countryName;
         });
 
         this.setState({
           items: countryBucketList.items,
           achieved: countryBucketList.achieved,
-          indexOfCountry: indexOfCountryBucketList
+          indexOfCountry: indexOfCountryBucketList,
         });
       }
     }, 1000);
   }
+
+  onChangeIdeaInput = (text) => {
+    this.setState({ inputIdea: text });
+  };
 
   handleAddItem = () => {
     this.state.items.push(this.state.inputIdea);
     this.state.achieved.push(false);
 
     this.setState({
-      inputIdea: ""
+      inputIdea: "",
     });
 
     Keyboard.dismiss();
   };
 
-  handleDeleteItem = index => {
+  handleDeleteItem = (index) => {
     let itemsArray = this.state.items;
     itemsArray.splice(index, 1);
     let achievedArray = this.state.achieved;
@@ -92,16 +109,16 @@ class EditBucketList extends Component {
 
     this.setState({
       items: itemsArray,
-      achieved: achievedArray
+      achieved: achievedArray,
     });
   };
 
-  handleCheckBtn = index => {
+  handleCheckBtn = (index) => {
     let achievedArray = this.state.achieved;
     achievedArray[index] = achievedArray[index] === false ? true : false;
 
     this.setState({
-      achieved: achievedArray
+      achieved: achievedArray,
     });
   };
 
@@ -110,7 +127,7 @@ class EditBucketList extends Component {
       text: text,
       duration: 3000,
       type: type,
-      position: "bottom"
+      position: "bottom",
     });
   };
 
@@ -130,11 +147,11 @@ class EditBucketList extends Component {
 
               <View style={styles.inputFieldView}>
                 <View style={{ width: "87%" }}>
-                  <Item floatingLabel>
-                    <Label>Bucket List Idea</Label>
+                  <Item inlineLabel>
+                    <Label>Idea:</Label>
                     <Input
                       value={inputIdea}
-                      onChangeText={text => this.setState({ inputIdea: text })}
+                      onChangeText={(text) => this.onChangeIdeaInput(text)}
                     />
                   </Item>
                 </View>
@@ -183,7 +200,7 @@ class EditBucketList extends Component {
               ) : (
                 <View style={styles.centerContent}>
                   <Text style={{ fontWeight: "bold" }}>
-                    No ideas added yet...
+                    {"\n"}No ideas added...
                   </Text>
                 </View>
               )}
@@ -198,7 +215,7 @@ class EditBucketList extends Component {
                 this.props.saveBucketListAction(indexOfCountry, {
                   country: countryName,
                   items: items,
-                  achieved: achieved
+                  achieved: achieved,
                 });
                 this.toastMessage("Changes successfully saved!", "success");
               }}
@@ -214,44 +231,41 @@ class EditBucketList extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  ...state
+const mapStateToProps = (state) => ({
+  ...state,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   saveBucketListAction: (index, object) =>
     dispatch(saveBucketListAction(index, object)),
 
-  getBucketListAction: () => dispatch(getBucketListAction())
+  getBucketListAction: () => dispatch(getBucketListAction()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EditBucketList);
+export default connect(mapStateToProps, mapDispatchToProps)(EditBucketList);
 
 const styles = StyleSheet.create({
   trashIcon: {
     color: "#ff0000",
-    marginRight: 10
+    marginRight: 10,
   },
   countryName: {
     fontWeight: "bold",
     textAlign: "center",
-    flex: 1
+    flex: 1,
   },
   addBtn: {
     backgroundColor: "#2196f3",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   inputFieldView: {
     flexDirection: "row",
     justifyContent: "flex-start",
-    marginBottom: 10
+    marginBottom: 10,
   },
   centerContent: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 });

@@ -3,9 +3,12 @@
     "name": "Country BucketList",
     "slug": "CountryBucketList",
     "privacy": "public",
-    "sdkVersion": "34.0.0",
-    "platforms": ["ios", "android", "web"],
-    "version": "1.0.1",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -16,14 +19,16 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "package": "com.npdevelopment.countrybucketlist",
-      "versionCode": 2,
-      "permissions": []
+      "versionCode": 4,
+      "permissions": ["WAKE_LOCK"]
     }
   }
 }
