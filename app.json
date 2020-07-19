@@ -28,7 +28,7 @@
     "android": {
       "package": "com.npdevelopment.countrybucketlist",
       "versionCode": 4,
-      "permissions": []
+      "permissions": ["WAKE_LOCK"]
     }
   }
 }
