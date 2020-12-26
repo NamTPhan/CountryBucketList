@@ -5,6 +5,8 @@ import Home from ".//Home.js";
 import AddCountries from "./AddCountries.js";
 import EditBucketList from "./EditBucketList.js";
 
+import * as Colors from "../styles/Colors";
+
 const NavigationStack = createStackNavigator(
   {
     Home: Home,
@@ -14,9 +16,9 @@ const NavigationStack = createStackNavigator(
   {
     defaultNavigationOptions: {
       headerStyle: {
-        backgroundColor: "#2196f3"
+        backgroundColor: Colors.Blue
       },
-      headerTintColor: "#fff",
+      headerTintColor: Colors.White,
       headerTitleStyle: {
         fontWeight: "bold"
       }

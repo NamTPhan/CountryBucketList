@@ -24,6 +24,8 @@ import {
   getBucketListAction,
 } from "../actions/bucketlistActions.js";
 
+import * as Colors from "../styles/Colors";
+
 class EditBucketList extends Component {
   static navigationOptions = {
     title: "Edit Bucket List",
@@ -31,7 +33,7 @@ class EditBucketList extends Component {
 
   _isMounted = false;
 
-  constructor(props) {
+  constructor (props) {
     super(props);
 
     this.state = {
@@ -141,12 +143,12 @@ class EditBucketList extends Component {
         <Root>
           <View style={{ flex: 3 }}>
             <List>
-              <ListItem itemDivider style={{ backgroundColor: "#f5f5f5" }}>
+              <ListItem itemDivider style={{ backgroundColor: Colors.WhiteSmoke }}>
                 <Text style={styles.countryName}>{countryName}</Text>
               </ListItem>
 
               <View style={styles.inputFieldView}>
-                <View style={{ width: "87%" }}>
+                <View style={{ flex: 1, flexGrow: 7 }}>
                   <Item inlineLabel>
                     <Label>Idea:</Label>
                     <Input
@@ -155,12 +157,20 @@ class EditBucketList extends Component {
                     />
                   </Item>
                 </View>
-                <View style={{ width: "13%" }}>
+                <View style={{ flex: 1 }}>
                   <Button
                     style={styles.addBtn}
                     onPress={() => this.handleAddItem()}
                   >
-                    <Icon style={{ color: "#fff" }} size={20} name="plus" />
+                    <Icon
+                      style={{
+                        color: Colors.White,
+                        width: 50,
+                        textAlign: 'center'
+                      }}
+                      size={20}
+                      name="plus"
+                    />
                   </Button>
                 </View>
               </View>
@@ -198,12 +208,12 @@ class EditBucketList extends Component {
                   })}
                 </ScrollView>
               ) : (
-                <View style={styles.centerContent}>
-                  <Text style={{ fontWeight: "bold" }}>
-                    {"\n"}No ideas added...
+                  <View style={styles.centerContent}>
+                    <Text style={{ fontWeight: "bold" }}>
+                      {"\n"}No ideas added...
                   </Text>
-                </View>
-              )}
+                  </View>
+                )}
             </List>
           </View>
 
@@ -220,7 +230,7 @@ class EditBucketList extends Component {
                 this.toastMessage("Changes successfully saved!", "success");
               }}
             >
-              <Text style={{ color: "#fff", fontWeight: "bold" }}>
+              <Text style={{ color: Colors.White, fontWeight: "bold" }}>
                 Save Changes
               </Text>
             </Button>
@@ -246,7 +256,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(EditBucketList);
 
 const styles = StyleSheet.create({
   trashIcon: {
-    color: "#ff0000",
+    color: Colors.Red,
     marginRight: 10,
   },
   countryName: {
@@ -255,8 +265,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   addBtn: {
-    backgroundColor: "#2196f3",
-    justifyContent: "center",
+    backgroundColor: Colors.Blue,
+    justifyContent: "center"
   },
   inputFieldView: {
     flexDirection: "row",

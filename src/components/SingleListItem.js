@@ -3,6 +3,8 @@ import { StyleSheet, Text, Image } from "react-native";
 import { ListItem, Body, Left, Right, Button } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 
+import * as Colors from "../styles/Colors";
+
 class SingleListItem extends Component {
   render() {
     return (
@@ -18,29 +20,32 @@ class SingleListItem extends Component {
         <Body style={{ width: "100%" }}>
           <Text style={styles.flagText}>
             <Text style={styles.flagTitleText}>{this.props.countryName}</Text>{" "}
-            {this.props.safe === "No" ? <Icon style={{ color: "#ff0000" }} size={15} name="warning" /> : null}
+            {
+              this.props.safe === "No" &&
+              <Icon style={{ color: Colors.Red }} size={15} name="warning" />
+            }
           </Text>
         </Body>
 
         <Right>
-          {this.props.actionBtn === "trash" ? (
+          {this.props.actionBtn === "trash" && (
             <Button transparent onPress={this.props.handleDeleteBtn}>
-              <Icon style={{ color: "#ff0000" }} size={20} name="trash-o" />
+              <Icon style={{ color: Colors.Red }} size={20} name="trash-o" />
             </Button>
-          ) : null}
-          {this.props.actionBtn === "right" ? (
+          )}
+          {this.props.actionBtn === "right" && (
             <Button transparent>
               <Text style={styles.mainColor}>
                 {this.props.actionBtnRightText}{" "}
               </Text>
               <Icon style={styles.mainColor} size={30} name="angle-right" />
             </Button>
-          ) : null}
-          {this.props.actionBtn === "add" ? (
+          )}
+          {this.props.actionBtn === "add" && (
             <Button transparent onPress={this.props.handleOnBtnPress}>
               <Text style={styles.addBtn}>ADD +</Text>
             </Button>
-          ) : null}
+          )}
         </Right>
       </ListItem>
     );
@@ -54,19 +59,22 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     fontSize: 16
   },
+
   flagTitleText: {
     fontWeight: "bold",
     fontSize: 16
   },
+
   addBtn: {
-    color: "#4CAF50",
+    color: Colors.Green,
     fontWeight: "bold",
-    borderColor: "#4CAF50",
+    borderColor: Colors.Green,
     borderWidth: 1,
     padding: 5,
     borderRadius: 20
   },
+
   mainColor: {
-    color: "#03a9f4"
+    color: Colors.Blue
   }
 });

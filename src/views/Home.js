@@ -24,11 +24,12 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { connect } from "react-redux";
 
 import Countries from "../data/CountriesFlags.js";
-import SingleListItem from "../components/SingleListItem/SingleListItem.js";
+import SingleListItem from "../components/SingleListItem.js";
 
 import { getAllCountriesAction } from "../actions/countryActions.js";
 import { getBucketListAction } from "../actions/bucketlistActions.js";
 
+import * as Colors from "../styles/Colors";
 class Home extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Bucket Lists",
@@ -39,7 +40,7 @@ class Home extends Component {
     ),
   });
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     props.getAllCountriesAction();
     props.getBucketListAction();
@@ -88,159 +89,161 @@ class Home extends Component {
         <Tabs>
           <Tab
             heading={
-              <TabHeading style={{ backgroundColor: "#2196f3" }}>
-                <Text style={{ color: "#fff" }}>OVERVIEW</Text>
+              <TabHeading style={{ backgroundColor: Colors.Blue }}>
+                <Text style={{ color: Colors.White }}>OVERVIEW</Text>
               </TabHeading>
             }
           >
             {countryState.addedCountries &&
-            countryState.addedCountries.length > 0 ? (
-              <ScrollView>
-                <Card style={styles.cardOverallInfo}>
-                  <CardItem>
-                    <Body>
-                      <Text style={{ alignSelf: "center" }}>
-                        <Icon
-                          style={{ color: "#ff0000" }}
-                          size={15}
-                          name="warning"
-                        />{" "}
+              countryState.addedCountries.length > 0 ? (
+                <ScrollView>
+                  <Card style={styles.cardOverallInfo}>
+                    <CardItem>
+                      <Body>
+                        <Text style={{ alignSelf: "center" }}>
+                          <Icon
+                            style={{ color: Colors.Red }}
+                            size={15}
+                            name="warning"
+                          />{" "}
                         Travel Advisory: Do Not Travel
                       </Text>
-                    </Body>
-                  </CardItem>
-                </Card>
-                {countryState.addedCountries.map((item, index) => {
-                  return (
-                    <SingleListItem
-                      key={"Country" + index}
-                      countryName={item}
-                      flag={
-                        defaultCountryList.find((c) => c.country === item)
-                          .source
-                      }
-                      safe={
-                        defaultCountryList.find((c) => c.country === item).safe
-                      }
-                      actionBtn="right"
-                      actionBtnRightText="Edit"
-                      handleOnPress={() =>
-                        this.props.navigation.navigate("EditBucketList", {
-                          countryName: item,
-                        })
-                      }
-                    />
-                  );
-                })}
-              </ScrollView>
-            ) : (
-              <View style={styles.centerContent}>
-                <Text style={{ fontWeight: "bold" }}>No countries added</Text>
-              </View>
-            )}
+                      </Body>
+                    </CardItem>
+                  </Card>
+                  {
+                    countryState.addedCountries.map((item, index) => {
+                      return (
+                        <SingleListItem
+                          key={"Country" + index}
+                          countryName={item}
+                          flag={
+                            defaultCountryList.find((c) => c.country === item)
+                              .source
+                          }
+                          safe={
+                            defaultCountryList.find((c) => c.country === item).safe
+                          }
+                          actionBtn="right"
+                          actionBtnRightText="Edit"
+                          handleOnPress={() =>
+                            this.props.navigation.navigate("EditBucketList", {
+                              countryName: item,
+                            })
+                          }
+                        />
+                      );
+                    })
+                  }
+                </ScrollView>
+              ) : (
+                <View style={styles.centerContent}>
+                  <Text style={{ fontWeight: "bold" }}>No countries added</Text>
+                </View>
+              )}
           </Tab>
           <Tab
             heading={
-              <TabHeading style={{ backgroundColor: "#2196f3" }}>
-                <Text style={{ color: "#fff" }}>DETAILS</Text>
+              <TabHeading style={{ backgroundColor: Colors.Blue }}>
+                <Text style={{ color: Colors.White }}>DETAILS</Text>
               </TabHeading>
             }
           >
             {countryState.addedCountries &&
-            countryState.addedCountries.length > 0 ? (
-              <ScrollView>
-                <Card style={styles.cardOverallInfo}>
-                  <CardItem>
-                    <Body>
-                      <Text style={{ alignSelf: "center" }}>
-                        <Icon
-                          style={{ color: "#4CAF50" }}
-                          size={18}
-                          name="check-circle"
-                        />{" "}
+              countryState.addedCountries.length > 0 ? (
+                <ScrollView>
+                  <Card style={styles.cardOverallInfo}>
+                    <CardItem>
+                      <Body>
+                        <Text style={{ alignSelf: "center" }}>
+                          <Icon
+                            style={{ color: Colors.Green }}
+                            size={18}
+                            name="check-circle"
+                          />{" "}
                         Completed{" "}
-                        {this.totalCompleted(bucketlistState.bucketlists)}
-                        {" of "}
-                        {Object.values(bucketlistState.bucketlists).reduce(
-                          (e, { items }) => e + items.length,
-                          0
-                        )}
-                        {" ideas"}
-                      </Text>
-                    </Body>
-                  </CardItem>
-                </Card>
-                {bucketlistState.bucketlists &&
-                  bucketlistState.bucketlists.map((item, index) => {
-                    return (
-                      <Card
-                        key={"countryCard" + index}
-                        style={styles.cardStyle}
-                      >
-                        <CardItem>
-                          <Body>
-                            <View style={styles.cardTitle}>
-                              <Image
-                                style={{ width: 40 }}
-                                resizeMode="contain"
-                                source={
-                                  defaultCountryList.find(
-                                    (c) => c.country === item.country
-                                  ).source
-                                }
-                              />
-                              <Text
+                          {this.totalCompleted(bucketlistState.bucketlists)}
+                          {" of "}
+                          {Object.values(bucketlistState.bucketlists).reduce(
+                            (e, { items }) => e + items.length,
+                            0
+                          )}
+                          {" ideas"}
+                        </Text>
+                      </Body>
+                    </CardItem>
+                  </Card>
+                  {bucketlistState.bucketlists &&
+                    bucketlistState.bucketlists.map((item, index) => {
+                      return (
+                        <Card
+                          key={"countryCard" + index}
+                          style={styles.cardStyle}
+                        >
+                          <CardItem>
+                            <Body>
+                              <View style={styles.cardTitle}>
+                                <Image
+                                  style={{ width: 40 }}
+                                  resizeMode="contain"
+                                  source={
+                                    defaultCountryList.find(
+                                      (c) => c.country === item.country
+                                    ).source
+                                  }
+                                />
+                                <Text
+                                  style={{
+                                    fontSize: 15,
+                                    fontWeight: "bold",
+                                    textAlignVertical: "center",
+                                  }}
+                                >
+                                  {" "}
+                                  {item.country}
+                                </Text>
+                              </View>
+
+                              <View
                                 style={{
-                                  fontSize: 15,
-                                  fontWeight: "bold",
-                                  textAlignVertical: "center",
+                                  flex: 1,
+                                  flexDirection: "column",
                                 }}
                               >
-                                {" "}
-                                {item.country}
-                              </Text>
-                            </View>
-
-                            <View
-                              style={{
-                                flex: 1,
-                                flexDirection: "column",
-                              }}
-                            >
-                              {item.items.map((idea, index) => {
-                                return (
-                                  <View key={"idea" + index}>
-                                    <Text>
-                                      {item.achieved[index] ? (
-                                        <Icon
-                                          style={{ color: "#4CAF50" }}
-                                          size={18}
-                                          name="check-circle"
-                                        />
-                                      ) : (
-                                        <Icon
-                                          style={{ color: "#2196f3" }}
-                                          size={15}
-                                          name="ellipsis-h"
-                                        />
-                                      )}{" "}
-                                      {idea}
-                                    </Text>
-                                  </View>
-                                );
-                              })}
-                            </View>
-                          </Body>
-                        </CardItem>
-                      </Card>
-                    );
-                  })}
-              </ScrollView>
-            ) : (
-              <View style={styles.centerContent}>
-                <Text style={{ fontWeight: "bold" }}>No countries added</Text>
-              </View>
-            )}
+                                {item.items.map((idea, index) => {
+                                  return (
+                                    <View key={"idea" + index}>
+                                      <Text>
+                                        {item.achieved[index] ? (
+                                          <Icon
+                                            style={{ color: Colors.Green }}
+                                            size={18}
+                                            name="check-circle"
+                                          />
+                                        ) : (
+                                            <Icon
+                                              style={{ color: Colors.Blue }}
+                                              size={15}
+                                              name="ellipsis-h"
+                                            />
+                                          )}{" "}
+                                        {idea}
+                                      </Text>
+                                    </View>
+                                  );
+                                })}
+                              </View>
+                            </Body>
+                          </CardItem>
+                        </Card>
+                      );
+                    })}
+                </ScrollView>
+              ) : (
+                <View style={styles.centerContent}>
+                  <Text style={{ fontWeight: "bold" }}>No countries added</Text>
+                </View>
+              )}
           </Tab>
         </Tabs>
       </Container>
@@ -264,10 +267,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerBtn: {
-    color: "#fff",
+    color: Colors.White,
     fontWeight: "bold",
     marginRight: 5,
-    borderColor: "#fff",
+    borderColor: Colors.White,
     borderWidth: 1,
     padding: 5,
     borderRadius: 20,
@@ -284,7 +287,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     flexDirection: "row",
     borderBottomWidth: 1,
-    borderBottomColor: "#2196f3",
+    borderBottomColor: Colors.Blue,
   },
   cardStyle: {
     marginLeft: 10,

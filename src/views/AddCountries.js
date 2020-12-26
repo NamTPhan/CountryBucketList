@@ -16,8 +16,10 @@ import {
 import { connect } from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-import SingleListItem from "../components/SingleListItem/SingleListItem";
+import SingleListItem from "../components/SingleListItem";
 import Countries from "../data/CountriesFlags.js";
+
+import * as Colors from "../styles/Colors";
 
 import {
   addCountryAction,
@@ -34,7 +36,7 @@ class AddCountries extends Component {
     title: "Add Countries",
   };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     props.getAllCountriesAction();
 
@@ -92,8 +94,8 @@ class AddCountries extends Component {
           <Tabs>
             <Tab
               heading={
-                <TabHeading style={{ backgroundColor: "#2196f3" }}>
-                  <Text style={{ color: "#fff" }}>AVAILABLE</Text>
+                <TabHeading style={{ backgroundColor: Colors.Blue }}>
+                  <Text style={{ color: Colors.White }}>AVAILABLE</Text>
                 </TabHeading>
               }
             >
@@ -103,7 +105,7 @@ class AddCountries extends Component {
                     <Body>
                       <Text style={{ alignSelf: "center" }}>
                         <Icon
-                          style={{ color: "#ff0000" }}
+                          style={{ color: Colors.Red }}
                           size={15}
                           name="warning"
                         />{" "}
@@ -129,7 +131,7 @@ class AddCountries extends Component {
                       countryName={item.country}
                       flag={item.source}
                       safe={item.safe}
-                      actionBtn={activateBtn ? "add" : null}
+                      actionBtn={activateBtn && "add"}
                       handleOnBtnPress={() => {
                         this.toastMessage(
                           "Country successfully added!",
@@ -145,43 +147,43 @@ class AddCountries extends Component {
             </Tab>
             <Tab
               heading={
-                <TabHeading style={{ backgroundColor: "#2196f3" }}>
-                  <Text style={{ color: "#fff" }}>MY COUNTRIES</Text>
+                <TabHeading style={{ backgroundColor: Colors.Blue }}>
+                  <Text style={{ color: Colors.White }}>MY COUNTRIES</Text>
                 </TabHeading>
               }
             >
               {this.props.countryState.addedCountries !== undefined &&
-              this.props.countryState.addedCountries.length > 0 ? (
-                <ScrollView>
-                  {this.props.countryState.addedCountries.map((item, index) => {
-                    return (
-                      <SingleListItem
-                        key={"Country" + index}
-                        countryName={item}
-                        actionBtn={"trash"}
-                        flag={
-                          defaultCountryList.find((c) => c.country === item)
-                            .source
-                        }
-                        safe={
-                          defaultCountryList.find((c) => c.country === item)
-                            .safe
-                        }
-                        handleDeleteBtn={() => {
-                          this.props.deleteCountryAction(index);
-                          this.props.deleteBucketListAction(index);
-                        }}
-                      />
-                    );
-                  })}
-                </ScrollView>
-              ) : (
-                <View style={styles.centerContent}>
-                  <Text style={{ fontWeight: "bold" }}>
-                    No countries added!
+                this.props.countryState.addedCountries.length > 0 ? (
+                  <ScrollView>
+                    {this.props.countryState.addedCountries.map((item, index) => {
+                      return (
+                        <SingleListItem
+                          key={"Country" + index}
+                          countryName={item}
+                          actionBtn={"trash"}
+                          flag={
+                            defaultCountryList.find((c) => c.country === item)
+                              .source
+                          }
+                          safe={
+                            defaultCountryList.find((c) => c.country === item)
+                              .safe
+                          }
+                          handleDeleteBtn={() => {
+                            this.props.deleteCountryAction(index);
+                            this.props.deleteBucketListAction(index);
+                          }}
+                        />
+                      );
+                    })}
+                  </ScrollView>
+                ) : (
+                  <View style={styles.centerContent}>
+                    <Text style={{ fontWeight: "bold" }}>
+                      No countries added!
                   </Text>
-                </View>
-              )}
+                  </View>
+                )}
             </Tab>
           </Tabs>
         </Root>
