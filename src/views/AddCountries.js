@@ -8,66 +8,69 @@ import {
   Tabs,
   TabHeading,
   Toast,
-  Root
+  Root,
+  Card,
+  CardItem,
+  Body,
 } from "native-base";
 import { connect } from "react-redux";
+import Icon from "react-native-vector-icons/FontAwesome";
 
-import SingleListItem from "../components/SingleListItem/SingleListItem";
+import SingleListItem from "../components/SingleListItem";
 import Countries from "../data/CountriesFlags.js";
+
+import * as Colors from "../styles/Colors";
 
 import {
   addCountryAction,
   deleteCountryAction,
-  getAllCountriesAction
+  getAllCountriesAction,
 } from "../actions/countryActions.js";
 import {
   addDefaultBucketListAction,
-  deleteBucketListAction
+  deleteBucketListAction,
 } from "../actions/bucketlistActions.js";
 
 class AddCountries extends Component {
   static navigationOptions = {
-    title: "Add Countries"
+    title: "Add Countries",
   };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
+    props.getAllCountriesAction();
 
     this.state = {
       defaultCountryList: [],
       loading: true,
-      activateBtn: true
+      activateBtn: true,
     };
-  }
-
-  componentWillMount() {
-    this.props.getAllCountriesAction();
   }
 
   componentDidMount() {
     setTimeout(() => {
       this.setState({
         defaultCountryList: Countries,
-        loading: false
+        loading: false,
       });
     }, 1000);
   }
 
   toastMessage = (text, type) => {
     this.setState({
-      activateBtn: false
+      activateBtn: false,
     });
 
     Toast.show({
       text: text,
       duration: 3000,
       type: type,
-      position: "bottom"
+      position: "bottom",
     });
 
     setTimeout(() => {
       this.setState({
-        activateBtn: true
+        activateBtn: true,
       });
     }, 2000);
   };
@@ -91,12 +94,26 @@ class AddCountries extends Component {
           <Tabs>
             <Tab
               heading={
-                <TabHeading style={{ backgroundColor: "#2196f3" }}>
-                  <Text style={{ color: "#fff" }}>AVAILABLE</Text>
+                <TabHeading style={{ backgroundColor: Colors.Blue }}>
+                  <Text style={{ color: Colors.White }}>AVAILABLE</Text>
                 </TabHeading>
               }
             >
               <ScrollView>
+                <Card style={styles.cardOverallInfo}>
+                  <CardItem>
+                    <Body>
+                      <Text style={{ alignSelf: "center" }}>
+                        <Icon
+                          style={{ color: Colors.Red }}
+                          size={15}
+                          name="warning"
+                        />{" "}
+                        Travel Advisory: Do Not Travel
+                      </Text>
+                    </Body>
+                  </CardItem>
+                </Card>
                 {defaultCountryList.map((item, index) => {
                   if (this.props.countryState.addedCountries !== undefined) {
                     if (
@@ -113,7 +130,8 @@ class AddCountries extends Component {
                       key={"Country" + index}
                       countryName={item.country}
                       flag={item.source}
-                      actionBtn={activateBtn ? "add" : null}
+                      safe={item.safe}
+                      actionBtn={activateBtn && "add"}
                       handleOnBtnPress={() => {
                         this.toastMessage(
                           "Country successfully added!",
@@ -129,39 +147,43 @@ class AddCountries extends Component {
             </Tab>
             <Tab
               heading={
-                <TabHeading style={{ backgroundColor: "#2196f3" }}>
-                  <Text style={{ color: "#fff" }}>MY COUNTRIES</Text>
+                <TabHeading style={{ backgroundColor: Colors.Blue }}>
+                  <Text style={{ color: Colors.White }}>MY COUNTRIES</Text>
                 </TabHeading>
               }
             >
               {this.props.countryState.addedCountries !== undefined &&
-              this.props.countryState.addedCountries.length > 0 ? (
-                <ScrollView>
-                  {this.props.countryState.addedCountries.map((item, index) => {
-                    return (
-                      <SingleListItem
-                        key={"Country" + index}
-                        countryName={item}
-                        actionBtn={"trash"}
-                        flag={
-                          defaultCountryList.find(c => c.country === item)
-                            .source
-                        }
-                        handleDeleteBtn={() => {
-                          this.props.deleteCountryAction(index);
-                          this.props.deleteBucketListAction(index);
-                        }}
-                      />
-                    );
-                  })}
-                </ScrollView>
-              ) : (
-                <View style={styles.centerContent}>
-                  <Text style={{ fontWeight: "bold" }}>
-                    No countries added!
+                this.props.countryState.addedCountries.length > 0 ? (
+                  <ScrollView>
+                    {this.props.countryState.addedCountries.map((item, index) => {
+                      return (
+                        <SingleListItem
+                          key={"Country" + index}
+                          countryName={item}
+                          actionBtn={"trash"}
+                          flag={
+                            defaultCountryList.find((c) => c.country === item)
+                              .source
+                          }
+                          safe={
+                            defaultCountryList.find((c) => c.country === item)
+                              .safe
+                          }
+                          handleDeleteBtn={() => {
+                            this.props.deleteCountryAction(index);
+                            this.props.deleteBucketListAction(index);
+                          }}
+                        />
+                      );
+                    })}
+                  </ScrollView>
+                ) : (
+                  <View style={styles.centerContent}>
+                    <Text style={{ fontWeight: "bold" }}>
+                      No countries added!
                   </Text>
-                </View>
-              )}
+                  </View>
+                )}
             </Tab>
           </Tabs>
         </Root>
@@ -170,35 +192,37 @@ class AddCountries extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  ...state
+const mapStateToProps = (state) => ({
+  ...state,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   getAllCountriesAction: () => dispatch(getAllCountriesAction()),
 
-  addCountryAction: country => dispatch(addCountryAction(country)),
-  addDefaultBucketListAction: country =>
+  addCountryAction: (country) => dispatch(addCountryAction(country)),
+  addDefaultBucketListAction: (country) =>
     dispatch(addDefaultBucketListAction(country)),
 
-  deleteCountryAction: index => dispatch(deleteCountryAction(index)),
-  deleteBucketListAction: index => dispatch(deleteBucketListAction(index))
+  deleteCountryAction: (index) => dispatch(deleteCountryAction(index)),
+  deleteBucketListAction: (index) => dispatch(deleteBucketListAction(index)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AddCountries);
+export default connect(mapStateToProps, mapDispatchToProps)(AddCountries);
 
 const styles = StyleSheet.create({
   flag: {
     flex: 1,
-    width: undefined,
-    height: undefined
   },
   centerContent: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
+  cardOverallInfo: {
+    marginLeft: 10,
+    marginRight: 10,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });

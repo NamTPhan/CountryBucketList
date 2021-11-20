@@ -2,978 +2,1173 @@ const Countries = [
   {
     id: 1,
     country: "Afghanistan",
-    source: require("../../assets/flags/Afghanistan.png")
+    source: require("../../assets/flags/Afghanistan.png"),
+    safe: "No",
   },
   {
     id: 2,
     country: "Albania",
-    source: require("../../assets/flags/Albania.png")
+    source: require("../../assets/flags/Albania.png"),
+    safe: "Yes",
   },
   {
     id: 3,
     country: "Algeria",
-    source: require("../../assets/flags/Algeria.png")
+    source: require("../../assets/flags/Algeria.png"),
+    safe: "Yes",
   },
   {
     id: 4,
     country: "Andorra",
-    source: require("../../assets/flags/Andorra.png")
+    source: require("../../assets/flags/Andorra.png"),
+    safe: "Yes",
   },
   {
     id: 5,
     country: "Antigua-and-Barbuda",
-    source: require("../../assets/flags/Antigua-and-Barbuda.png")
+    source: require("../../assets/flags/Antigua-and-Barbuda.png"),
+    safe: "Yes",
   },
   {
     id: 6,
     country: "Argentina",
-    source: require("../../assets/flags/Argentina.png")
+    source: require("../../assets/flags/Argentina.png"),
+    safe: "Yes",
   },
   {
     id: 7,
     country: "Armenia",
-    source: require("../../assets/flags/Armenia.png")
+    source: require("../../assets/flags/Armenia.png"),
+    safe: "Yes",
   },
   {
     id: 8,
     country: "Australia",
-    source: require("../../assets/flags/Australia.png")
+    source: require("../../assets/flags/Australia.png"),
+    safe: "Yes",
   },
   {
     id: 9,
     country: "Austria",
-    source: require("../../assets/flags/Austria.png")
+    source: require("../../assets/flags/Austria.png"),
+    safe: "Yes",
   },
   {
     id: 10,
     country: "Azerbaijan",
-    source: require("../../assets/flags/Azerbaijan.png")
+    source: require("../../assets/flags/Azerbaijan.png"),
+    safe: "Yes",
   },
   {
     id: 11,
     country: "Bahamas",
-    source: require("../../assets/flags/Bahamas.png")
+    source: require("../../assets/flags/Bahamas.png"),
+    safe: "Yes",
   },
   {
     id: 12,
     country: "Bahrain",
-    source: require("../../assets/flags/Bahrain.png")
+    source: require("../../assets/flags/Bahrain.png"),
+    safe: "Yes",
   },
   {
     id: 13,
     country: "Bangladesh",
-    source: require("../../assets/flags/Bangladesh.png")
+    source: require("../../assets/flags/Bangladesh.png"),
+    safe: "Yes",
   },
   {
     id: 14,
     country: "Barbados",
-    source: require("../../assets/flags/Barbados.png")
+    source: require("../../assets/flags/Barbados.png"),
+    safe: "Yes",
   },
   {
     id: 15,
     country: "Belarus",
-    source: require("../../assets/flags/Belarus.png")
+    source: require("../../assets/flags/Belarus.png"),
+    safe: "Yes",
   },
   {
     id: 16,
     country: "Belgium",
-    source: require("../../assets/flags/Belgium.png")
+    source: require("../../assets/flags/Belgium.png"),
+    safe: "Yes",
   },
   {
     id: 17,
     country: "Belize",
-    source: require("../../assets/flags/Belize.png")
+    source: require("../../assets/flags/Belize.png"),
+    safe: "Yes",
   },
   {
     id: 18,
     country: "Benin",
-    source: require("../../assets/flags/Benin.png")
+    source: require("../../assets/flags/Benin.png"),
+    safe: "Yes",
   },
   {
     id: 19,
     country: "Bhutan",
-    source: require("../../assets/flags/Bhutan.png")
+    source: require("../../assets/flags/Bhutan.png"),
+    safe: "Yes",
   },
   {
     id: 20,
     country: "Bolivia",
-    source: require("../../assets/flags/Bolivia.png")
+    source: require("../../assets/flags/Bolivia.png"),
+    safe: "Yes",
   },
   {
     id: 21,
     country: "Bosnia-and-Herzegovina",
-    source: require("../../assets/flags/Bosnia-and-Herzegovina.png")
+    source: require("../../assets/flags/Bosnia-and-Herzegovina.png"),
+    safe: "Yes",
   },
   {
     id: 22,
     country: "Botswana",
-    source: require("../../assets/flags/Botswana.png")
+    source: require("../../assets/flags/Botswana.png"),
+    safe: "Yes",
   },
   {
     id: 23,
     country: "Brazil",
-    source: require("../../assets/flags/Brazil.png")
+    source: require("../../assets/flags/Brazil.png"),
+    safe: "Yes",
   },
   {
     id: 24,
     country: "Brunei",
-    source: require("../../assets/flags/Brunei.png")
+    source: require("../../assets/flags/Brunei.png"),
+    safe: "Yes",
   },
   {
     id: 25,
     country: "Bulgaria",
-    source: require("../../assets/flags/Bulgaria.png")
+    source: require("../../assets/flags/Bulgaria.png"),
+    safe: "Yes",
   },
   {
     id: 26,
     country: "Burkina-Faso",
-    source: require("../../assets/flags/Burkina-Faso.png")
+    source: require("../../assets/flags/Burkina-Faso.png"),
+    safe: "No",
   },
   {
     id: 27,
     country: "Burundi",
-    source: require("../../assets/flags/Burundi.png")
+    source: require("../../assets/flags/Burundi.png"),
+    safe: "No",
   },
   {
     id: 28,
     country: "Cambodia",
-    source: require("../../assets/flags/Cambodia.png")
+    source: require("../../assets/flags/Cambodia.png"),
+    safe: "Yes",
   },
   {
     id: 29,
     country: "Cameroon",
-    source: require("../../assets/flags/Cameroon.png")
+    source: require("../../assets/flags/Cameroon.png"),
+    safe: "No",
   },
   {
     id: 30,
     country: "Canada",
-    source: require("../../assets/flags/Canada.png")
+    source: require("../../assets/flags/Canada.png"),
+    safe: "Yes",
   },
   {
     id: 31,
     country: "Cape-Verde",
-    source: require("../../assets/flags/Cape-Verde.png")
+    source: require("../../assets/flags/Cape-Verde.png"),
+    safe: "Yes",
   },
   {
     id: 32,
     country: "Central-African-Republic",
-    source: require("../../assets/flags/Central-African-Republic.png")
+    source: require("../../assets/flags/Central-African-Republic.png"),
+    safe: "Yes",
   },
   {
     id: 33,
     country: "Chad",
-    source: require("../../assets/flags/Chad.png")
+    source: require("../../assets/flags/Chad.png"),
+    safe: "No",
   },
   {
     id: 34,
     country: "Chile",
-    source: require("../../assets/flags/Chile.png")
+    source: require("../../assets/flags/Chile.png"),
+    safe: "Yes",
   },
   {
     id: 35,
     country: "China",
-    source: require("../../assets/flags/China.png")
+    source: require("../../assets/flags/China.png"),
+    safe: "Yes",
   },
   {
     id: 36,
     country: "Colombia",
-    source: require("../../assets/flags/Colombia.png")
+    source: require("../../assets/flags/Colombia.png"),
+    safe: "Yes",
   },
   {
     id: 37,
     country: "Comoros",
-    source: require("../../assets/flags/Comoros.png")
+    source: require("../../assets/flags/Comoros.png"),
+    safe: "Yes",
   },
   {
     id: 38,
     country: "Congo-(Democratic)",
-    source: require("../../assets/flags/Congo-(Democratic).png")
+    source: require("../../assets/flags/Congo-(Democratic).png"),
+    safe: "No",
   },
   {
     id: 39,
     country: "Congo-(Republic)",
-    source: require("../../assets/flags/Congo-(Republic).png")
+    source: require("../../assets/flags/Congo-(Republic).png"),
+    safe: "No",
   },
   {
     id: 40,
     country: "Costa-Rica",
-    source: require("../../assets/flags/Costa-Rica.png")
+    source: require("../../assets/flags/Costa-Rica.png"),
+    safe: "Yes",
   },
   {
     id: 41,
     country: "Cote-d'Ivoire",
-    source: require("../../assets/flags/Cote-dIvoire.png")
+    source: require("../../assets/flags/Cote-dIvoire.png"),
+    safe: "No",
   },
   {
     id: 42,
     country: "Croatia",
-    source: require("../../assets/flags/Croatia.png")
+    source: require("../../assets/flags/Croatia.png"),
+    safe: "Yes",
   },
   {
     id: 43,
     country: "Cuba",
-    source: require("../../assets/flags/Cuba.png")
+    source: require("../../assets/flags/Cuba.png"),
+    safe: "Yes",
   },
   {
     id: 44,
     country: "Cyprus",
-    source: require("../../assets/flags/Cyprus.png")
+    source: require("../../assets/flags/Cyprus.png"),
+    safe: "Yes",
   },
   {
     id: 45,
     country: "Czech-Republic",
-    source: require("../../assets/flags/Czech-Republic.png")
+    source: require("../../assets/flags/Czech-Republic.png"),
+    safe: "Yes",
   },
   {
     id: 46,
     country: "Denmark",
-    source: require("../../assets/flags/Denmark.png")
+    source: require("../../assets/flags/Denmark.png"),
+    safe: "Yes",
   },
   {
     id: 47,
     country: "Djibouti",
-    source: require("../../assets/flags/Djibouti.png")
+    source: require("../../assets/flags/Djibouti.png"),
+    safe: "Yes",
   },
   {
     id: 48,
     country: "Dominica",
-    source: require("../../assets/flags/Dominica.png")
+    source: require("../../assets/flags/Dominica.png"),
+    safe: "Yes",
   },
   {
     id: 49,
     country: "Dominican-Republic",
-    source: require("../../assets/flags/Dominican-Republic.png")
+    source: require("../../assets/flags/Dominican-Republic.png"),
+    safe: "Yes",
   },
   {
     id: 50,
     country: "East-Timor",
-    source: require("../../assets/flags/East-Timor.png")
+    source: require("../../assets/flags/East-Timor.png"),
+    safe: "Yes",
   },
   {
     id: 51,
     country: "Ecuador",
-    source: require("../../assets/flags/Ecuador.png")
+    source: require("../../assets/flags/Ecuador.png"),
+    safe: "Yes",
   },
   {
     id: 52,
     country: "Egypt",
-    source: require("../../assets/flags/Egypt.png")
+    source: require("../../assets/flags/Egypt.png"),
+    safe: "Yes",
   },
   {
     id: 53,
     country: "El-Salvador",
-    source: require("../../assets/flags/El-Salvador.png")
+    source: require("../../assets/flags/El-Salvador.png"),
+    safe: "Yes",
   },
   {
     id: 54,
     country: "Equatorial-Guinea",
-    source: require("../../assets/flags/Equatorial-Guinea.png")
+    source: require("../../assets/flags/Equatorial-Guinea.png"),
+    safe: "Yes",
   },
   {
     id: 55,
     country: "Eritrea",
-    source: require("../../assets/flags/Eritrea.png")
+    source: require("../../assets/flags/Eritrea.png"),
+    safe: "Yes",
   },
   {
     id: 56,
     country: "Estonia",
-    source: require("../../assets/flags/Estonia.png")
+    source: require("../../assets/flags/Estonia.png"),
+    safe: "Yes",
   },
   {
     id: 57,
     country: "Ethiopia",
-    source: require("../../assets/flags/Ethiopia.png")
+    source: require("../../assets/flags/Ethiopia.png"),
+    safe: "Yes",
   },
   {
     id: 58,
     country: "Fiji",
-    source: require("../../assets/flags/Fiji.png")
+    source: require("../../assets/flags/Fiji.png"),
+    safe: "Yes",
   },
   {
     id: 59,
     country: "Finland",
-    source: require("../../assets/flags/Finland.png")
+    source: require("../../assets/flags/Finland.png"),
+    safe: "Yes",
   },
   {
     id: 60,
     country: "France",
-    source: require("../../assets/flags/France.png")
+    source: require("../../assets/flags/France.png"),
+    safe: "Yes",
   },
   {
     id: 61,
     country: "Gabon",
-    source: require("../../assets/flags/Gabon.png")
+    source: require("../../assets/flags/Gabon.png"),
+    safe: "Yes",
   },
   {
     id: 62,
     country: "Gambia",
-    source: require("../../assets/flags/Gambia.png")
+    source: require("../../assets/flags/Gambia.png"),
+    safe: "Yes",
   },
   {
     id: 63,
     country: "Georgia",
-    source: require("../../assets/flags/Georgia.png")
+    source: require("../../assets/flags/Georgia.png"),
+    safe: "Yes",
   },
   {
     id: 64,
     country: "Germany",
-    source: require("../../assets/flags/Germany.png")
+    source: require("../../assets/flags/Germany.png"),
+    safe: "Yes",
   },
   {
     id: 65,
     country: "Ghana",
-    source: require("../../assets/flags/Ghana.png")
+    source: require("../../assets/flags/Ghana.png"),
+    safe: "Yes",
   },
   {
     id: 66,
-    country: "Grecee",
-    source: require("../../assets/flags/Grecee.png")
+    country: "Greece",
+    source: require("../../assets/flags/Greece.png"),
+    safe: "Yes",
   },
   {
     id: 67,
     country: "Grenada",
-    source: require("../../assets/flags/Grenada.png")
+    source: require("../../assets/flags/Grenada.png"),
+    safe: "Yes",
   },
   {
     id: 68,
     country: "Guatemala",
-    source: require("../../assets/flags/Guatemala.png")
+    source: require("../../assets/flags/Guatemala.png"),
+    safe: "No",
   },
   {
     id: 69,
     country: "Guinea-Bissau",
-    source: require("../../assets/flags/Guinea-Bissau.png")
+    source: require("../../assets/flags/Guinea-Bissau.png"),
+    safe: "No",
   },
   {
     id: 70,
     country: "Guinea",
-    source: require("../../assets/flags/Guinea.png")
+    source: require("../../assets/flags/Guinea.png"),
+    safe: "No",
   },
   {
     id: 71,
     country: "Guyana",
-    source: require("../../assets/flags/Guyana.png")
+    source: require("../../assets/flags/Guyana.png"),
+    safe: "Yes",
   },
   {
     id: 72,
     country: "Haiti",
-    source: require("../../assets/flags/Haiti.png")
+    source: require("../../assets/flags/Haiti.png"),
+    safe: "No",
   },
   {
     id: 73,
     country: "Honduras",
-    source: require("../../assets/flags/Honduras.png")
+    source: require("../../assets/flags/Honduras.png"),
+    safe: "No",
   },
   {
     id: 74,
     country: "Hungary",
-    source: require("../../assets/flags/Hungary.png")
+    source: require("../../assets/flags/Hungary.png"),
+    safe: "Yes",
   },
   {
     id: 75,
     country: "Iceland",
-    source: require("../../assets/flags/Iceland.png")
+    source: require("../../assets/flags/Iceland.png"),
+    safe: "Yes",
   },
   {
     id: 76,
     country: "India",
-    source: require("../../assets/flags/India.png")
+    source: require("../../assets/flags/India.png"),
+    safe: "Yes",
   },
   {
     id: 77,
     country: "Indonesia",
-    source: require("../../assets/flags/Indonesia.png")
+    source: require("../../assets/flags/Indonesia.png"),
+    safe: "Yes",
   },
   {
     id: 78,
     country: "Iran",
-    source: require("../../assets/flags/Iran.png")
+    source: require("../../assets/flags/Iran.png"),
+    safe: "No",
   },
   {
     id: 79,
     country: "Iraq",
-    source: require("../../assets/flags/Iraq.png")
+    source: require("../../assets/flags/Iraq.png"),
+    safe: "No",
   },
   {
     id: 80,
     country: "Ireland",
-    source: require("../../assets/flags/Ireland.png")
+    source: require("../../assets/flags/Ireland.png"),
+    safe: "Yes",
   },
   {
     id: 81,
     country: "Israel",
-    source: require("../../assets/flags/Israel.png")
+    source: require("../../assets/flags/Israel.png"),
+    safe: "Yes",
   },
   {
     id: 82,
     country: "Italy",
-    source: require("../../assets/flags/Italy.png")
+    source: require("../../assets/flags/Italy.png"),
+    safe: "Yes",
   },
   {
     id: 83,
     country: "Jamaica",
-    source: require("../../assets/flags/Jamaica.png")
+    source: require("../../assets/flags/Jamaica.png"),
+    safe: "No",
   },
   {
     id: 84,
     country: "Japan",
-    source: require("../../assets/flags/Japan.png")
+    source: require("../../assets/flags/Japan.png"),
+    safe: "Yes",
   },
   {
     id: 85,
     country: "Jordan",
-    source: require("../../assets/flags/Jordan.png")
+    source: require("../../assets/flags/Jordan.png"),
+    safe: "Yes",
   },
   {
     id: 86,
     country: "Kazakhstan",
-    source: require("../../assets/flags/Kazakhstan.png")
+    source: require("../../assets/flags/Kazakhstan.png"),
+    safe: "Yes",
   },
   {
     id: 87,
     country: "Kenya",
-    source: require("../../assets/flags/Kenya.png")
+    source: require("../../assets/flags/Kenya.png"),
+    safe: "No",
   },
   {
     id: 88,
     country: "Kiribati",
-    source: require("../../assets/flags/Kiribati.png")
+    source: require("../../assets/flags/Kiribati.png"),
+    safe: "Yes",
   },
   {
     id: 89,
     country: "North-Korea",
-    source: require("../../assets/flags/Korea-North.png")
+    source: require("../../assets/flags/Korea-North.png"),
+    safe: "Yes",
   },
   {
     id: 90,
     country: "South-Korea",
-    source: require("../../assets/flags/Korea-South.png")
+    source: require("../../assets/flags/Korea-South.png"),
+    safe: "Yes",
   },
   {
     id: 91,
     country: "Kosovo",
-    source: require("../../assets/flags/Kosovo.png")
+    source: require("../../assets/flags/Kosovo.png"),
+    safe: "Yes",
   },
   {
     id: 92,
     country: "Kuwait",
-    source: require("../../assets/flags/Kuwait.png")
+    source: require("../../assets/flags/Kuwait.png"),
+    safe: "Yes",
   },
   {
     id: 93,
     country: "Kyrgyzstan",
-    source: require("../../assets/flags/Kyrgyzstan.png")
+    source: require("../../assets/flags/Kyrgyzstan.png"),
+    safe: "Yes",
   },
   {
     id: 94,
     country: "Laos",
-    source: require("../../assets/flags/Laos.png")
+    source: require("../../assets/flags/Laos.png"),
+    safe: "Yes",
   },
   {
     id: 95,
     country: "Latvia",
-    source: require("../../assets/flags/Latvia.png")
+    source: require("../../assets/flags/Latvia.png"),
+    safe: "Yes",
   },
   {
     id: 96,
     country: "Lebanon",
-    source: require("../../assets/flags/Lebanon.png")
+    source: require("../../assets/flags/Lebanon.png"),
+    safe: "Yes",
   },
   {
     id: 97,
     country: "Lesotho",
-    source: require("../../assets/flags/Lesotho.png")
+    source: require("../../assets/flags/Lesotho.png"),
+    safe: "Yes",
   },
   {
     id: 98,
     country: "Liberia",
-    source: require("../../assets/flags/Liberia.png")
+    source: require("../../assets/flags/Liberia.png"),
+    safe: "Yes",
   },
   {
     id: 99,
     country: "Libya",
-    source: require("../../assets/flags/Libya.png")
+    source: require("../../assets/flags/Libya.png"),
+    safe: "No",
   },
   {
     id: 100,
     country: "Liechtenstein",
-    source: require("../../assets/flags/Liechtenstein.png")
+    source: require("../../assets/flags/Liechtenstein.png"),
+    safe: "Yes",
   },
   {
     id: 101,
     country: "Lithuania",
-    source: require("../../assets/flags/Lithuania.png")
+    source: require("../../assets/flags/Lithuania.png"),
+    safe: "Yes",
   },
   {
     id: 102,
     country: "Luxembourg",
-    source: require("../../assets/flags/Luxembourg.png")
+    source: require("../../assets/flags/Luxembourg.png"),
+    safe: "Yes",
   },
   {
     id: 103,
     country: "Macedonia",
-    source: require("../../assets/flags/Macedonia.png")
+    source: require("../../assets/flags/Macedonia.png"),
+    safe: "Yes",
   },
   {
     id: 104,
     country: "Madagascar",
-    source: require("../../assets/flags/Madagascar.png")
+    source: require("../../assets/flags/Madagascar.png"),
+    safe: "Yes",
   },
   {
     id: 105,
     country: "Malawi",
-    source: require("../../assets/flags/Malawi.png")
+    source: require("../../assets/flags/Malawi.png"),
+    safe: "Yes",
   },
   {
     id: 106,
     country: "Malaysia",
-    source: require("../../assets/flags/Malaysia.png")
+    source: require("../../assets/flags/Malaysia.png"),
+    safe: "Yes",
   },
   {
     id: 107,
     country: "Maldives",
-    source: require("../../assets/flags/Maldives.png")
+    source: require("../../assets/flags/Maldives.png"),
+    safe: "Yes",
   },
   {
     id: 108,
     country: "Mali",
-    source: require("../../assets/flags/Mali.png")
+    source: require("../../assets/flags/Mali.png"),
+    safe: "No",
   },
   {
     id: 109,
     country: "Malta",
-    source: require("../../assets/flags/Malta.png")
+    source: require("../../assets/flags/Malta.png"),
+    safe: "Yes",
   },
   {
     id: 110,
     country: "Marshall-Islands",
-    source: require("../../assets/flags/Marshall-Islands.png")
+    source: require("../../assets/flags/Marshall-Islands.png"),
+    safe: "Yes",
   },
   {
     id: 111,
     country: "Mauritania",
-    source: require("../../assets/flags/Mauritania.png")
+    source: require("../../assets/flags/Mauritania.png"),
+    safe: "Yes",
   },
   {
     id: 112,
     country: "Mauritius",
-    source: require("../../assets/flags/Mauritius.png")
+    source: require("../../assets/flags/Mauritius.png"),
+    safe: "Yes",
   },
   {
     id: 113,
     country: "Mexico",
-    source: require("../../assets/flags/Mexico.png")
+    source: require("../../assets/flags/Mexico.png"),
+    safe: "Yes",
   },
   {
     id: 114,
     country: "Micronesia-(Federated)",
-    source: require("../../assets/flags/Micronesia-(Federated).png")
+    source: require("../../assets/flags/Micronesia-(Federated).png"),
+    safe: "Yes",
   },
   {
     id: 115,
     country: "Moldova",
-    source: require("../../assets/flags/Moldova.png")
+    source: require("../../assets/flags/Moldova.png"),
+    safe: "Yes",
   },
   {
     id: 116,
     country: "Monaco",
-    source: require("../../assets/flags/Monaco.png")
+    source: require("../../assets/flags/Monaco.png"),
+    safe: "Yes",
   },
   {
     id: 117,
     country: "Mongolia",
-    source: require("../../assets/flags/Mongolia.png")
+    source: require("../../assets/flags/Mongolia.png"),
+    safe: "Yes",
   },
   {
     id: 118,
     country: "Montenegro",
-    source: require("../../assets/flags/Montenegro.png")
+    source: require("../../assets/flags/Montenegro.png"),
+    safe: "Yes",
   },
   {
     id: 119,
     country: "Morocco",
-    source: require("../../assets/flags/Morocco.png")
+    source: require("../../assets/flags/Morocco.png"),
+    safe: "Yes",
   },
   {
     id: 120,
     country: "Mozambique",
-    source: require("../../assets/flags/Mozambique.png")
+    source: require("../../assets/flags/Mozambique.png"),
+    safe: "Yes",
   },
   {
     id: 121,
     country: "Myanmar",
-    source: require("../../assets/flags/Myanmar.png")
+    source: require("../../assets/flags/Myanmar.png"),
+    safe: "Yes",
   },
   {
     id: 122,
     country: "Namibia",
-    source: require("../../assets/flags/Namibia.png")
+    source: require("../../assets/flags/Namibia.png"),
+    safe: "Yes",
   },
   {
     id: 123,
     country: "Nauru",
-    source: require("../../assets/flags/Nauru.png")
+    source: require("../../assets/flags/Nauru.png"),
+    safe: "Yes",
   },
   {
     id: 124,
     country: "Nepal",
-    source: require("../../assets/flags/Nepal.png")
+    source: require("../../assets/flags/Nepal.png"),
+    safe: "Yes",
   },
   {
     id: 125,
     country: "Netherlands",
-    source: require("../../assets/flags/Netherlands.png")
+    source: require("../../assets/flags/Netherlands.png"),
+    safe: "Yes",
   },
   {
     id: 126,
     country: "New-Zealand",
-    source: require("../../assets/flags/New-Zealand.png")
+    source: require("../../assets/flags/New-Zealand.png"),
+    safe: "Yes",
   },
   {
     id: 127,
     country: "Nicaragua",
-    source: require("../../assets/flags/Nicaragua.png")
+    source: require("../../assets/flags/Nicaragua.png"),
+    safe: "No",
   },
   {
     id: 128,
     country: "Niger",
-    source: require("../../assets/flags/Niger.png")
+    source: require("../../assets/flags/Niger.png"),
+    safe: "No",
   },
   {
     id: 129,
     country: "Nigeria",
-    source: require("../../assets/flags/Nigeria.png")
+    source: require("../../assets/flags/Nigeria.png"),
+    safe: "No",
   },
   {
     id: 130,
     country: "Norway",
-    source: require("../../assets/flags/Norway.png")
+    source: require("../../assets/flags/Norway.png"),
+    safe: "Yes",
   },
   {
     id: 131,
     country: "Oman",
-    source: require("../../assets/flags/Oman.png")
+    source: require("../../assets/flags/Oman.png"),
+    safe: "Yes",
   },
   {
     id: 132,
     country: "Pakistan",
-    source: require("../../assets/flags/Pakistan.png")
+    source: require("../../assets/flags/Pakistan.png"),
+    safe: "No",
   },
   {
     id: 133,
     country: "Palau",
-    source: require("../../assets/flags/Palau.png")
+    source: require("../../assets/flags/Palau.png"),
+    safe: "Yes",
   },
   {
     id: 134,
     country: "Panama",
-    source: require("../../assets/flags/Panama.png")
+    source: require("../../assets/flags/Panama.png"),
+    safe: "Yes",
   },
   {
     id: 135,
     country: "Papua-New-Guinea",
-    source: require("../../assets/flags/Papua-New-Guinea.png")
+    source: require("../../assets/flags/Papua-New-Guinea.png"),
+    safe: "Yes",
   },
   {
     id: 136,
     country: "Paraguay",
-    source: require("../../assets/flags/Paraguay.png")
+    source: require("../../assets/flags/Paraguay.png"),
+    safe: "Yes",
   },
   {
     id: 137,
     country: "Peru",
-    source: require("../../assets/flags/Peru.png")
+    source: require("../../assets/flags/Peru.png"),
+    safe: "Yes",
   },
   {
     id: 138,
     country: "Philippines",
-    source: require("../../assets/flags/Philippines.png")
+    source: require("../../assets/flags/Philippines.png"),
+    safe: "Yes",
   },
   {
     id: 139,
     country: "Poland",
-    source: require("../../assets/flags/Poland.png")
+    source: require("../../assets/flags/Poland.png"),
+    safe: "Yes",
   },
   {
     id: 140,
     country: "Portugal",
-    source: require("../../assets/flags/Portugal.png")
+    source: require("../../assets/flags/Portugal.png"),
+    safe: "Yes",
   },
   {
     id: 141,
     country: "Qatar",
-    source: require("../../assets/flags/Qatar.png")
+    source: require("../../assets/flags/Qatar.png"),
+    safe: "Yes",
   },
   {
     id: 142,
     country: "Romania",
-    source: require("../../assets/flags/Romania.png")
+    source: require("../../assets/flags/Romania.png"),
+    safe: "Yes",
   },
   {
     id: 143,
     country: "Russia",
-    source: require("../../assets/flags/Russia.png")
+    source: require("../../assets/flags/Russia.png"),
+    safe: "Yes",
   },
   {
     id: 144,
     country: "Rwanda",
-    source: require("../../assets/flags/Rwanda.png")
+    source: require("../../assets/flags/Rwanda.png"),
+    safe: "Yes",
   },
   {
     id: 145,
     country: "Saint-Kitts-and-Nevis",
-    source: require("../../assets/flags/Saint-Kitts-and-Nevis.png")
+    source: require("../../assets/flags/Saint-Kitts-and-Nevis.png"),
+    safe: "Yes",
   },
   {
     id: 146,
     country: "Saint-Lucia",
-    source: require("../../assets/flags/Saint-Lucia.png")
+    source: require("../../assets/flags/Saint-Lucia.png"),
+    safe: "Yes",
   },
   {
     id: 147,
     country: "Saint-Vincent-and-the-Grenadines",
-    source: require("../../assets/flags/Saint-Vincent-and-the-Grenadines.png")
+    source: require("../../assets/flags/Saint-Vincent-and-the-Grenadines.png"),
+    safe: "Yes",
   },
   {
     id: 148,
     country: "Samoa",
-    source: require("../../assets/flags/Samoa.png")
+    source: require("../../assets/flags/Samoa.png"),
+    safe: "Yes",
   },
   {
     id: 149,
     country: "San-Marino",
-    source: require("../../assets/flags/San-Marino.png")
+    source: require("../../assets/flags/San-Marino.png"),
+    safe: "Yes",
   },
   {
     id: 150,
     country: "Sao-Tome-and-Principe",
-    source: require("../../assets/flags/Sao-Tome-and-Principe.png")
+    source: require("../../assets/flags/Sao-Tome-and-Principe.png"),
+    safe: "Yes",
   },
   {
     id: 151,
     country: "Saudi-Arabia",
-    source: require("../../assets/flags/Saudi-Arabia.png")
+    source: require("../../assets/flags/Saudi-Arabia.png"),
+    safe: "Yes",
   },
   {
     id: 152,
     country: "Senegal",
-    source: require("../../assets/flags/Senegal.png")
+    source: require("../../assets/flags/Senegal.png"),
+    safe: "Yes",
   },
   {
     id: 153,
     country: "Serbia",
-    source: require("../../assets/flags/Serbia.png")
+    source: require("../../assets/flags/Serbia.png"),
+    safe: "Yes",
   },
   {
     id: 154,
     country: "Seychelles",
-    source: require("../../assets/flags/Seychelles.png")
+    source: require("../../assets/flags/Seychelles.png"),
+    safe: "Yes",
   },
   {
     id: 155,
     country: "Sierra-Leone",
-    source: require("../../assets/flags/Sierra-Leone.png")
+    source: require("../../assets/flags/Sierra-Leone.png"),
+    safe: "Yes",
   },
   {
     id: 156,
     country: "Singapore",
-    source: require("../../assets/flags/Singapore.png")
+    source: require("../../assets/flags/Singapore.png"),
+    safe: "Yes",
   },
   {
     id: 157,
     country: "Slovakia",
-    source: require("../../assets/flags/Slovakia.png")
+    source: require("../../assets/flags/Slovakia.png"),
+    safe: "Yes",
   },
   {
     id: 158,
     country: "Slovenia",
-    source: require("../../assets/flags/Slovenia.png")
+    source: require("../../assets/flags/Slovenia.png"),
+    safe: "Yes",
   },
   {
     id: 159,
     country: "Solomon-Islands",
-    source: require("../../assets/flags/Solomon-Islands.png")
+    source: require("../../assets/flags/Solomon-Islands.png"),
+    safe: "Yes",
   },
   {
     id: 160,
     country: "Somalia",
-    source: require("../../assets/flags/Somalia.png")
+    source: require("../../assets/flags/Somalia.png"),
+    safe: "No",
   },
   {
     id: 161,
     country: "South-Africa",
-    source: require("../../assets/flags/South-Africa.png")
+    source: require("../../assets/flags/South-Africa.png"),
+    safe: "Yes",
   },
   {
     id: 162,
     country: "South-Sudan",
-    source: require("../../assets/flags/South-Sudan.png")
+    source: require("../../assets/flags/South-Sudan.png"),
+    safe: "No",
   },
   {
     id: 163,
     country: "Spain",
-    source: require("../../assets/flags/Spain.png")
+    source: require("../../assets/flags/Spain.png"),
+    safe: "Yes",
   },
   {
     id: 164,
     country: "Sri-Lanka",
-    source: require("../../assets/flags/Sri-Lanka.png")
+    source: require("../../assets/flags/Sri-Lanka.png"),
+    safe: "Yes",
   },
   {
     id: 165,
     country: "Sudan",
-    source: require("../../assets/flags/Sudan.png")
+    source: require("../../assets/flags/Sudan.png"),
+    safe: "No",
   },
   {
     id: 166,
     country: "Suriname",
-    source: require("../../assets/flags/Suriname.png")
+    source: require("../../assets/flags/Suriname.png"),
+    safe: "Yes",
   },
   {
     id: 167,
     country: "Swaziland",
-    source: require("../../assets/flags/Swaziland.png")
+    source: require("../../assets/flags/Swaziland.png"),
+    safe: "Yes",
   },
   {
     id: 168,
     country: "Sweden",
-    source: require("../../assets/flags/Sweden.png")
+    source: require("../../assets/flags/Sweden.png"),
+    safe: "Yes",
   },
   {
     id: 169,
     country: "Switzerland",
-    source: require("../../assets/flags/Switzerland.png")
+    source: require("../../assets/flags/Switzerland.png"),
+    safe: "Yes",
   },
   {
     id: 170,
     country: "Syria",
-    source: require("../../assets/flags/Syria.png")
+    source: require("../../assets/flags/Syria.png"),
+    safe: "No",
   },
   {
     id: 171,
     country: "Taiwan",
-    source: require("../../assets/flags/Taiwan.png")
+    source: require("../../assets/flags/Taiwan.png"),
+    safe: "Yes",
   },
   {
     id: 172,
     country: "Tajikistan",
-    source: require("../../assets/flags/Tajikistan.png")
+    source: require("../../assets/flags/Tajikistan.png"),
+    safe: "Yes",
   },
   {
     id: 173,
     country: "Tanzania",
-    source: require("../../assets/flags/Tanzania.png")
+    source: require("../../assets/flags/Tanzania.png"),
+    safe: "Yes",
   },
   {
     id: 174,
     country: "Thailand",
-    source: require("../../assets/flags/Thailand.png")
+    source: require("../../assets/flags/Thailand.png"),
+    safe: "Yes",
   },
   {
     id: 175,
     country: "Togo",
-    source: require("../../assets/flags/Togo.png")
+    source: require("../../assets/flags/Togo.png"),
+    safe: "Yes",
   },
   {
     id: 176,
     country: "Tonga",
-    source: require("../../assets/flags/Tonga.png")
+    source: require("../../assets/flags/Tonga.png"),
+    safe: "Yes",
   },
   {
     id: 177,
     country: "Trinidad-and-Tobago",
-    source: require("../../assets/flags/Trinidad-and-Tobago.png")
+    source: require("../../assets/flags/Trinidad-and-Tobago.png"),
+    safe: "Yes",
   },
   {
     id: 178,
     country: "Tunisia",
-    source: require("../../assets/flags/Tunisia.png")
+    source: require("../../assets/flags/Tunisia.png"),
+    safe: "Yes",
   },
   {
     id: 179,
     country: "Turkey",
-    source: require("../../assets/flags/Turkey.png")
+    source: require("../../assets/flags/Turkey.png"),
+    safe: "Yes",
   },
   {
     id: 180,
     country: "Turkmenistan",
-    source: require("../../assets/flags/Turkmenistan.png")
+    source: require("../../assets/flags/Turkmenistan.png"),
+    safe: "Yes",
   },
   {
     id: 181,
     country: "Tuvalu",
-    source: require("../../assets/flags/Tuvalu.png")
+    source: require("../../assets/flags/Tuvalu.png"),
+    safe: "Yes",
   },
   {
     id: 182,
     country: "Uganda",
-    source: require("../../assets/flags/Uganda.png")
+    source: require("../../assets/flags/Uganda.png"),
+    safe: "Yes",
   },
   {
     id: 183,
     country: "Ukraine",
-    source: require("../../assets/flags/Ukraine.png")
+    source: require("../../assets/flags/Ukraine.png"),
+    safe: "Yes",
   },
   {
     id: 184,
     country: "United-Arab-Emirates",
-    source: require("../../assets/flags/United-Arab-Emirates.png")
+    source: require("../../assets/flags/United-Arab-Emirates.png"),
+    safe: "Yes",
   },
   {
     id: 185,
     country: "United-Kingdom",
-    source: require("../../assets/flags/United-Kingdom.png")
+    source: require("../../assets/flags/United-Kingdom.png"),
+    safe: "Yes",
   },
   {
     id: 186,
     country: "United-States-of-America",
-    source: require("../../assets/flags/United-States-of-America.png")
+    source: require("../../assets/flags/United-States-of-America.png"),
+    safe: "Yes",
   },
   {
     id: 187,
     country: "Uruguay",
-    source: require("../../assets/flags/Uruguay.png")
+    source: require("../../assets/flags/Uruguay.png"),
+    safe: "Yes",
   },
   {
     id: 188,
     country: "Uzbekistan",
-    source: require("../../assets/flags/Uzbekistan.png")
+    source: require("../../assets/flags/Uzbekistan.png"),
+    safe: "Yes",
   },
   {
     id: 189,
     country: "Vanuatu",
-    source: require("../../assets/flags/Vanuatu.png")
+    source: require("../../assets/flags/Vanuatu.png"),
+    safe: "Yes",
   },
   {
     id: 190,
     country: "Vatican-City",
-    source: require("../../assets/flags/Vatican-City.png")
+    source: require("../../assets/flags/Vatican-City.png"),
+    safe: "Yes",
   },
   {
     id: 191,
     country: "Venezuela",
-    source: require("../../assets/flags/Venezuela.png")
+    source: require("../../assets/flags/Venezuela.png"),
+    safe: "No",
   },
   {
     id: 192,
     country: "Vietnam",
-    source: require("../../assets/flags/Vietnam.png")
+    source: require("../../assets/flags/Vietnam.png"),
+    safe: "Yes",
   },
   {
     id: 193,
     country: "Yemen",
-    source: require("../../assets/flags/Yemen.png")
+    source: require("../../assets/flags/Yemen.png"),
+    safe: "No",
   },
   {
     id: 194,
     country: "Zambia",
-    source: require("../../assets/flags/Zambia.png")
+    source: require("../../assets/flags/Zambia.png"),
+    safe: "Yes",
   },
   {
     id: 195,
     country: "Zimbabwe",
-    source: require("../../assets/flags/Zimbabwe.png")
-  }
+    source: require("../../assets/flags/Zimbabwe.png"),
+    safe: "Yes",
+  },
 ];
 
 export default Countries;
