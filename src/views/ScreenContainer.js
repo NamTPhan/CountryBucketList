@@ -1,17 +1,17 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from "react-navigation-stack";
 
-import Home from ".//Home.js";
-import AddCountries from "./AddCountries.js";
-import EditBucketList from "./EditBucketList.js";
+import { HomePage } from "./HomePage";
+import { AddCountriesPage } from "./AddCountriesPage";
+import { EditBucketListPage } from "./EditBucketListPage";
 
 import * as Colors from "../styles/Colors";
 
 const NavigationStack = createStackNavigator(
   {
-    Home: Home,
-    AddCountries: AddCountries,
-    EditBucketList: EditBucketList
+    Home: HomePage,
+    AddCountries: AddCountriesPage,
+    EditBucketList: EditBucketListPage
   },
   {
     defaultNavigationOptions: {
