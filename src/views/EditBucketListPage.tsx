@@ -1,148 +1,123 @@
-import React, { Component } from "react";
-import { StyleSheet, Text, View, ScrollView, Keyboard } from "react-native";
-import { Container } from "native-base";
+import React from "react";
+import { StyleSheet, Text, View, Dimensions, FlatList } from "react-native";
+import {
+  Avatar,
+  Box,
+  Button,
+  Container,
+  Input,
+  Text as NBText,
+  Flex,
+  Center,
+} from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as _ from "lodash";
 
-import * as Colors from "../styles/Colors.js";
+export const EditBucketListPage = ({ route }) => {
+  const deviceWidth = Dimensions.get("window").width;
+  const deviceHeight = Dimensions.get("window").height;
+  const { countryName } = route.params;
 
-export const EditBucketListPage = () => {
   return (
     <Container>
-      <Text>EditBucketList</Text>
-      {/* <Root>
-        <View style={{ flex: 3 }}>
-          <List>
-            <ListItem
-              itemDivider
-              style={{ backgroundColor: Colors.WhiteSmoke }}
-            >
-              <Text style={styles.countryName}>{countryName}</Text>
-            </ListItem>
-
-            <View style={styles.inputFieldView}>
-              <View style={{ flex: 1, flexGrow: 7 }}>
-                <Item inlineLabel>
-                  <Label>Idea:</Label>
-                  <Input
-                    value={inputIdea}
-                    onChangeText={text => this.onChangeIdeaInput(text)}
-                  />
-                </Item>
-              </View>
-              <View style={{ flex: 1 }}>
-                <Button
-                  style={styles.addBtn}
-                  onPress={() => this.handleAddItem()}
-                >
-                  <Icon
-                    style={{
-                      color: Colors.White,
-                      width: 50,
-                      textAlign: "center",
-                    }}
-                    size={20}
-                    name='plus'
-                  />
-                </Button>
-              </View>
-            </View>
-
-            {items.length > 0 ? (
-              <ScrollView>
-                {items.map((item, index) => {
-                  return (
-                    <ListItem key={"item" + index} icon>
-                      <Left>
-                        <Text>{index + 1}.</Text>
-                      </Left>
-                      <Body>
-                        <Text>{item}</Text>
-                      </Body>
-                      <Right>
-                        <Button
-                          transparent
-                          onPress={() => this.handleDeleteItem(index)}
-                        >
-                          <Icon
-                            style={styles.trashIcon}
-                            size={18}
-                            name='trash-o'
-                          />
-                        </Button>
-                        <CheckBox
-                          checked={achieved[index]}
-                          color='green'
-                          onPress={() => this.handleCheckBtn(index)}
-                        />
-                      </Right>
-                    </ListItem>
-                  );
-                })}
-              </ScrollView>
-            ) : (
-              <View style={styles.centerContent}>
-                <Text style={{ fontWeight: "bold" }}>
-                  {"\n"}No ideas added...
-                </Text>
-              </View>
-            )}
-          </List>
-        </View>
-
-        <View style={{ flex: 1, justifyContent: "flex-end" }}>
-          <Button
-            block
-            success
-            onPress={() => {
-              this.props.saveBucketListAction(indexOfCountry, {
-                country: countryName,
-                items: items,
-                achieved: achieved,
-              });
-              this.toastMessage("Changes successfully saved!", "success");
+      <Box
+        backgroundColor='blue.500'
+        position='absolute'
+        width={deviceWidth}
+        height={deviceHeight / 2}
+      />
+      <Box style={styles.editBucketListOverview}>
+        <Box>
+          <Text
+            style={{
+              textAlign: "center",
+              fontSize: 20,
+              fontWeight: "bold",
+              marginTop: 20,
+              color: "#ffffff",
             }}
           >
-            <Text style={{ color: Colors.White, fontWeight: "bold" }}>
-              Save Changes
+            {countryName ?? "No Country Selected"}
+          </Text>
+        </Box>
+        <Box style={styles.inputContainer}>
+          <View>
+            <Input
+              variant='rounded'
+              backgroundColor='white.50'
+              placeholder='Example: Go on a road trip...'
+              onChangeText={text => console.log(text)}
+              InputRightElement={
+                <Button
+                  size='md'
+                  rounded='none'
+                  w='1/6'
+                  backgroundColor='green.500'
+                  onPress={() => console.log("add idea")}
+                >
+                  Add
+                </Button>
+              }
+            />
+          </View>
+        </Box>
+
+        <Box style={styles.bucketListItemsOverview}>
+          <Center marginTop={25}>
+            <Text style={{ fontWeight: "bold" }}>
+              You have no bucket list ideas added at this moment.
             </Text>
-          </Button>
-        </View>
-      </Root> */}
+          </Center>
+          <FlatList
+            data={[
+              { key: "Devin" },
+              { key: "Dan" },
+              {
+                key: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut eni",
+              },
+              { key: "Jackson" },
+              { key: "James" },
+              { key: "Joel" },
+              { key: "John" },
+              { key: "Jillian" },
+              { key: "Jimmy" },
+              { key: "Julie" },
+            ]}
+            renderItem={({ item, index }) => (
+              <Box
+                borderBottomWidth='0.5'
+                borderColor='grey.500'
+                pl={["0", "4"]}
+                pr={["0", "5"]}
+                py='2'
+              >
+                <Flex flexDirection='row'>
+                  <Box flex={1}>
+                    <Avatar bg='gray.300' size='40px'>
+                      {index + 1}
+                    </Avatar>
+                  </Box>
+                  <Box flex={1} flexGrow={5}>
+                    <NBText>{item.key}</NBText>
+                  </Box>
+                  <Box flex={1} alignItems='flex-end'>
+                    <NBText fontSize='md'>
+                      <Icon
+                        style={{ color: "#ef4444" }}
+                        size={20}
+                        name='trash-o'
+                      />
+                    </NBText>
+                  </Box>
+                </Flex>
+              </Box>
+            )}
+          />
+        </Box>
+      </Box>
     </Container>
   );
 };
-
-// class EditBucketList extends Component {
-//   static navigationOptions = {
-//     title: "Edit Bucket List",
-//   };
-
-//   _isMounted = false;
-
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {
-//       currentCountry: "",
-//       inputIdea: "",
-//       items: [],
-//       achieved: [],
-//       indexOfCountry: "",
-//     };
-//   }
-
-//   componentWillUnmount() {
-//     this._isMounted = false;
-//     this.setState = (state, callback) => {
-//       return;
-//     };
-//   }
-
-//   componentDidMount() {
-//     this._isMounted = true;
-//     // Get all countries and their bucketlists data
-//     this.props.getBucketListAction();
 
 //     setTimeout(() => {
 //       const allBucketLists = this.props.bucketlistState.bucketlists;
@@ -176,21 +151,6 @@ export const EditBucketListPage = () => {
 //     }, 1000);
 //   }
 
-//   onChangeIdeaInput = text => {
-//     this.setState({ inputIdea: text });
-//   };
-
-//   handleAddItem = () => {
-//     this.state.items.push(this.state.inputIdea);
-//     this.state.achieved.push(false);
-
-//     this.setState({
-//       inputIdea: "",
-//     });
-
-//     Keyboard.dismiss();
-//   };
-
 //   handleDeleteItem = index => {
 //     let itemsArray = this.state.items;
 //     itemsArray.splice(index, 1);
@@ -212,48 +172,27 @@ export const EditBucketListPage = () => {
 //     });
 //   };
 
-//   toastMessage = (text, type) => {
-//     Toast.show({
-//       text: text,
-//       duration: 3000,
-//       type: type,
-//       position: "bottom",
-//     });
-//   };
-
-//   render() {
-//     const { inputIdea, items, achieved, indexOfCountry } = this.state;
-//     const { navigation } = this.props;
-//     const countryName = navigation.getParam("countryName", "No Country Name");
-
-//     return (
-
-//     );
-//   }
-// }
-
 const styles = StyleSheet.create({
-  trashIcon: {
-    color: Colors.Red,
-    marginRight: 10,
+  editBucketListOverview: {
+    display: "flex",
+    flexDirection: "column",
   },
-  countryName: {
-    fontWeight: "bold",
-    textAlign: "center",
+  inputContainer: {
     flex: 1,
+    width: Dimensions.get("window").width,
+    flexDirection: "column",
+    backgroundColor: "blue.500",
+    padding: 15,
   },
-  addBtn: {
-    backgroundColor: Colors.Blue,
-    justifyContent: "center",
-  },
-  inputFieldView: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    marginBottom: 10,
-  },
-  centerContent: {
+  bucketListItemsOverview: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    flexGrow: 8,
+    width: Dimensions.get("window").width,
+    flexDirection: "column",
+    backgroundColor: "#ffffff",
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
+    paddingTop: 25,
+    paddingHorizontal: 30,
   },
 });
