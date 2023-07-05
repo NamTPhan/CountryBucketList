@@ -1,55 +1,52 @@
 import React from "react";
-import { View, AppRegistry, YellowBox } from "react-native";
-
-import { Ionicons } from "@expo/vector-icons";
-import * as Font from "expo-font";
-
+import { View, AppRegistry } from "react-native";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-
-import ScreenContainer from "./src/views/ScreenContainer";
+import { ScreenContainer } from "./src/views/ScreenContainer";
 import { NavigationContainer } from "@react-navigation/native";
 import { persistStore } from "redux-persist";
 import { store } from "./src/store";
-import { NativeBaseProvider } from "native-base";
+import { NativeBaseProvider, extendTheme } from "native-base";
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isReady: false,
-    };
-  }
+export default function App() {
+  const persistor = persistStore(store);
 
-  // async componentDidMount() {
-  //   // TO DO: Waiting for Native Base issue fix, https://github.com/GeekyAnts/NativeBase/issues/3109
-  //   YellowBox.ignoreWarnings(["Animated: `useNativeDriver`"]);
+  const theme = extendTheme({
+    colors: {
+      blue: {
+        500: "#00b0ff",
+      },
+      green: {
+        500: "#6ac366",
+      },
+      red: {
+        500: "#ef4444",
+      },
+      white: {
+        50: "#ffffff",
+      },
+      gray: {
+        200: "#e5e7eb",
+        300: "#d1d5db",
+        400: "#9ca3af",
+        500: "#6b7280",
+      },
+    },
+  });
 
-  //   await Font.loadAsync({
-  //     Roboto: require("native-base/Fonts/Roboto.ttf"),
-  //     Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
-  //     ...Ionicons.font,
-  //   });
-  //   this.setState({ isReady: true });
-  // }
-
-  render() {
-    const persistor = persistStore(store);
-
-    return (
-      <NavigationContainer>
-        <NativeBaseProvider>
-          <View style={{ flex: 1 }}>
-            <Provider store={store}>
-              <PersistGate persistor={persistor}>
-                <ScreenContainer />
-              </PersistGate>
-            </Provider>
-          </View>
-        </NativeBaseProvider>
-      </NavigationContainer>
-    );
-  }
+  return (
+    <NavigationContainer>
+      <NativeBaseProvider theme={theme}>
+        <View style={{ flex: 1 }}>
+          <Provider store={store}>
+            <PersistGate persistor={persistor}>
+              <ScreenContainer />
+            </PersistGate>
+          </Provider>
+        </View>
+      </NativeBaseProvider>
+    </NavigationContainer>
+  );
 }
 
 AppRegistry.registerComponent("Country BucketList", () => App);

@@ -9,7 +9,7 @@ const initialState: BucketListState = {
   bucketLists: [],
 };
 
-export const bucketlistSlice = createSlice({
+export const bucketListSlice = createSlice({
   name: "bucketlistState",
   initialState,
   reducers: {
@@ -25,6 +25,6 @@ export const bucketlistSlice = createSlice({
   },
 });
 
-export const { addBucketList, removeBucketList } = bucketlistSlice.actions;
+export const { addBucketList, removeBucketList } = bucketListSlice.actions;
 
-export default bucketlistSlice.reducer;
+export default bucketListSlice.reducer;
