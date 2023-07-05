@@ -1,107 +1,56 @@
 import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { Card, Container } from "native-base";
+import { Dimensions, FlatList, StyleSheet } from "react-native";
+import { Box, Button, Container, Image, Text as NBText } from "native-base";
 
-import { SingleListItem } from "../components/SingleListItem";
-import Countries from "../data/CountriesFlags.js";
-
-import * as Colors from "../styles/Colors";
+import CountriesList from "../data/CountriesFlags.js";
 
 export const AddCountriesPage = () => {
+  const deviceWidth = Dimensions.get("window").width;
+
   return (
     <Container>
-      <Text>Add Countries</Text>
-
-      <ScrollView>
-        {/* {defaultCountryList.map((item, index) => {
-              if (this.props.countryState.addedCountries !== undefined) {
-                if (
-                  this.props.countryState.addedCountries.includes(
-                    item.country
-                  )
-                ) {
-                  return null;
-                }
-              }
-
-              return (
-                <SingleListItem
-                  key={"Country" + index}
-                  countryName={item.country}
-                  flag={item.source}
-                  safe={item.safe}
-                  actionBtn={activateBtn && "add"}
-                  handleOnBtnPress={() => {
-                    this.toastMessage(
-                      "Country successfully added!",
-                      "success"
-                    );
-                    this.props.addCountryAction(item.country);
-                    this.props.addDefaultBucketListAction(item.country);
-                  }}
-                />
-              );
-            })} */}
-      </ScrollView>
-
-      {/* {this.props.countryState.addedCountries !== undefined &&
-      this.props.countryState.addedCountries.length > 0 ? (
-        <ScrollView>
-          {this.props.countryState.addedCountries.map((item, index) => {
-            return (
-              <SingleListItem
-                key={"Country" + index}
-                countryName={item}
-                actionBtn={"trash"}
-                flag={defaultCountryList.find(c => c.country === item).source}
-                handleDeleteBtn={() => {
-                  this.props.deleteCountryAction(index);
-                  this.props.deleteBucketListAction(index);
-                }}
+      <Box display='flex' width={deviceWidth}>
+        <FlatList
+          data={CountriesList}
+          renderItem={({ item, index }) => (
+            <Box style={[styles.card, styles.boxShadow]}>
+              <Image
+                size={10}
+                borderRadius={100}
+                source={item.source}
+                alt={item.country}
               />
-            );
-          })}
-        </ScrollView>
-      ) : (
-        <View style={styles.centerContent}>
-          <Text style={{ fontWeight: "bold" }}>No countries added!</Text>
-        </View>
-      )} */}
+              <NBText flex={1} flexGrow={4} marginLeft={5} fontSize={18}>
+                {item.country}
+              </NBText>
+              <Button flex={1} colorScheme='green'>
+                Add
+              </Button>
+              {/* <Button flex={1} colorScheme='red'>
+                Remove
+              </Button> */}
+            </Box>
+          )}
+        />
+      </Box>
     </Container>
   );
 };
 
-// class AddCountries extends Component {
-//   static navigationOptions = {
-//     title: "Add Countries",
-//   };
-
-//   constructor (props) {
-//     super(props);
-//     props.getAllCountriesAction();
-
-//     this.state = {
-//       defaultCountryList: [],
-//       loading: true,
-//       activateBtn: true,
-//     };
-//   }
-// }
-
 const styles = StyleSheet.create({
-  flag: {
+  card: {
     flex: 1,
+    flexDirection: "row",
+    padding: 15,
+    marginVertical: 5,
+    marginHorizontal: 10,
+    backgroundColor: "white",
+    borderRadius: 8,
   },
-  centerContent: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  cardOverallInfo: {
-    marginLeft: 10,
-    marginRight: 10,
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+  boxShadow: {
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
 });

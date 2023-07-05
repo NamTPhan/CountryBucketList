@@ -52,7 +52,7 @@ export const EditBucketListPage = ({ route }) => {
                   size='md'
                   rounded='none'
                   w='1/6'
-                  backgroundColor='green.500'
+                  colorScheme='green'
                   onPress={() => console.log("add idea")}
                 >
                   Add
@@ -63,11 +63,11 @@ export const EditBucketListPage = ({ route }) => {
         </Box>
 
         <Box style={styles.bucketListItemsOverview}>
-          <Center marginTop={25}>
+          {/* <Center marginTop={25}>
             <Text style={{ fontWeight: "bold" }}>
               You have no bucket list ideas added at this moment.
             </Text>
-          </Center>
+          </Center> */}
           <FlatList
             data={[
               { key: "Devin" },
@@ -85,7 +85,7 @@ export const EditBucketListPage = ({ route }) => {
             ]}
             renderItem={({ item, index }) => (
               <Box
-                borderBottomWidth='0.5'
+                borderBottomWidth='0.2'
                 borderColor='grey.500'
                 pl={["0", "4"]}
                 pr={["0", "5"]}
@@ -118,38 +118,6 @@ export const EditBucketListPage = ({ route }) => {
     </Container>
   );
 };
-
-//     setTimeout(() => {
-//       const allBucketLists = this.props.bucketlistState.bucketlists;
-
-//       // Get the passed country name from react navigation
-//       const { navigation } = this.props;
-//       const countryName = navigation.getParam("countryName", "No Country Name");
-
-//       this.setState({
-//         currentCountry: countryName,
-//       });
-
-//       if (allBucketLists !== undefined && allBucketLists.length > 0) {
-//         let countryBucketList = _.find(allBucketLists, function (c) {
-//           return c.country === countryName;
-//         });
-
-//         let indexOfCountryBucketList = _.findIndex(
-//           allBucketLists,
-//           function (c) {
-//             return c.country === countryName;
-//           }
-//         );
-
-//         this.setState({
-//           items: countryBucketList.items,
-//           achieved: countryBucketList.achieved,
-//           indexOfCountry: indexOfCountryBucketList,
-//         });
-//       }
-//     }, 1000);
-//   }
 
 //   handleDeleteItem = index => {
 //     let itemsArray = this.state.items;

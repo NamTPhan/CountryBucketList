@@ -1,6 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
-import logger from "redux-logger";
 import countryReducer from "./features/countrySlice";
 import bucketListReducer from "./features/bucketListSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
