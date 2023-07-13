@@ -14,13 +14,25 @@ export default function App() {
   const theme = extendTheme({
     colors: {
       blue: {
+        300: "#7dd3fc",
+        400: "#38bdf8",
         500: "#00b0ff",
       },
       green: {
+        300: "#86efac",
+        400: "#4ade80",
         500: "#6ac366",
       },
       red: {
         500: "#ef4444",
+      },
+      yellow: {
+        200: "#fef08a",
+        300: "#fde047",
+      },
+      orange: {
+        300: "#fdba74",
+        400: "#fb923c",
       },
       white: {
         50: "#ffffff",

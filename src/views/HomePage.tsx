@@ -1,6 +1,15 @@
-import React from "react";
-import { Dimensions, ScrollView, StyleSheet, Text } from "react-native";
-import { Box, Button, Container } from "native-base";
+import React, { useState } from "react";
+import { Dimensions, ScrollView, StyleSheet } from "react-native";
+import {
+  Avatar,
+  Box,
+  Button,
+  Center,
+  Container,
+  Flex,
+  Text as NBText,
+} from "native-base";
+import Icon from "react-native-vector-icons/FontAwesome";
 import * as _ from "lodash";
 
 import Countries from "../data/CountriesFlags.js";
@@ -12,7 +21,8 @@ export const HomePage = ({ navigation }) => {
   const bucketLists = useSelector((state: any) => state.bucketlistState);
   const deviceWidth = Dimensions.get("window").width;
   const deviceHeight = Dimensions.get("window").height;
-  console.log(countries);
+  const [isCompactView, setIsCompactView] = useState(true);
+
   return (
     <Container>
       <Box
@@ -21,27 +31,84 @@ export const HomePage = ({ navigation }) => {
         width={deviceWidth}
         height={deviceHeight / 2}
       />
-      <Box style={styles.overview}>
-        <Box style={styles.statsOverview}>
-          <Button
+      <Flex flexDirection='column'>
+        <Flex flex={1} flexDirection='column' style={styles.statsOverview}>
+          <Flex flexDirection='row'>
+            <Flex flex={1} style={styles.infoCard}>
+              <Avatar bg='orange.400' size='55px'>
+                10
+              </Avatar>
+              <NBText fontSize={16} mt={2}>
+                Total Bucket Lists
+              </NBText>
+            </Flex>
+            <Flex flex={1} style={styles.infoCard}>
+              <Avatar bg='green.400' size='55px'>
+                26/42
+              </Avatar>
+              <NBText fontSize={16} mt={2}>
+                Accomplished
+              </NBText>
+            </Flex>
+          </Flex>
+          <Flex flexDirection='row' my={5}>
+            <Flex flex={1} mx={1}>
+              <Button
+                bg='white.50'
+                leftIcon={<Icon name='bars' size='20' color='black' />}
+                _text={{ fontSize: 16, color: "black" }}
+                _pressed={{ bg: "gray.200" }}
+                opacity={isCompactView ? 1 : 0.8}
+              >
+                Compact View
+              </Button>
+            </Flex>
+            <Flex flex={1} mx={1}>
+              <Button
+                bg='white.50'
+                colorScheme='white'
+                leftIcon={<Icon name='list-ol' size='20' color='black' />}
+                _text={{ fontSize: 16, color: "black" }}
+                _pressed={{ bg: "gray.200" }}
+                opacity={!isCompactView ? 1 : 0.8}
+              >
+                Detailed View
+              </Button>
+            </Flex>
+          </Flex>
+
+          <Center>
+            <Button
+              variant='solid'
+              leftIcon={<Icon name='plus' size='20' color='black' />}
+              _text={{ fontSize: 16, color: "black" }}
+              _pressed={{ bg: "yellow.200" }}
+              borderRadius={50}
+              bg='yellow.300'
+              width={deviceWidth / 2}
+              onPress={() => navigation.navigate("Add Countries")}
+            >
+              Country
+            </Button>
+          </Center>
+          {/* 
             onPress={() =>
               navigation.navigate("Edit Bucket List", {
                 countryId: 1,
                 countryName: "Netherlands",
               })
-            }
-          >
-            Go to EditBucketListPage
-          </Button>
-          <Button onPress={() => navigation.navigate("Add Countries")}>
-            Go to AddCountries
-          </Button>
-        </Box>
+            }*/}
+        </Flex>
 
-        <Box style={styles.countriesOverview}>
-          <Text>ASD</Text>
-        </Box>
-      </Box>
+        <Flex
+          flex={1}
+          flexGrow={2}
+          flexDirection='column'
+          style={styles.countriesOverview}
+        >
+          <NBText>ASD</NBText>
+        </Flex>
+      </Flex>
 
       {/* {
         countryState?.addedCountries.length > 0 ? (
@@ -159,26 +226,6 @@ export const HomePage = ({ navigation }) => {
   );
 };
 
-// class Home extends Component {
-//   static navigationOptions = ({ navigation }) => ({
-//     title: "Bucket Lists",
-//     headerRight: () => (
-//       <TouchableOpacity onPress={() => navigation.navigate("AddCountries")}>
-//         <Text style={styles.headerBtn}>ADD COUNTRY</Text>
-//       </TouchableOpacity>
-//     ),
-//   });
-
-//   constructor(props) {
-//     super(props);
-//     props.getAllCountriesAction();
-//     props.getBucketListAction();
-
-//     this.state = {
-//       defaultCountryList: Countries,
-//     };
-//   }
-
 //   totalCompleted = bucketlists => {
 //     let total = 0;
 //     bucketlists.forEach(arr => {
@@ -189,34 +236,25 @@ export const HomePage = ({ navigation }) => {
 
 //     return total;
 //   };
-// }
 
 const styles = StyleSheet.create({
-  overview: {
-    display: "flex",
-    flexDirection: "column",
-  },
   statsOverview: {
-    flex: 1,
     width: Dimensions.get("window").width,
-    flexDirection: "column",
     backgroundColor: "blue.500",
     padding: 15,
   },
   countriesOverview: {
-    flex: 1,
-    flexGrow: 2,
     width: Dimensions.get("window").width,
-    flexDirection: "column",
     backgroundColor: "#ffffff",
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
     paddingTop: 25,
     paddingHorizontal: 30,
   },
-  centerContent: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+  infoCard: {
+    backgroundColor: "#ffffff",
+    borderRadius: 10,
+    margin: 5,
+    padding: 10,
   },
 });

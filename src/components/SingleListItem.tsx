@@ -3,8 +3,6 @@ import { StyleSheet, Text, GestureResponderEvent } from "react-native";
 import { Box, Button } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-import * as Colors from "../styles/Colors";
-
 interface SingleListItemProps {
   flag: string;
   country: string;
@@ -39,13 +37,13 @@ export const SingleListItem = ({
       <div>
         {actionBtn === "trash" && (
           <Button onPress={handleDeleteBtn}>
-            <Icon style={{ color: Colors.Red }} size={20} name='trash-o' />
+            <Icon size={20} name='trash-o' />
           </Button>
         )}
         {actionBtn === "right" && (
           <Button>
-            <Text style={styles.mainColor}>{actionBtnRightText} </Text>
-            <Icon style={styles.mainColor} size={30} name='angle-right' />
+            <Text>{actionBtnRightText} </Text>
+            <Icon size={30} name='angle-right' />
           </Button>
         )}
         {actionBtn === "add" && (
@@ -70,15 +68,11 @@ const styles = StyleSheet.create({
   },
 
   addBtn: {
-    color: Colors.Green,
+    // color: Colors.Green,
     fontWeight: "bold",
-    borderColor: Colors.Green,
+    // borderColor: Colors.Green,
     borderWidth: 1,
     padding: 5,
     borderRadius: 20,
-  },
-
-  mainColor: {
-    color: Colors.Blue,
   },
 });
