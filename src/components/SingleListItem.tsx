@@ -66,11 +66,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
-
   addBtn: {
-    // color: Colors.Green,
     fontWeight: "bold",
-    // borderColor: Colors.Green,
     borderWidth: 1,
     padding: 5,
     borderRadius: 20,

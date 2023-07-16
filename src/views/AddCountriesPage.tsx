@@ -3,9 +3,28 @@ import { Dimensions, FlatList, StyleSheet, Image } from "react-native";
 import { Box, Button, Container, Text as NBText } from "native-base";
 
 import CountriesList from "../data/CountriesFlags.js";
+import { ICountry } from "interfaces/country.interface.js";
+import { useDispatch, useSelector } from "react-redux";
+import { addCountry, removeCountry } from "../features/countrySlice";
 
 export const AddCountriesPage = () => {
   const deviceWidth = Dimensions.get("window").width;
+  const dispatch = useDispatch();
+  const countryState = useSelector((state: any) => state.countryState);
+
+  const handleAddCountry = (country: ICountry): void => {
+    dispatch(addCountry(country));
+  };
+
+  const handleRemoveCountry = (country: ICountry): void => {
+    dispatch(removeCountry(country));
+  };
+
+  const isCountryAlreadyAdded = (countryId: number): boolean => {
+    return countryState.countries.some(
+      (country: ICountry) => country.id === countryId
+    );
+  };
 
   return (
     <Container>
@@ -22,12 +41,24 @@ export const AddCountriesPage = () => {
               <NBText flex={1} flexGrow={4} marginLeft={5} fontSize={18}>
                 {item.country}
               </NBText>
-              <Button flex={1} colorScheme='green'>
-                Add
-              </Button>
-              {/* <Button flex={1} colorScheme='red'>
-                Remove
-              </Button> */}
+              {!isCountryAlreadyAdded(item.id) && (
+                <Button
+                  flex={1}
+                  colorScheme='green'
+                  onPress={() => handleAddCountry(item)}
+                >
+                  Add
+                </Button>
+              )}
+              {isCountryAlreadyAdded(item.id) && (
+                <Button
+                  flex={1}
+                  colorScheme='red'
+                  onPress={() => handleRemoveCountry(item)}
+                >
+                  Remove
+                </Button>
+              )}
             </Box>
           )}
         />

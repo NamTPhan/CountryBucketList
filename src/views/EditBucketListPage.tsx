@@ -119,27 +119,6 @@ export const EditBucketListPage = ({ route }) => {
   );
 };
 
-//   handleDeleteItem = index => {
-//     let itemsArray = this.state.items;
-//     itemsArray.splice(index, 1);
-//     let achievedArray = this.state.achieved;
-//     achievedArray.splice(index, 1);
-
-//     this.setState({
-//       items: itemsArray,
-//       achieved: achievedArray,
-//     });
-//   };
-
-//   handleCheckBtn = index => {
-//     let achievedArray = this.state.achieved;
-//     achievedArray[index] = achievedArray[index] === false ? true : false;
-
-//     this.setState({
-//       achieved: achievedArray,
-//     });
-//   };
-
 const styles = StyleSheet.create({
   editBucketListOverview: {
     display: "flex",

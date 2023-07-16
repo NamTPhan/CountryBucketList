@@ -3,8 +3,7 @@ import { persistReducer } from "redux-persist";
 import countryReducer from "./features/countrySlice";
 import bucketListReducer from "./features/bucketListSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+import logger from "redux-logger";
 
 const persistConfig = {
   key: "root",
@@ -20,4 +19,5 @@ const persistedReducer = persistReducer(persistConfig, reducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
+  middleware: [logger],
 });
