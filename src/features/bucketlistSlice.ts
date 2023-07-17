@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IBucketList } from "interfaces/bucketlist.interface";
+import { IBucketList } from "../interfaces/bucketlist.interface";
 
 interface BucketListState {
   bucketLists: IBucketList[];
@@ -17,10 +17,9 @@ export const bucketListSlice = createSlice({
       state.bucketLists = [...state.bucketLists, action.payload];
     },
     removeBucketList: (state, action) => {
-      state.bucketLists = [
-        ...state.bucketLists.slice(0, action.payload),
-        ...state.bucketLists.slice(action.payload + 1),
-      ];
+      state.bucketLists = state.bucketLists.filter(
+        countryBucketList => countryBucketList.countryId !== action.payload
+      );
     },
   },
 });

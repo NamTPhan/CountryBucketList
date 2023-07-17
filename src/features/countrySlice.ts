@@ -17,10 +17,9 @@ export const countrySlice = createSlice({
       state.countries = [...state.countries, action.payload];
     },
     removeCountry: (state, action) => {
-      state.countries = [
-        ...state.countries.slice(0, action.payload),
-        ...state.countries.slice(action.payload + 1),
-      ];
+      state.countries = state.countries.filter(
+        country => country.id !== action.payload
+      );
     },
   },
 });

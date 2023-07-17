@@ -1,5 +1,10 @@
+interface IBucketListIdea {
+  idea: string;
+  achieved: number;
+}
+
 export interface IBucketList {
   countryId: number;
-  ideas: string[];
-  achieved: number[];
+  country: string;
+  ideas: IBucketListIdea[];
 }

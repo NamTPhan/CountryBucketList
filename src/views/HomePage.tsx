@@ -6,6 +6,7 @@ import {
   Button,
   Center,
   Container,
+  Divider,
   Flex,
   Heading,
   Image,
@@ -18,6 +19,7 @@ import * as _ from "lodash";
 import CountriesList from "../data/CountriesFlags.js";
 import { SingleListItem } from "../components/SingleListItem";
 import { useDispatch, useSelector } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const HomePage = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -26,7 +28,8 @@ export const HomePage = ({ navigation }) => {
   const deviceWidth = Dimensions.get("window").width;
   const deviceHeight = Dimensions.get("window").height;
   const [isCompactView, setIsCompactView] = useState(true);
-
+  // AsyncStorage.clear(); // ONLY FOR DEV
+  console.log(bucketListState.bucketLists);
   return (
     <Container>
       <Box
@@ -63,6 +66,7 @@ export const HomePage = ({ navigation }) => {
                 _text={{ fontSize: 16, color: "black" }}
                 _pressed={{ bg: "gray.200" }}
                 opacity={isCompactView ? 1 : 0.8}
+                onPress={() => setIsCompactView(true)}
               >
                 Compact View
               </Button>
@@ -75,6 +79,7 @@ export const HomePage = ({ navigation }) => {
                 _text={{ fontSize: 16, color: "black" }}
                 _pressed={{ bg: "gray.200" }}
                 opacity={!isCompactView ? 1 : 0.8}
+                onPress={() => setIsCompactView(false)}
               >
                 Detailed View
               </Button>
@@ -103,29 +108,50 @@ export const HomePage = ({ navigation }) => {
             </Pressable>
           </Flex>
 
-          <FlatList
-            data={CountriesList}
-            renderItem={({ item }) => (
-              <Pressable
-                style={[styles.countryListItem]}
-                onPress={() =>
-                  navigation.navigate("Edit Bucket List", {
-                    countryId: 1,
-                    countryName: "Netherlands",
-                  })
-                }
-              >
-                <Image
-                  style={{ width: 60, height: "auto", aspectRatio: 3 / 2 }}
-                  source={item.source}
-                  alt={item.country}
-                />
-                <NBText flex={1} flexGrow={4} marginLeft={5} fontSize={18}>
-                  {item.country}
-                </NBText>
-              </Pressable>
-            )}
-          />
+          {!countryState.countries.length ? (
+            <Center flex={1} alignItems='center'>
+              <NBText fontSize={16}>
+                You don't have added any bucket lists.
+              </NBText>
+            </Center>
+          ) : (
+            <FlatList
+              data={countryState.countries}
+              renderItem={({ item }) => (
+                <>
+                  <Pressable
+                    style={[styles.countryListItem]}
+                    onPress={() =>
+                      navigation.navigate("Edit Bucket List", {
+                        countryId: item.id,
+                        countryName: item.country,
+                      })
+                    }
+                  >
+                    <Image
+                      style={{ width: 60, height: "auto", aspectRatio: 3 / 2 }}
+                      source={item.source}
+                      alt={item.country}
+                    />
+                    <NBText flex={1} flexGrow={4} marginLeft={5} fontSize={18}>
+                      {item.country}
+                    </NBText>
+                    <Box flex={1} justifyContent='center'>
+                      <NBText fontSize={18} color='blue.400'>
+                        Edit{" "}
+                        <Icon
+                          name='chevron-right'
+                          size={18}
+                          style={{ color: "#00b0ff" }}
+                        />
+                      </NBText>
+                    </Box>
+                  </Pressable>
+                  <Divider />
+                </>
+              )}
+            />
+          )}
         </Flex>
       </Flex>
     </Container>
@@ -140,14 +166,14 @@ const styles = StyleSheet.create({
   },
   countriesOverview: {
     width: Dimensions.get("window").width,
-    backgroundColor: "#ffffff",
+    backgroundColor: "white",
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
     paddingTop: 25,
     paddingHorizontal: 30,
   },
   infoCard: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "white",
     borderRadius: 10,
     margin: 5,
     padding: 10,
@@ -155,7 +181,7 @@ const styles = StyleSheet.create({
   countryListItem: {
     flex: 1,
     flexDirection: "row",
-    paddingVertical: 10,
+    paddingVertical: 5,
     marginVertical: 5,
     backgroundColor: "white",
     borderRadius: 8,
