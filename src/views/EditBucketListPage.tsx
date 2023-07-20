@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, Dimensions, FlatList } from "react-native";
 import {
   Avatar,
@@ -9,14 +9,50 @@ import {
   Text as NBText,
   Flex,
   Center,
+  Pressable,
 } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as _ from "lodash";
+import { useDispatch, useSelector } from "react-redux";
+import { IBucketListIdea } from "../interfaces/bucketlist.interface";
+import {
+  addBucketListItem,
+  removeBucketListItem,
+} from "../features/bucketListSlice";
 
 export const EditBucketListPage = ({ route }) => {
+  const dispatch = useDispatch();
+  const bucketListState = useSelector((state: any) => state.bucketlistState);
+  const [inputIdea, setInputIdea] = useState("");
+
   const deviceWidth = Dimensions.get("window").width;
   const deviceHeight = Dimensions.get("window").height;
-  const { countryName } = route.params;
+  const { countryId, countryName } = route.params;
+
+  const countryBucketListIdeas = bucketListState.bucketLists.find(
+    list => list.countryId === countryId
+  );
+
+  const addBucketListIdea = (): void => {
+    if (inputIdea.length > 0) {
+      dispatch(
+        addBucketListItem({
+          countryId: countryId,
+          newIdea: inputIdea,
+        })
+      );
+      setInputIdea("");
+    }
+  };
+
+  const removeBucketListIdea = (ideaIndex: number): void => {
+    dispatch(
+      removeBucketListItem({
+        countryId: countryId,
+        ideaIndex: ideaIndex,
+      })
+    );
+  };
 
   return (
     <Container>
@@ -46,14 +82,15 @@ export const EditBucketListPage = ({ route }) => {
               variant='rounded'
               backgroundColor='white.50'
               placeholder='Example: Go on a road trip...'
-              onChangeText={text => console.log(text)}
+              onChangeText={text => setInputIdea(text)}
+              value={inputIdea}
               InputRightElement={
                 <Button
                   size='md'
                   rounded='none'
                   w='1/6'
                   colorScheme='green'
-                  onPress={() => console.log("add idea")}
+                  onPress={() => addBucketListIdea()}
                 >
                   Add
                 </Button>
@@ -62,58 +99,58 @@ export const EditBucketListPage = ({ route }) => {
           </View>
         </Box>
 
-        <Box style={styles.bucketListItemsOverview}>
-          {/* <Center marginTop={25}>
-            <Text style={{ fontWeight: "bold" }}>
-              You have no bucket list ideas added at this moment.
-            </Text>
-          </Center> */}
-          <FlatList
-            data={[
-              { key: "Devin" },
-              { key: "Dan" },
-              {
-                key: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut eni",
-              },
-              { key: "Jackson" },
-              { key: "James" },
-              { key: "Joel" },
-              { key: "John" },
-              { key: "Jillian" },
-              { key: "Jimmy" },
-              { key: "Julie" },
-            ]}
-            renderItem={({ item, index }) => (
-              <Box
-                borderBottomWidth='0.2'
-                borderColor='grey.500'
-                pl={["0", "4"]}
-                pr={["0", "5"]}
-                py='2'
-              >
-                <Flex flexDirection='row'>
-                  <Box flex={1}>
-                    <Avatar bg='gray.300' size='40px'>
-                      {index + 1}
-                    </Avatar>
-                  </Box>
-                  <Box flex={1} flexGrow={5}>
-                    <NBText>{item.key}</NBText>
-                  </Box>
-                  <Box flex={1} alignItems='flex-end'>
-                    <NBText fontSize='md'>
+        <Flex
+          flex={1}
+          flexGrow={8}
+          flexDirection='column'
+          style={styles.bucketListItemsOverview}
+        >
+          {!countryBucketListIdeas?.ideas?.length ? (
+            <Center flex={1} alignItems='center'>
+              <Text style={{ fontWeight: "bold" }}>
+                You have no bucket list ideas added at this moment.
+              </Text>
+            </Center>
+          ) : (
+            <FlatList
+              data={countryBucketListIdeas?.ideas}
+              renderItem={({
+                item,
+                index,
+              }: {
+                item: IBucketListIdea;
+                index: number;
+              }) => (
+                <Box
+                  borderBottomWidth='0.2'
+                  borderColor='grey.500'
+                  pl={["0", "4"]}
+                  pr={["0", "5"]}
+                  py='2'
+                >
+                  <Flex flexDirection='row'>
+                    <Box flex={1}>
+                      <Avatar bg='gray.300' size='40px'>
+                        {index + 1}
+                      </Avatar>
+                    </Box>
+                    <Box flex={1} flexGrow={5}>
+                      <NBText fontSize={16}>{item.idea}</NBText>
+                    </Box>
+                    <Box flex={1} alignItems='flex-end'>
                       <Icon
                         style={{ color: "#ef4444" }}
                         size={20}
                         name='trash-o'
+                        onPress={() => removeBucketListIdea(index)}
                       />
-                    </NBText>
-                  </Box>
-                </Flex>
-              </Box>
-            )}
-          />
-        </Box>
+                    </Box>
+                  </Flex>
+                </Box>
+              )}
+            />
+          )}
+        </Flex>
       </Box>
     </Container>
   );
@@ -132,10 +169,7 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   bucketListItemsOverview: {
-    flex: 1,
-    flexGrow: 8,
     width: Dimensions.get("window").width,
-    flexDirection: "column",
     backgroundColor: "#ffffff",
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,

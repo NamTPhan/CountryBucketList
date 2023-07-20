@@ -25,9 +25,10 @@ export const HomePage = ({ navigation }) => {
   const dispatch = useDispatch();
   const countryState = useSelector((state: any) => state.countryState);
   const bucketListState = useSelector((state: any) => state.bucketlistState);
+  const [isCompactView, setIsCompactView] = useState(true);
+
   const deviceWidth = Dimensions.get("window").width;
   const deviceHeight = Dimensions.get("window").height;
-  const [isCompactView, setIsCompactView] = useState(true);
   // AsyncStorage.clear(); // ONLY FOR DEV
   console.log(bucketListState.bucketLists);
   return (

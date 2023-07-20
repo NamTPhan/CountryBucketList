@@ -1,4 +1,4 @@
-interface IBucketListIdea {
+export interface IBucketListIdea {
   idea: string;
   achieved: number;
 }
