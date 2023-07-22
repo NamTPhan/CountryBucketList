@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dimensions, FlatList, StyleSheet } from "react-native";
 import {
   Avatar,
@@ -14,7 +14,6 @@ import {
   Pressable,
 } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
-import * as _ from "lodash";
 
 import { useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -23,11 +22,18 @@ export const HomePage = ({ navigation }) => {
   const countryState = useSelector((state: any) => state.countryState);
   const bucketListState = useSelector((state: any) => state.bucketlistState);
   const [isCompactView, setIsCompactView] = useState(true);
+  const [totalAchieved, setTotalAchieved] = useState(0);
+  const [totalIdeas, setTotalIdeas] = useState(0);
 
   const deviceWidth = Dimensions.get("window").width;
   const deviceHeight = Dimensions.get("window").height;
 
-  const calculateTotalAchievedBucketListIdeas = (): number => {
+  useEffect(() => {
+    calculateTotalBucketListIdeas();
+    calculateTotalAchievedBucketListIdeas();
+  }, [bucketListState.bucketLists]);
+
+  const calculateTotalAchievedBucketListIdeas = (): void => {
     const totalAchieved = bucketListState.bucketLists.reduce(
       (accumulator, countryBucketList) => {
         return (
@@ -37,17 +43,16 @@ export const HomePage = ({ navigation }) => {
       },
       0
     );
-    return totalAchieved;
+    setTotalAchieved(totalAchieved);
   };
 
-  const calculateTotalBucketListIdeas = (): number => {
+  const calculateTotalBucketListIdeas = (): void => {
     const totalBucketListIdeas = bucketListState.bucketLists.reduce(
       (accumulator, countryBucketList) =>
         accumulator + countryBucketList.ideas.length,
       0
     );
-
-    return totalBucketListIdeas;
+    setTotalIdeas(totalBucketListIdeas);
   };
 
   // AsyncStorage.clear(); // ONLY FOR DEV
@@ -72,9 +77,7 @@ export const HomePage = ({ navigation }) => {
             </Flex>
             <Flex flex={1} style={styles.infoCard}>
               <Avatar bg='green.400' size='55px'>
-                {calculateTotalAchievedBucketListIdeas() +
-                  "/" +
-                  calculateTotalBucketListIdeas()}
+                {totalAchieved + "/" + totalIdeas}
               </Avatar>
               <NBText fontSize={16} mt={2}>
                 Total Accomplished

@@ -9,10 +9,8 @@ import {
   Text as NBText,
   Flex,
   Center,
-  Pressable,
 } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
-import * as _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { IBucketListIdea } from "../interfaces/bucketlist.interface";
 import {
@@ -130,20 +128,42 @@ export const EditBucketListPage = ({ route }) => {
                 >
                   <Flex flexDirection='row'>
                     <Box flex={1}>
-                      <Avatar bg='gray.300' size='40px'>
-                        {index + 1}
+                      <Avatar bg='gray.200' size='sm'>
+                        <NBText>{index + 1}</NBText>
                       </Avatar>
                     </Box>
                     <Box flex={1} flexGrow={5}>
                       <NBText fontSize={16}>{item.idea}</NBText>
                     </Box>
                     <Box flex={1} alignItems='flex-end'>
-                      <Icon
-                        style={{ color: "#ef4444" }}
-                        size={20}
-                        name='trash-o'
-                        onPress={() => removeBucketListIdea(index)}
-                      />
+                      <Flex flexDirection='row'>
+                        {item.achieved ? (
+                          <Icon
+                            name='check-square-o'
+                            size={24}
+                            style={{
+                              color: "#4ade80",
+                            }}
+                            marginRight={15}
+                          />
+                        ) : (
+                          <Icon
+                            name='check-square-o'
+                            size={24}
+                            style={{
+                              color: "#d1d5db",
+                            }}
+                            marginRight={15}
+                          />
+                        )}
+
+                        <Icon
+                          style={{ color: "#ef4444" }}
+                          size={24}
+                          name='trash-o'
+                          onPress={() => removeBucketListIdea(index)}
+                        />
+                      </Flex>
                     </Box>
                   </Flex>
                 </Box>
