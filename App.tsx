@@ -5,7 +5,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { ScreenContainer } from "./src/views/ScreenContainer";
 import { NavigationContainer } from "@react-navigation/native";
 import { persistStore } from "redux-persist";
-import { store } from "./src/store";
+import { store } from "./src/features/store";
 import { NativeBaseProvider, extendTheme } from "native-base";
 
 export default function App() {

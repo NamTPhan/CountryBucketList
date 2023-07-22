@@ -16,21 +16,41 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as _ from "lodash";
 
-import CountriesList from "../data/CountriesFlags.js";
-import { SingleListItem } from "../components/SingleListItem";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const HomePage = ({ navigation }) => {
-  const dispatch = useDispatch();
   const countryState = useSelector((state: any) => state.countryState);
   const bucketListState = useSelector((state: any) => state.bucketlistState);
   const [isCompactView, setIsCompactView] = useState(true);
 
   const deviceWidth = Dimensions.get("window").width;
   const deviceHeight = Dimensions.get("window").height;
+
+  const calculateTotalAchievedBucketListIdeas = (): number => {
+    const totalAchieved = bucketListState.bucketLists.reduce(
+      (accumulator, countryBucketList) => {
+        return (
+          accumulator +
+          countryBucketList.ideas.filter(idea => idea.achieved === 1).length
+        );
+      },
+      0
+    );
+    return totalAchieved;
+  };
+
+  const calculateTotalBucketListIdeas = (): number => {
+    const totalBucketListIdeas = bucketListState.bucketLists.reduce(
+      (accumulator, countryBucketList) =>
+        accumulator + countryBucketList.ideas.length,
+      0
+    );
+
+    return totalBucketListIdeas;
+  };
+
   // AsyncStorage.clear(); // ONLY FOR DEV
-  console.log(bucketListState.bucketLists);
   return (
     <Container>
       <Box
@@ -44,7 +64,7 @@ export const HomePage = ({ navigation }) => {
           <Flex flexDirection='row'>
             <Flex flex={1} style={styles.infoCard}>
               <Avatar bg='orange.400' size='55px'>
-                10
+                {countryState.countries?.length ?? 0}
               </Avatar>
               <NBText fontSize={16} mt={2}>
                 Total Bucket Lists
@@ -52,7 +72,9 @@ export const HomePage = ({ navigation }) => {
             </Flex>
             <Flex flex={1} style={styles.infoCard}>
               <Avatar bg='green.400' size='55px'>
-                26/42
+                {calculateTotalAchievedBucketListIdeas() +
+                  "/" +
+                  calculateTotalBucketListIdeas()}
               </Avatar>
               <NBText fontSize={16} mt={2}>
                 Total Accomplished
@@ -117,38 +139,106 @@ export const HomePage = ({ navigation }) => {
             </Center>
           ) : (
             <FlatList
-              data={countryState.countries}
+              data={bucketListState.bucketLists}
               renderItem={({ item }) => (
                 <>
-                  <Pressable
-                    style={[styles.countryListItem]}
-                    onPress={() =>
-                      navigation.navigate("Edit Bucket List", {
-                        countryId: item.id,
-                        countryName: item.country,
-                      })
-                    }
-                  >
-                    <Image
-                      style={{ width: 60, height: "auto", aspectRatio: 3 / 2 }}
-                      source={item.source}
-                      alt={item.country}
-                    />
-                    <NBText flex={1} flexGrow={4} marginLeft={5} fontSize={18}>
-                      {item.country}
-                    </NBText>
-                    <Box flex={1} justifyContent='center'>
-                      <NBText fontSize={18} color='blue.400'>
-                        Edit{" "}
-                        <Icon
-                          name='chevron-right'
-                          size={18}
-                          style={{ color: "#00b0ff" }}
+                  {isCompactView ? (
+                    <>
+                      <Pressable
+                        style={[styles.countryListItem]}
+                        onPress={() =>
+                          navigation.navigate("Edit Bucket List", {
+                            countryId: item.countryId,
+                            countryName: item.country,
+                          })
+                        }
+                      >
+                        <Image
+                          style={{
+                            width: 60,
+                            height: "auto",
+                            aspectRatio: 3 / 2,
+                          }}
+                          source={
+                            countryState.countries.find(
+                              c => c.id === item.countryId
+                            ).source
+                          }
+                          alt={item.country}
                         />
-                      </NBText>
-                    </Box>
-                  </Pressable>
-                  <Divider />
+                        <NBText
+                          flex={1}
+                          flexGrow={4}
+                          marginLeft={5}
+                          fontSize={18}
+                        >
+                          {item.country}
+                        </NBText>
+                        <Box flex={1} justifyContent='center'>
+                          <NBText fontSize={18} color='blue.400'>
+                            Edit{" "}
+                            <Icon
+                              name='chevron-right'
+                              size={18}
+                              style={{ color: "#00b0ff" }}
+                            />
+                          </NBText>
+                        </Box>
+                      </Pressable>
+                      <Divider />
+                    </>
+                  ) : (
+                    <Flex flex={1} flexDirection='column' mt={1} mb={4}>
+                      <Flex flex={1} flexDirection='row'>
+                        <Image
+                          style={{
+                            width: 60,
+                            height: "auto",
+                            aspectRatio: 3 / 2,
+                          }}
+                          source={
+                            countryState.countries.find(
+                              country => country.id === item.countryId
+                            ).source
+                          }
+                          alt={item.country}
+                        />
+                        <NBText
+                          flex={1}
+                          flexGrow={4}
+                          marginLeft={5}
+                          fontSize={18}
+                        >
+                          {item.country}
+                        </NBText>
+                      </Flex>
+                      <Divider my={2} />
+                      {item.ideas.map(item => {
+                        return (
+                          <Flex key={item.idea} flex={1} flexDirection='row'>
+                            {item.achieved ? (
+                              <Icon
+                                name='check-circle'
+                                size={20}
+                                style={{
+                                  color: "#4ade80",
+                                }}
+                              />
+                            ) : (
+                              <Icon
+                                name='ellipsis-h'
+                                size={20}
+                                style={{
+                                  color: "#d1d5db",
+                                }}
+                              />
+                            )}
+                            <NBText ml={2}>{item.idea}</NBText>
+                          </Flex>
+                        );
+                      })}
+                    </Flex>
+                  )}
                 </>
               )}
             />
