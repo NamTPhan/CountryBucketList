@@ -26,6 +26,30 @@ export const HomePage = ({ navigation }) => {
 
   const deviceWidth = Dimensions.get("window").width;
   const deviceHeight = Dimensions.get("window").height;
+
+  const calculateTotalAchievedBucketListIdeas = (): number => {
+    const totalAchieved = bucketListState.bucketLists.reduce(
+      (accumulator, countryBucketList) => {
+        return (
+          accumulator +
+          countryBucketList.ideas.filter(idea => idea.achieved === 1).length
+        );
+      },
+      0
+    );
+    return totalAchieved;
+  };
+
+  const calculateTotalBucketListIdeas = (): number => {
+    const totalBucketListIdeas = bucketListState.bucketLists.reduce(
+      (accumulator, countryBucketList) =>
+        accumulator + countryBucketList.ideas.length,
+      0
+    );
+
+    return totalBucketListIdeas;
+  };
+
   // AsyncStorage.clear(); // ONLY FOR DEV
   return (
     <Container>
@@ -40,7 +64,7 @@ export const HomePage = ({ navigation }) => {
           <Flex flexDirection='row'>
             <Flex flex={1} style={styles.infoCard}>
               <Avatar bg='orange.400' size='55px'>
-                10
+                {countryState.countries?.length ?? 0}
               </Avatar>
               <NBText fontSize={16} mt={2}>
                 Total Bucket Lists
@@ -48,7 +72,9 @@ export const HomePage = ({ navigation }) => {
             </Flex>
             <Flex flex={1} style={styles.infoCard}>
               <Avatar bg='green.400' size='55px'>
-                26/42
+                {calculateTotalAchievedBucketListIdeas() +
+                  "/" +
+                  calculateTotalBucketListIdeas()}
               </Avatar>
               <NBText fontSize={16} mt={2}>
                 Total Accomplished
@@ -189,7 +215,7 @@ export const HomePage = ({ navigation }) => {
                       <Divider my={2} />
                       {item.ideas.map(item => {
                         return (
-                          <Flex flex={1} flexDirection='row'>
+                          <Flex key={item.idea} flex={1} flexDirection='row'>
                             {item.achieved ? (
                               <Icon
                                 name='check-circle'
