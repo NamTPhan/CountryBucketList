@@ -16,7 +16,6 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 
 import { useSelector } from "react-redux";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const HomePage = ({ navigation }) => {
   const countryState = useSelector((state: any) => state.countryState);
@@ -55,7 +54,6 @@ export const HomePage = ({ navigation }) => {
     setTotalIdeas(totalBucketListIdeas);
   };
 
-  // AsyncStorage.clear(); // ONLY FOR DEV
   return (
     <Container>
       <Box
