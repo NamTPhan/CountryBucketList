@@ -23,20 +23,18 @@ export const bucketListSlice = createSlice({
     },
     addBucketListItem: (state, action) => {
       const { countryId, newIdea } = action.payload;
-      const countryIndex = state.bucketLists.findIndex(
-        country => country.countryId === countryId
+
+      state.bucketLists = state.bucketLists.map(countryBucketList =>
+        countryBucketList.countryId === countryId
+          ? {
+              ...countryBucketList,
+              ideas: [
+                ...countryBucketList.ideas,
+                { idea: newIdea, achieved: 0 },
+              ],
+            }
+          : countryBucketList
       );
-
-      if (countryIndex !== -1) {
-        const updatedCountry = state.bucketLists[countryIndex];
-        updatedCountry.ideas.push({ idea: newIdea, achieved: 0 });
-
-        state.bucketLists = [
-          ...state.bucketLists.slice(0, countryIndex),
-          updatedCountry,
-          ...state.bucketLists.slice(countryIndex + 1),
-        ];
-      }
     },
     removeBucketListItem: (state, action) => {
       const { countryId, ideaIndex } = action.payload;
@@ -45,12 +43,38 @@ export const bucketListSlice = createSlice({
       );
 
       if (countryIndex !== -1) {
-        let selectedCountry = state.bucketLists[countryIndex];
-        const updatedCountryIdeas = state.bucketLists[
-          countryIndex
-        ].ideas.filter((_, index) => index !== ideaIndex);
+        const updatedCountryIdeas = [
+          ...state.bucketLists[countryIndex].ideas.filter(
+            (_, index) => index !== ideaIndex
+          ),
+        ];
 
-        selectedCountry.ideas = updatedCountryIdeas;
+        state.bucketLists = state.bucketLists.map(countryBucketList =>
+          countryBucketList.countryId === countryId
+            ? { ...countryBucketList, ideas: updatedCountryIdeas }
+            : countryBucketList
+        );
+      }
+    },
+    updateBucketListItemAchievedStatus: (state, action) => {
+      const { countryId, ideaIndex } = action.payload;
+      const countryIndex = state.bucketLists.findIndex(
+        country => country.countryId === countryId
+      );
+
+      if (countryIndex !== -1) {
+        state.bucketLists = state.bucketLists.map(countryBucketList =>
+          countryBucketList.countryId === countryId
+            ? {
+                ...countryBucketList,
+                ideas: countryBucketList.ideas.map((idea, index) =>
+                  index === ideaIndex
+                    ? { ...idea, achieved: idea.achieved === 0 ? 1 : 0 }
+                    : idea
+                ),
+              }
+            : countryBucketList
+        );
       }
     },
   },
@@ -61,6 +85,7 @@ export const {
   removeBucketList,
   addBucketListItem,
   removeBucketListItem,
+  updateBucketListItemAchievedStatus,
 } = bucketListSlice.actions;
 
 export default bucketListSlice.reducer;
