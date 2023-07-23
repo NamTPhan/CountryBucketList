@@ -16,6 +16,7 @@ import { IBucketListIdea } from "../interfaces/bucketlist.interface";
 import {
   addBucketListItem,
   removeBucketListItem,
+  updateBucketListItemAchievedStatus,
 } from "../features/bucketListSlice";
 
 export const EditBucketListPage = ({ route }) => {
@@ -46,6 +47,15 @@ export const EditBucketListPage = ({ route }) => {
   const removeBucketListIdea = (ideaIndex: number): void => {
     dispatch(
       removeBucketListItem({
+        countryId: countryId,
+        ideaIndex: ideaIndex,
+      })
+    );
+  };
+
+  const updateAchievedStatus = (ideaIndex: number): void => {
+    dispatch(
+      updateBucketListItemAchievedStatus({
         countryId: countryId,
         ideaIndex: ideaIndex,
       })
@@ -145,6 +155,7 @@ export const EditBucketListPage = ({ route }) => {
                               color: "#4ade80",
                             }}
                             marginRight={15}
+                            onPress={() => updateAchievedStatus(index)}
                           />
                         ) : (
                           <Icon
@@ -154,6 +165,7 @@ export const EditBucketListPage = ({ route }) => {
                               color: "#d1d5db",
                             }}
                             marginRight={15}
+                            onPress={() => updateAchievedStatus(index)}
                           />
                         )}
 
