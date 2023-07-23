@@ -9,6 +9,7 @@ import {
   Text as NBText,
   Flex,
   Center,
+  useToast,
 } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,9 +19,12 @@ import {
   removeBucketListItem,
   updateBucketListItemAchievedStatus,
 } from "../features/bucketListSlice";
+import { Toast } from "../components/Toast";
+import { ToastAlertType } from "../constants/Toast";
 
 export const EditBucketListPage = ({ route }) => {
   const dispatch = useDispatch();
+  const toast = useToast();
   const bucketListState = useSelector((state: any) => state.bucketlistState);
   const [inputIdea, setInputIdea] = useState("");
 
@@ -40,7 +44,19 @@ export const EditBucketListPage = ({ route }) => {
           newIdea: inputIdea,
         })
       );
+
       setInputIdea("");
+      toast.show({
+        placement: "top",
+        render: () => {
+          return (
+            <Toast
+              type={ToastAlertType.Success}
+              message='Successfully added!'
+            />
+          );
+        },
+      });
     }
   };
 
@@ -51,6 +67,18 @@ export const EditBucketListPage = ({ route }) => {
         ideaIndex: ideaIndex,
       })
     );
+
+    toast.show({
+      placement: "top",
+      render: () => {
+        return (
+          <Toast
+            type={ToastAlertType.Success}
+            message='Successfully removed!'
+          />
+        );
+      },
+    });
   };
 
   const updateAchievedStatus = (ideaIndex: number): void => {
@@ -60,6 +88,13 @@ export const EditBucketListPage = ({ route }) => {
         ideaIndex: ideaIndex,
       })
     );
+
+    toast.show({
+      placement: "top",
+      render: () => {
+        return <Toast type={ToastAlertType.Success} message='Changes saved!' />;
+      },
+    });
   };
 
   return (

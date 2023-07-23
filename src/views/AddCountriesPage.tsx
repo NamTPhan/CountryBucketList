@@ -42,34 +42,37 @@ export const AddCountriesPage = () => {
         <FlatList
           data={CountriesList}
           renderItem={({ item }) => (
-            <Box style={[styles.card, styles.boxShadow]}>
-              <Image
-                style={{ width: 60, height: "auto", aspectRatio: 3 / 2 }}
-                source={item.source}
-                alt={item.country}
-              />
-              <NBText flex={1} flexGrow={4} marginLeft={5} fontSize={18}>
-                {item.country}
-              </NBText>
-              {!isCountryAlreadyAdded(item.id) && (
-                <Button
-                  flex={1}
-                  colorScheme='green'
-                  onPress={() => handleAddCountry(item)}
-                >
-                  Add
-                </Button>
-              )}
-              {isCountryAlreadyAdded(item.id) && (
-                <Button
-                  flex={1}
-                  colorScheme='red'
-                  onPress={() => handleRemoveCountry(item.id)}
-                >
-                  Remove
-                </Button>
-              )}
-            </Box>
+            <>
+              <Box style={[styles.card, styles.boxShadow]}>
+                <Image
+                  style={{ width: 60, height: "auto", aspectRatio: 3 / 2 }}
+                  source={item.source}
+                  alt={item.country}
+                />
+                <NBText flex={1} flexGrow={4} marginLeft={5} fontSize={18}>
+                  {item.country}
+                </NBText>
+                <Box>
+                  {!isCountryAlreadyAdded(item.id) ? (
+                    <Button
+                      flex={1}
+                      colorScheme='green'
+                      onPress={() => handleAddCountry(item)}
+                    >
+                      Add
+                    </Button>
+                  ) : (
+                    <Button
+                      flex={1}
+                      colorScheme='red'
+                      onPress={() => handleRemoveCountry(item.id)}
+                    >
+                      Remove
+                    </Button>
+                  )}
+                </Box>
+              </Box>
+            </>
           )}
         />
       </Box>
